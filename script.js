@@ -1,1 +1,20 @@
-document.addEventListener("DOMContentLoaded",()=>{const form=document.getElementById("inquiryForm");if(!form)return;form.addEventListener("submit",e=>{e.preventDefault();const d=new FormData(form);const body=[`Name: ${d.get("name")||""}`,`Email: ${d.get("email")||""}`,`Phone / WhatsApp: ${d.get("phone")||""}`,`Timeline: ${d.get("timeline")||""}`,`Budget: ${d.get("budget")||""}`,"","What I’m looking for:",d.get("details")||""].join("\n");window.location.href=`mailto:hello@ringmint.com?subject=${encodeURIComponent("Ring Mint custom ring inquiry")}&body=${encodeURIComponent(body)}`})});
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("inquiryForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const body = [
+      `Name: ${data.get("name") || ""}`,
+      `Email: ${data.get("email") || ""}`,
+      `Phone / WhatsApp: ${data.get("phone") || ""}`,
+      `Timeline: ${data.get("timeline") || ""}`,
+      `Budget: ${data.get("budget") || ""}`,
+      "",
+      "What I’m looking for:",
+      data.get("details") || ""
+    ].join("\n");
+    window.location.href = `mailto:hello@ringmint.com?subject=${encodeURIComponent("Ring Mint custom ring inquiry")}&body=${encodeURIComponent(body)}`;
+  });
+});
