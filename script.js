@@ -15,6 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "What I’m looking for:",
       data.get("details") || ""
     ].join("\n");
-    window.location.href = `mailto:hello@ringmint.com?subject=${encodeURIComponent("Ring Mint custom ring inquiry")}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:chloe@ringmint.com?subject=${encodeURIComponent("Ring Mint custom ring inquiry")}&body=${encodeURIComponent(body)}`;
   });
 });
