@@ -1,0 +1,82 @@
+name: Sync Instagram feed
+
+on:
+  schedule:
+    # every 6 hours
+    - cron: "17 */6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # `secrets` is not available in a step-level `if`, so resolve them once here.
+    env:
+      HAS_PAT: ${{ secrets.GH_PAT != '' }}
+      HAS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN != '' }}
+    steps:
+      # Until IG_ACCESS_TOKEN is configured this job no-ops instead of failing,
+      # so the schedule does not send a failure notification every 6 hours.
+      # See INSTAGRAM_SETUP.md.
+      - name: Check the feed is configured
+        if: env.HAS_TOKEN != 'true'
+        run: |
+          echo "::notice::IG_ACCESS_TOKEN is not set — skipping. See INSTAGRAM_SETUP.md."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_TOKEN == 'true'
+
+      - uses: actions/setup-python@v5
+        if: env.HAS_TOKEN == 'true'
+        with:
+          python-version: "3.12"
+
+      - name: Install image libraries
+        if: env.HAS_TOKEN == 'true'
+        run: pip install --quiet Pillow pillow-avif-plugin
+
+      - name: Sync latest posts
+        if: env.HAS_TOKEN == 'true'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_POST_COUNT: "6"
+        run: python3 scripts/sync_instagram.py
+
+      - name: Commit if the feed changed
+        if: env.HAS_TOKEN == 'true'
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No change in the feed."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html assets/instagram
+          git commit -m "Update Instagram feed"
+          git push
+
+      # Instagram long-lived tokens expire after 60 days. Refreshing on a
+      # schedule keeps it alive indefinitely. Requires GH_PAT — a fine-grained
+      # PAT with "Secrets: write" on this repo. Without it the sync still
+      # works, but the token must be replaced by hand every 60 days.
+      - name: Refresh the access token
+        if: env.HAS_TOKEN == 'true' && env.HAS_PAT == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          NEW=$(curl -fsS "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${IG_ACCESS_TOKEN}" \
+                | python3 -c "import json,sys; print(json.load(sys.stdin).get('access_token',''))") || true
+          if [ -n "$NEW" ]; then
+            gh secret set IG_ACCESS_TOKEN --body "$NEW"
+            echo "Token refreshed for another 60 days."
+          else
+            echo "::warning::Token refresh returned nothing (normal if the token is under 24h old)."
+          fi
