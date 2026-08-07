@@ -22,19 +22,28 @@ the usual choice for a brand like this.
 ## 2. Create a Meta app and get a token
 
 1. Go to <https://developers.facebook.com/apps> and **Create app**.
-2. Pick the use case that includes **Instagram**, then add the
-   **Instagram** product and choose **Instagram API with Instagram Login**.
-3. Under **API setup with Instagram login**, add `theringmint` as an Instagram
-   tester and accept the invite from the Instagram app
-   (**Settings → Website permissions → Apps and websites**).
-4. Generate a token for the account. You want a **long-lived** token — it
-   lasts 60 days and the workflow refreshes it automatically after that.
+2. When asked for the app type, choose **Business**. (Other types cannot use
+   this API.)
+3. Add the **Instagram** product to the app.
+4. In the left menu open **Instagram → API setup with Instagram business
+   login**.
+5. In the section for generating access tokens, connect the `theringmint`
+   account, then click **Generate token** beside it and authenticate.
+6. Copy the token.
 
-Meta moves this UI around; the current walkthrough is at
-<https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login>.
+Tokens generated here in the App Dashboard are **long-lived — valid 60 days**.
+(Tokens from the Business Login *flow* are short-lived, one hour. Use the
+dashboard, not the login flow.) The workflow refreshes the token on each run,
+so it keeps working past 60 days as long as `GH_PAT` is set — see step 3.
 
-The token needs the `instagram_business_basic` scope. That is read-only —
+The token carries the `instagram_business_basic` scope. That is read-only:
 it can list your media and nothing else.
+
+Meta moves this UI around. Current reference:
+<https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started>
+
+**Never commit the token or paste it anywhere public — it goes only into
+GitHub Secrets.**
 
 ## 3. Add the repo secrets
 
@@ -82,8 +91,11 @@ IG_ACCESS_TOKEN=your_token python3 scripts/sync_instagram.py
 
 ## Troubleshooting
 
-- **"the API returned no media"** — the account is still personal, or the
-  tester invite in step 2 was not accepted.
+- **"the API returned no media"** — the account is still personal rather than
+  Business/Creator, or the wrong account was connected in step 2.
+- **"Invalid OAuth access token"** — the token was truncated when copied, or it
+  came from the Business Login flow (1 hour) rather than the App Dashboard
+  (60 days). Regenerate from the dashboard.
 - **Token expired** — if `GH_PAT` is not set, tokens die after 60 days. Add the
   PAT, or generate a fresh token and update `IG_ACCESS_TOKEN`.
 - **Workflow cannot push** — confirm **Settings → Actions → General → Workflow

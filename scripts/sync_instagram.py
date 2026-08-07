@@ -50,8 +50,25 @@ IG_SVG = (
 
 
 def fail(msg: str) -> None:
+    # On Actions, also emit a workflow annotation so the reason shows up on the
+    # run summary page rather than only inside the expanded step log.
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::error::{msg}")
     print(f"error: {msg}", file=sys.stderr)
     sys.exit(1)
+
+
+def describe_token(token: str) -> str:
+    """Shape of the token, never its value -- enough to tell an Instagram
+    access token from an app secret without exposing the credential."""
+    n = len(token)
+    if token.startswith("IGAA"):
+        return f"looks like an Instagram access token ({n} chars)"
+    if n <= 40 and all(c in "0123456789abcdefABCDEF" for c in token):
+        return (f"looks like an APP SECRET, not an access token ({n} hex chars). "
+                "The access token is ~150-200 chars and starts with 'IGAA'. "
+                "Get it from Instagram > API setup with Instagram business login > Generate token.")
+    return f"unrecognised token format ({n} chars, does not start with 'IGAA')"
 
 
 def get_json(url: str) -> dict:
@@ -67,11 +84,12 @@ def get_json(url: str) -> dict:
         except Exception:
             err = {}
         msg = err.get("message") or f"HTTP {e.code}"
-        hint = ""
+        tok = os.environ.get("IG_ACCESS_TOKEN", "").strip()
+        hint = f"  [{describe_token(tok)}]" if tok else ""
         if err.get("code") in (190, 102) or "expired" in msg.lower() or "session" in msg.lower():
-            hint = "  -> the token is invalid or expired; generate a new one and update IG_ACCESS_TOKEN"
+            hint += "  -> the token is invalid or expired; regenerate it and update IG_ACCESS_TOKEN"
         elif e.code == 400:
-            hint = "  -> check the account is Business/Creator and the token has instagram_business_basic"
+            hint += "  -> check the account is Business/Creator and the token has instagram_business_basic"
         fail(f"Instagram API: {msg}{hint}")
     except urllib.error.URLError as e:
         fail(f"could not reach the Instagram API: {e.reason}")
@@ -168,6 +186,7 @@ def main() -> None:
     token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
     if not token:
         fail("IG_ACCESS_TOKEN is not set")
+    print(f"token: {describe_token(token)}")
     count = int(os.environ.get("IG_POST_COUNT", "6"))
 
     try:
