@@ -558,6 +558,21 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
 
 /* ---------- long-form content (interior pages) ---------- */
 
+/* interior pages read as one centered column; the home page is untouched */
+.article-page main .container { width: min(100% - 48px, 760px); }
+.article-page main .page-hero-inner,
+.article-page main .prose,
+.article-page main .section-head {
+  max-width: 100%;
+}
+/* comparison tables get to breathe past the reading column, still centered */
+.article-page main .table-wrap.wide {
+  width: min(100vw - 48px, 1000px);
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
 .prose { max-width: 760px; }
 .prose > * + * { margin-top: 20px; }
 .prose h2 { margin-top: 52px; font-size: clamp(1.6rem, 6vw, 1.95rem); line-height: 1.15; letter-spacing: -0.025em; }
