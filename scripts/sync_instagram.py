@@ -26,6 +26,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -54,8 +55,26 @@ def fail(msg: str) -> None:
 
 
 def get_json(url: str) -> dict:
-    with urllib.request.urlopen(url, timeout=30) as r:
-        return json.loads(r.read().decode())
+    """GET and parse JSON. Meta signals problems with a 4xx plus a JSON body,
+    which urlopen raises rather than returns -- surface that body instead of a
+    traceback, since an expired token is the usual cause."""
+    try:
+        with urllib.request.urlopen(url, timeout=30) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        try:
+            err = json.loads(e.read().decode()).get("error", {})
+        except Exception:
+            err = {}
+        msg = err.get("message") or f"HTTP {e.code}"
+        hint = ""
+        if err.get("code") in (190, 102) or "expired" in msg.lower() or "session" in msg.lower():
+            hint = "  -> the token is invalid or expired; generate a new one and update IG_ACCESS_TOKEN"
+        elif e.code == 400:
+            hint = "  -> check the account is Business/Creator and the token has instagram_business_basic"
+        fail(f"Instagram API: {msg}{hint}")
+    except urllib.error.URLError as e:
+        fail(f"could not reach the Instagram API: {e.reason}")
 
 
 def fetch_media(token: str, count: int) -> list[dict]:
