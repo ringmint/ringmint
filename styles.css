@@ -349,6 +349,69 @@ h1 {
 .breadcrumbs .sep { color: var(--line-strong); }
 .breadcrumbs [aria-current="page"] { color: var(--ink); }
 
+/* ---------- founder / concierge intro ----------
+   Sits between the cream hero and the black band, so it takes the white
+   canvas to keep that cream → white → ink progression clean. Deliberately
+   quieter than the process and proof sections: this is an interlude, not
+   a fourth pitch. */
+
+.founder-section { position: relative; background: #fff; padding: 64px 12px; }
+.founder-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 40px; }
+
+.founder-media { position: relative; }
+.founder-photo { position: relative; margin: 0; }
+.founder-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 28%;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+.founder-photo figcaption {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* The 1990s snapshot is low-resolution by nature, so it is framed small and
+   tilted like a print rather than scaled up, where it would only look soft. */
+.founder-snapshot {
+  margin: 24px 0 0;
+  width: min(260px, 68%);
+  border-radius: 4px;
+  background: #fff;
+  padding: 10px 10px 0;
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-3deg);
+}
+.founder-snapshot img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.founder-snapshot figcaption {
+  padding: 10px 2px 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-style: italic;
+  text-align: center;
+}
+
+.founder-copy h2 { margin-top: 10px; }
+.founder-body { display: grid; gap: 18px; margin-top: 22px; }
+.founder-body p { color: var(--muted-dark); font-size: 1rem; line-height: 1.7; }
+
+.founder-signoff { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+.founder-name { color: var(--gold-dark); font-size: 1.9rem; line-height: 1; }
+.founder-role {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* ---------- dark bands ---------- */
 
 .dark-band {
@@ -609,7 +672,20 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
   -webkit-overflow-scrolling: touch;
 }
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 560px; }
-caption { padding: 16px 18px 0; color: var(--muted); font-size: 13px; text-align: left; }
+caption {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: balance;
+}
+/* under ~608px the table scrolls sideways, and a centered caption would be
+   centered on the scrollable width rather than on what you can see */
+@media (max-width: 620px) {
+  caption { padding: 16px 18px 14px; text-align: left; }
+}
 th, td { padding: 14px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
 thead th {
   color: var(--gold-dark);
@@ -831,6 +907,20 @@ input:focus, textarea:focus {
   .number-badge span { width: 76px; height: 76px; font-size: 1.5rem; }
   .timeline-card { border-radius: var(--r-lg); padding: 20px 24px; }
   .timeline-card-inner p { font-size: 1rem; line-height: 1.75; }
+  /* Enough width to tuck the snapshot over the photo's lower corner
+     instead of stacking it underneath. It sits bottom-left because the
+     lower right of the main photo is where the raised hand and ring are —
+     the reason that photo is here at all. The caption shifts right to
+     clear it. */
+  .founder-snapshot {
+    position: absolute;
+    left: -10px;
+    bottom: 0;
+    margin: 0;
+    width: 41%;
+    max-width: 215px;
+  }
+  .founder-photo figcaption { max-width: 52%; margin-left: auto; text-align: right; }
   .image-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-panel { grid-template-columns: 0.95fr 1fr; }
   .feature-copy { padding: 32px 28px; }
@@ -867,6 +957,9 @@ input:focus, textarea:focus {
   .split-head { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 32px; }
   .cad-head { grid-template-columns: 0.8fr 1.2fr; }
   .cad-grid { grid-template-columns: repeat(3, 1fr); }
+  .founder-section { padding: 88px 12px; }
+  .founder-grid { grid-template-columns: 0.85fr 1.15fr; gap: 48px; }
+  .founder-body p { font-size: 1.05rem; }
   .about-grid { grid-template-columns: 0.9fr 1.1fr; }
   .form-card { grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 40px; border-radius: var(--r-xl); }
   .related-grid { grid-template-columns: repeat(3, 1fr); }
