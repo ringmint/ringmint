@@ -355,6 +355,12 @@ h1 {
    quieter than the process and proof sections: this is an interlude, not
    a fourth pitch. */
 
+/* TEMPORARY — delete this rule and the --awaiting-photos class in index.html
+   as soon as the two founder photos exist in /assets. It collapses the section
+   to a centered text-only column so the live page never renders broken images. */
+.founder-section--awaiting-photos .founder-media { display: none; }
+.founder-section--awaiting-photos .founder-grid { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
+
 .founder-section { position: relative; background: #fff; padding: 64px 12px; }
 .founder-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 40px; }
 
