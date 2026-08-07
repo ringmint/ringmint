@@ -363,18 +363,21 @@
       </div>
     </section>
 
-    <!-- TEMP: the --awaiting-photos modifier hides the photo column while the two
-         founder images are missing from /assets. Remove the modifier (and its rule
-         in styles.css) once they are in place. -->
-    <section id="concierge" class="founder-section founder-section--awaiting-photos full-bleed">
+    <section id="concierge" class="founder-section full-bleed">
       <div class="container founder-grid">
         <div class="founder-media reveal">
           <figure class="founder-photo">
-            <img src="/assets/chloe-alpert-ring-mint-founder.jpg" width="1290" height="1568" loading="lazy" decoding="async" alt="Chloe Alpert, founder of Ring Mint, with her husband JD in the mountains just after their engagement, wearing her own engagement ring" />
+            <picture>
+              <source srcset="/assets/chloe-alpert-ring-mint-founder.avif" type="image/avif" />
+              <img src="/assets/chloe-alpert-ring-mint-founder.jpg" width="1000" height="1162" loading="lazy" decoding="async" alt="Chloe Alpert, founder of Ring Mint, with her husband JD in the mountains just after their engagement, wearing her own engagement ring" />
+            </picture>
             <figcaption>Me and my husband JD, about a minute after he asked.</figcaption>
           </figure>
           <figure class="founder-snapshot">
-            <img src="/assets/chloe-alpert-with-mother-sharon-teaman.jpg" width="605" height="390" loading="lazy" decoding="async" alt="Chloe Alpert as a young girl with her mother Sharon, who founded Teaman Jewelry in 1974" />
+            <picture>
+              <source srcset="/assets/chloe-alpert-with-mother-sharon-teaman.avif" type="image/avif" />
+              <img src="/assets/chloe-alpert-with-mother-sharon-teaman.jpg" width="606" height="390" loading="lazy" decoding="async" alt="Chloe Alpert as a young girl with her mother Sharon, who founded Teaman Jewelry in 1974" />
+            </picture>
             <figcaption>Me and my mom, Sharon.</figcaption>
           </figure>
         </div>
@@ -383,9 +386,9 @@
           <h2>I was at my first jewelry show when I was five days old.</h2>
           <div class="founder-body">
             <p>Hi, I’m Chloe.</p>
-            <p>My mom started <a href="https://www.teamanjewelry.com" class="text-link" rel="noopener">Teaman Jewelry</a> in 1974. I grew up in her studio watching her make things by hand — and on my hands and knees under the bench, chasing down diamonds that had rolled away. Later I went to London and earned my gemology certification from Gem-A, passing every written exam and the practical with an A.</p>
-            <p>Ring Mint is how I keep doing the part I love: sitting with someone, working out what they actually want, and finding the right stone for it — at a price no retail case can touch.</p>
-            <p>This has been my family’s work since 1974, and it has never not been mine. When you email or text Ring Mint, you get me.</p>
+            <p>My mom started <a href="https://www.teamanjewelry.com" class="text-link" rel="noopener">Teaman Jewelry</a> in 1974. I grew up in her studio watching her make things by hand, and on my hands and knees under the bench, chasing down diamonds that had rolled away. Later I went to London and earned my gemology certification from the Gem-A.</p>
+            <p>Ring Mint is how I keep doing what I love: sitting with someone, working out what they actually want, and finding the right stone for it at a price no retail case can touch.</p>
+            <p>This has been my family’s work since 1974, and it has been a part of me since day one. When you email or text Ring Mint, you get me and our family’s 50+ year history.</p>
           </div>
           <div class="founder-signoff">
             <p class="serif founder-name">Chloe</p>

@@ -355,23 +355,23 @@ h1 {
    quieter than the process and proof sections: this is an interlude, not
    a fourth pitch. */
 
-/* TEMPORARY — delete this rule and the --awaiting-photos class in index.html
-   as soon as the two founder photos exist in /assets. It collapses the section
-   to a centered text-only column so the live page never renders broken images. */
-.founder-section--awaiting-photos .founder-media { display: none; }
-.founder-section--awaiting-photos .founder-grid { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
+.founder-section { position: relative; background: #fff; padding: 56px 12px; }
+.founder-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 36px; }
 
-.founder-section { position: relative; background: #fff; padding: 64px 12px; }
-.founder-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 40px; }
-
-.founder-media { position: relative; }
+/* Capped so the photo stays an accent rather than the loudest thing on the
+   page — this section is an interlude between the hero and the dark band. */
+.founder-media { position: relative; max-width: 380px; }
 .founder-photo { position: relative; margin: 0; }
+.founder-photo picture, .founder-snapshot picture { display: block; }
+/* Source is 1000x1162 (0.86); the 4/5 frame therefore trims ~7% horizontally,
+   not vertically — the subjects and the ring sit centred, so a plain centre
+   crop is correct here. */
 .founder-photo img {
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center;
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-md);
@@ -404,7 +404,9 @@ h1 {
   text-align: center;
 }
 
-.founder-copy h2 { margin-top: 10px; }
+/* Deliberately a step below the other section headings (clamp 1.8–2rem) so
+   this reads as a quieter beat rather than a fourth pitch. */
+.founder-copy h2 { margin-top: 10px; font-size: clamp(1.55rem, 6.5vw, 1.8rem); line-height: 1.08; letter-spacing: -0.025em; }
 .founder-body { display: grid; gap: 18px; margin-top: 22px; }
 .founder-body p { color: var(--muted-dark); font-size: 1rem; line-height: 1.7; }
 
@@ -923,8 +925,8 @@ input:focus, textarea:focus {
     left: -10px;
     bottom: 0;
     margin: 0;
-    width: 41%;
-    max-width: 215px;
+    width: 47%;
+    max-width: 185px;
   }
   .founder-photo figcaption { max-width: 52%; margin-left: auto; text-align: right; }
   .image-grid { grid-template-columns: repeat(2, 1fr); }
@@ -963,9 +965,9 @@ input:focus, textarea:focus {
   .split-head { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 32px; }
   .cad-head { grid-template-columns: 0.8fr 1.2fr; }
   .cad-grid { grid-template-columns: repeat(3, 1fr); }
-  .founder-section { padding: 88px 12px; }
-  .founder-grid { grid-template-columns: 0.85fr 1.15fr; gap: 48px; }
-  .founder-body p { font-size: 1.05rem; }
+  .founder-section { padding: 72px 12px; }
+  .founder-grid { grid-template-columns: 0.72fr 1.28fr; gap: 48px; }
+  .founder-body p { font-size: 1.02rem; }
   .about-grid { grid-template-columns: 0.9fr 1.1fr; }
   .form-card { grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 40px; border-radius: var(--r-xl); }
   .related-grid { grid-template-columns: repeat(3, 1fr); }
