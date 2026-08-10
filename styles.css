@@ -655,6 +655,25 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
 .prose strong { font-weight: 300; color: var(--ink); }
 .prose .text-link { color: var(--ink); text-decoration-color: var(--line-strong); }
 
+/* In-body guide imagery. Sits inside .prose, so the 20px sibling gap applies;
+   the extra top margin gives it a little more room than a paragraph gets. */
+.prose-figure { margin: 36px 0 0; }
+.prose-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+.prose-figure figcaption {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
 .wide { max-width: 1000px; }
 
 /* pull-quote style callout — the shape LLM crawlers lift cleanly */
