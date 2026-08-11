@@ -1,22 +1,60 @@
+/* Google Apps Script web app that emails the inquiry to chloe@ringmint.com.
+   Deploy Code.gs (see apps-script/Code.gs) as a web app — "Execute as: Me",
+   "Who has access: Anyone" — and paste the /exec URL here. */
+const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycby0ksxKDP2QvSX_a05vMpkesrBTI4Ty9RJZN9Hh9G3CNQtRNim8dyZc84NXOJNP2MSg/exec";
+
 document.addEventListener("DOMContentLoaded", () => {
-  /* Inquiry form → mailto. Only present on the home page, so guard it
+  /* Inquiry form → Apps Script. Only present on the home page, so guard it
      without returning early — the header logic below runs everywhere. */
   const form = document.getElementById("inquiryForm");
   if (form) {
-    form.addEventListener("submit", (event) => {
+    const status = document.getElementById("formStatus");
+    const button = form.querySelector("button[type='submit']");
+    const setStatus = (message, state) => {
+      if (!status) return;
+      status.textContent = message;
+      status.className = `form-status is-${state}`;
+    };
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = new FormData(form);
-      const body = [
-        `Name: ${data.get("name") || ""}`,
-        `Email: ${data.get("email") || ""}`,
-        `Phone / WhatsApp: ${data.get("phone") || ""}`,
-        `Timeline: ${data.get("timeline") || ""}`,
-        `Budget: ${data.get("budget") || ""}`,
-        "",
-        "What I’m looking for:",
-        data.get("details") || ""
-      ].join("\n");
-      window.location.href = `mailto:chloe@ringmint.com?subject=${encodeURIComponent("Ring Mint custom ring inquiry")}&body=${encodeURIComponent(body)}`;
+
+      if (!data.get("name") || !data.get("email")) {
+        setStatus("Please add your name and email so we can reply.", "error");
+        return;
+      }
+      /* Honeypot: bots fill hidden fields, humans don’t. Pretend it worked. */
+      if (data.get("company")) {
+        setStatus("Thank you — we’ll be in touch shortly.", "success");
+        form.reset();
+        return;
+      }
+
+      button.disabled = true;
+      const originalLabel = button.textContent;
+      button.textContent = "Sending…";
+      setStatus("Sending…", "pending");
+
+      try {
+        const response = await fetch(INQUIRY_ENDPOINT, {
+          method: "POST",
+          /* URL-encoded keeps this a "simple" request, so the browser skips
+             the CORS preflight that Apps Script won’t answer. */
+          body: new URLSearchParams(data)
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        form.reset();
+        setStatus("Thank you — we got it. We’ll reply within one business day.", "success");
+      } catch (error) {
+        setStatus(
+          "Something went wrong sending that. Please email chloe@ringmint.com or message us on WhatsApp.",
+          "error"
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
     });
   }
 

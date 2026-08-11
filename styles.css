@@ -885,6 +885,21 @@ input:focus, textarea:focus {
 .form-alt { display: flex; justify-content: center; }
 .form-alt .button.secondary { padding: 10px 18px; font-size: 13px; }
 
+/* honeypot — off-screen for bots, invisible to people and screen readers */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-status { font-size: 14px; line-height: 1.5; text-align: center; }
+.form-status:empty { display: none; }
+.form-status.is-pending { color: #6f6a61; }
+.form-status.is-success { color: #2f6b46; }
+.form-status.is-error { color: #a3382f; }
+
 /* ---------- footer ---------- */
 
 .footer { background: var(--bg); padding: 0 12px 40px; }

@@ -1,0 +1,77 @@
+/**
+ * Ring Mint inquiry form → email.
+ *
+ * Deploy: Apps Script editor → Deploy → New deployment → type "Web app",
+ * Execute as "Me", Who has access "Anyone". Copy the /exec URL into
+ * INQUIRY_ENDPOINT at the top of script.js.
+ */
+
+var TO = 'chloe@ringmint.com';
+
+function doPost(e) {
+  var p = (e && e.parameter) || {};
+
+  // Honeypot: only bots fill this. Return success so they stop retrying.
+  if (p.company) {
+    return json({ ok: true });
+  }
+
+  var rows = [
+    ['Name', p.name],
+    ['Email', p.email],
+    ['Phone / WhatsApp', p.phone],
+    ['Timeline', p.timeline],
+    ['Budget', p.budget]
+  ];
+
+  var text = rows
+    .map(function (r) { return r[0] + ': ' + (r[1] || '—'); })
+    .join('\n') + '\n\nWhat they\'re looking for:\n' + (p.details || '—');
+
+  var html =
+    '<h2 style="font-family:Georgia,serif">New Ring Mint inquiry</h2>' +
+    '<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px">' +
+    rows.map(function (r) {
+      return '<tr><td><strong>' + r[0] + '</strong></td><td>' +
+        escapeHtml(r[1] || '—') + '</td></tr>';
+    }).join('') +
+    '</table>' +
+    '<p style="font-family:Arial,sans-serif;font-size:14px"><strong>What they\'re looking for:</strong><br>' +
+    escapeHtml(p.details || '—').replace(/\n/g, '<br>') + '</p>';
+
+  var options = {
+    name: 'Ring Mint Website',
+    htmlBody: html
+  };
+  // Lets you hit reply straight from the notification.
+  if (p.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) {
+    options.replyTo = p.email;
+  }
+
+  MailApp.sendEmail(
+    TO,
+    'Ring Mint inquiry — ' + (p.name || 'no name'),
+    text,
+    options
+  );
+
+  return json({ ok: true });
+}
+
+// Visiting the /exec URL in a browser — handy for confirming the deployment.
+function doGet() {
+  return json({ ok: true, message: 'Ring Mint inquiry endpoint is live.' });
+}
+
+function json(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
