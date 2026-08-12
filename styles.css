@@ -322,6 +322,17 @@ h1 {
 }
 .logo-large { width: 112px; height: 112px; margin: 0 auto; object-fit: contain; }
 .hero-logo-card { width: 80px; height: 80px; }
+.hero-card-image {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: var(--r-md, 16px);
+  border: 1px solid var(--line);
+}
 .hero-card-copy { margin-top: 20px; }
 .card-title { color: var(--ink); font-size: 1.18rem; line-height: 1.15; }
 .hero-card-copy p:last-child { max-width: 420px; margin: 12px auto 0; font-size: 0.9rem; line-height: 1.55; }

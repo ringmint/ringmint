@@ -1,7 +1,7 @@
 /* Google Apps Script web app that emails the inquiry to chloe@ringmint.com.
    Deploy Code.gs (see apps-script/Code.gs) as a web app — "Execute as: Me",
    "Who has access: Anyone" — and paste the /exec URL here. */
-const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycby0ksxKDP2QvSX_a05vMpkesrBTI4Ty9RJZN9Hh9G3CNQtRNim8dyZc84NXOJNP2MSg/exec";
+const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbydWX5S3QTntzbUGl7bFjKwVsi-OHEGOoVxRodmwIir3mUmU9lPt6obHnUIhrvIzBAr/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   /* Inquiry form → Apps Script. Only present on the home page, so guard it
