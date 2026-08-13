@@ -27,9 +27,23 @@ the usual choice for a brand like this.
 3. Add the **Instagram** product to the app.
 4. In the left menu open **Instagram → API setup with Instagram business
    login**.
-5. In the section for generating access tokens, connect the `theringmint`
-   account, then click **Generate token** beside it and authenticate.
-6. Copy the token.
+5. Open **App roles → Roles** and find the **Instagram Testers** section --
+   which is separate from the Administrators/Developers/Testers list above it,
+   and is the only one that takes an Instagram username. Add `theringmint`.
+6. Accept the invite **from a desktop browser**: instagram.com signed in as
+   `theringmint` → **Settings → Apps and websites → Tester invites**. The
+   mobile app does not show tester invites at all, so this step looks
+   impossible until you try it on the web.
+7. Back on the API setup page, connect the `theringmint` account, then click
+   **Generate token** beside it and authenticate.
+8. Copy the token.
+
+Steps 5 and 6 are not optional. Without the accepted tester invite, connecting
+the account fails at Instagram's OAuth screen with **"Insufficient Developer
+Role"** -- a message that sounds like it is about your Facebook account's
+permissions but is actually about the Instagram account not being a tester.
+The tester role is needed because the app stays in development mode, which is
+fine permanently here: reading your own media never requires App Review.
 
 Tokens generated here in the App Dashboard are **long-lived, valid 60 days**.
 (Tokens from the Business Login *flow* are short-lived, one hour. Use the
@@ -91,6 +105,9 @@ IG_ACCESS_TOKEN=your_token python3 scripts/sync_instagram.py
 
 ## Troubleshooting
 
+- **"Insufficient Developer Role"** when connecting the account: `theringmint`
+  has not accepted the Instagram Tester invite. See steps 5 and 6 above, and
+  note the invite can only be accepted from a desktop browser.
 - **"the API returned no media"**: the account is still personal rather than
   Business/Creator, or the wrong account was connected in step 2.
 - **"Invalid OAuth access token"**: the token was truncated when copied, or it
