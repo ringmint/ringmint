@@ -3,6 +3,12 @@
    "Who has access: Anyone" — and paste the /exec URL here. */
 const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbwzSBJrrSFye2zYwinW2AvRx9OEipJbvqKd1TK-thl8OlP-haI5kgMxYmpoRW5KDJEU/exec";
 
+/* Analytics helper. gtag is absent when an ad blocker eats the GA snippet,
+   so every call has to tolerate that rather than throw mid-submit. */
+const track = (name, params) => {
+  if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   /* Inquiry form → Apps Script. Only present on the home page, so guard it
      without returning early — the header logic below runs everywhere. */
@@ -44,17 +50,29 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         form.reset();
         setStatus("Thank you — we got it. We’ll reply within one business day.", "success");
+        track("generate_lead", { method: "inquiry_form" });
       } catch (error) {
         setStatus(
           "Something went wrong sending that. Please email chloe@ringmint.com or message us on WhatsApp.",
           "error"
         );
+        /* Fires only when the endpoint is genuinely unreachable, so a spike
+           here means the form is broken — not that nobody is interested. */
+        track("form_submit_error", { method: "inquiry_form" });
       } finally {
         button.disabled = false;
         button.textContent = originalLabel;
       }
     });
   }
+
+  /* WhatsApp is a real lead channel, and outbound clicks are invisible to
+     GA4 by default — so form-only tracking would undercount leads. Delegated
+     from the document because these links appear on every page. */
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href*="wa.me"]');
+    if (link) track("generate_lead", { method: "whatsapp" });
+  });
 
   /* Purely decorative: adds a hairline under the sticky header once the
      page has scrolled. The header is sticky via CSS alone, so nothing
