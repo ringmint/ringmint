@@ -1,9 +1,19 @@
 /**
  * Ring Mint inquiry form → email.
  *
- * Deploy: Apps Script editor → Deploy → New deployment → type "Web app",
- * Execute as "Me", Who has access "Anyone". Copy the /exec URL into
- * INQUIRY_ENDPOINT at the top of script.js.
+ * This file is a reference copy. The code that actually runs lives in the
+ * Apps Script editor at script.google.com — pushing this repo does not
+ * update it.
+ *
+ * TO UPDATE an existing deployment (keeps the same /exec URL, so script.js
+ * needs no change):
+ *   Deploy → Manage deployments → ✏️ pencil → Version: "New version" → Deploy
+ *
+ * Only use "New deployment" when creating the endpoint for the first time.
+ * It mints a NEW /exec URL, which breaks the form until INQUIRY_ENDPOINT at
+ * the top of script.js is updated to match.
+ *
+ * Settings either way: type "Web app", Execute as "Me", access "Anyone".
  */
 
 var TO = 'chloe@ringmint.com';
