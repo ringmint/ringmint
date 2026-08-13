@@ -2,7 +2,7 @@
  * Ring Mint inquiry form → email.
  *
  * This file is a reference copy. The code that actually runs lives in the
- * Apps Script editor at script.google.com — pushing this repo does not
+ * Apps Script editor at script.google.com. Pushing this repo does not
  * update it.
  *
  * TO UPDATE an existing deployment (keeps the same /exec URL, so script.js
@@ -34,19 +34,19 @@ function doPost(e) {
   ];
 
   var text = rows
-    .map(function (r) { return r[0] + ': ' + (r[1] || '—'); })
-    .join('\n') + '\n\nWhat they\'re looking for:\n' + (p.details || '—');
+    .map(function (r) { return r[0] + ': ' + (r[1] || '-'); })
+    .join('\n') + '\n\nWhat they\'re looking for:\n' + (p.details || '-');
 
   var html =
     '<h2 style="font-family:Georgia,serif">New Ring Mint inquiry</h2>' +
     '<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px">' +
     rows.map(function (r) {
       return '<tr><td><strong>' + r[0] + '</strong></td><td>' +
-        escapeHtml(r[1] || '—') + '</td></tr>';
+        escapeHtml(r[1] || '-') + '</td></tr>';
     }).join('') +
     '</table>' +
     '<p style="font-family:Arial,sans-serif;font-size:14px"><strong>What they\'re looking for:</strong><br>' +
-    escapeHtml(p.details || '—').replace(/\n/g, '<br>') + '</p>';
+    escapeHtml(p.details || '-').replace(/\n/g, '<br>') + '</p>';
 
   var options = {
     name: 'Ring Mint Website',
@@ -60,7 +60,7 @@ function doPost(e) {
   MailApp.sendEmail(
     TO,
     (suspected ? '[possible spam] ' : '') +
-      'Ring Mint inquiry — ' + (p.name || 'no name'),
+      'Ring Mint inquiry: ' + (p.name || 'no name'),
     text,
     options
   );
@@ -68,7 +68,7 @@ function doPost(e) {
   return json({ ok: true });
 }
 
-// Visiting the /exec URL in a browser — handy for confirming the deployment.
+// Visiting the /exec URL in a browser, handy for confirming the deployment.
 function doGet() {
   return json({ ok: true, message: 'Ring Mint inquiry endpoint is live.' });
 }

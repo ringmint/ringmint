@@ -27,7 +27,7 @@ jobs:
       - name: Check the feed is configured
         if: env.HAS_TOKEN != 'true'
         run: |
-          echo "::notice::IG_ACCESS_TOKEN is not set — skipping. See INSTAGRAM_SETUP.md."
+          echo "::notice::IG_ACCESS_TOKEN is not set, skipping. See INSTAGRAM_SETUP.md."
 
       - uses: actions/checkout@v4
         if: env.HAS_TOKEN == 'true'
@@ -62,7 +62,7 @@ jobs:
           git push
 
       # Instagram long-lived tokens expire after 60 days. Refreshing on a
-      # schedule keeps it alive indefinitely. Requires GH_PAT — a fine-grained
+      # schedule keeps it alive indefinitely. Requires GH_PAT, a fine-grained
       # PAT with "Secrets: write" on this repo. Without it the sync still
       # works, but the token must be replaced by hand every 60 days.
       - name: Refresh the access token

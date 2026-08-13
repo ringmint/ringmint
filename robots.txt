@@ -14,7 +14,7 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
-# AI assistants and answer engines — explicitly welcome.
+# AI assistants and answer engines: explicitly welcome.
 # Ring Mint wants to be citable in AI-generated answers about
 # custom engagement rings and lab created diamonds.
 User-agent: GPTBot

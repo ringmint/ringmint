@@ -1,6 +1,6 @@
 /* Google Apps Script web app that emails the inquiry to chloe@ringmint.com.
-   Deploy Code.gs (see apps-script/Code.gs) as a web app — "Execute as: Me",
-   "Who has access: Anyone" — and paste the /exec URL here. */
+   Deploy Code.gs (see apps-script/Code.gs) as a web app: "Execute as: Me",
+   "Who has access: Anyone". Paste the /exec URL here. */
 const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbwzSBJrrSFye2zYwinW2AvRx9OEipJbvqKd1TK-thl8OlP-haI5kgMxYmpoRW5KDJEU/exec";
 
 /* Analytics helper. gtag is absent when an ad blocker eats the GA snippet,
@@ -11,7 +11,7 @@ const track = (name, params) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   /* Inquiry form → Apps Script. Only present on the home page, so guard it
-     without returning early — the header logic below runs everywhere. */
+     without returning early; the header logic below runs everywhere. */
   const form = document.getElementById("inquiryForm");
   if (form) {
     const status = document.getElementById("formStatus");
@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       /* The honeypot is deliberately NOT handled here. Dropping the submission
-         client-side means a false positive — autofill filling the trap for a
-         real person — loses the lead with no trace. Send everything; the server
+         client-side means a false positive (autofill filling the trap for a
+         real person) loses the lead with no trace. Send everything; the server
          flags suspected spam in the subject line instead of discarding it. */
 
       button.disabled = true;
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         form.reset();
-        setStatus("Thank you — we got it. We’ll reply within one business day.", "success");
+        setStatus("Thank you, we got it. We’ll reply within one business day.", "success");
         track("generate_lead", { method: "inquiry_form" });
       } catch (error) {
         setStatus(
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "error"
         );
         /* Fires only when the endpoint is genuinely unreachable, so a spike
-           here means the form is broken — not that nobody is interested. */
+           here means the form is broken, not that nobody is interested. */
         track("form_submit_error", { method: "inquiry_form" });
       } finally {
         button.disabled = false;
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* WhatsApp is a real lead channel, and outbound clicks are invisible to
-     GA4 by default — so form-only tracking would undercount leads. Delegated
+     GA4 by default, so form-only tracking would undercount leads. Delegated
      from the document because these links appear on every page. */
   document.addEventListener("click", (event) => {
     const link = event.target.closest('a[href*="wa.me"]');

@@ -1,4 +1,4 @@
-# Instagram feed — one-time setup
+# Instagram feed: one-time setup
 
 The homepage Instagram section is filled by a scheduled GitHub Action
 (`.github/workflows/instagram-sync.yml`). Every 6 hours it pulls your latest
@@ -8,7 +8,7 @@ plain static HTML with no third-party script.
 **Until the steps below are done, the section shows placeholder photos.**
 
 Meta shut down the old Instagram Basic Display API on 4 December 2024. The
-replacement requires a Business or Creator account and an access token — there
+replacement requires a Business or Creator account and an access token. There
 is no supported way to read a personal account.
 
 ---
@@ -31,10 +31,10 @@ the usual choice for a brand like this.
    account, then click **Generate token** beside it and authenticate.
 6. Copy the token.
 
-Tokens generated here in the App Dashboard are **long-lived — valid 60 days**.
+Tokens generated here in the App Dashboard are **long-lived, valid 60 days**.
 (Tokens from the Business Login *flow* are short-lived, one hour. Use the
 dashboard, not the login flow.) The workflow refreshes the token on each run,
-so it keeps working past 60 days as long as `GH_PAT` is set — see step 3.
+so it keeps working past 60 days as long as `GH_PAT` is set. See step 3.
 
 The token carries the `instagram_business_basic` scope. That is read-only:
 it can list your media and nothing else.
@@ -42,7 +42,7 @@ it can list your media and nothing else.
 Meta moves this UI around. Current reference:
 <https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started>
 
-**Never commit the token or paste it anywhere public — it goes only into
+**Never commit the token or paste it anywhere public. It goes only into
 GitHub Secrets.**
 
 ## 3. Add the repo secrets
@@ -79,7 +79,7 @@ your real photos will be in the grid.
 - **Videos and carousels:** the cover frame / first image is used.
 - **Alt text:** derived from the caption, with hashtags, @mentions, and emoji
   stripped. Falls back to a generic description if a post has no caption.
-- **If a run fails,** the site is untouched — it keeps serving the last
+- **If a run fails,** the site is untouched; it keeps serving the last
   successful set of photos. It will never render an empty grid.
 
 ## Local test
@@ -91,12 +91,12 @@ IG_ACCESS_TOKEN=your_token python3 scripts/sync_instagram.py
 
 ## Troubleshooting
 
-- **"the API returned no media"** — the account is still personal rather than
+- **"the API returned no media"**: the account is still personal rather than
   Business/Creator, or the wrong account was connected in step 2.
-- **"Invalid OAuth access token"** — the token was truncated when copied, or it
+- **"Invalid OAuth access token"**: the token was truncated when copied, or it
   came from the Business Login flow (1 hour) rather than the App Dashboard
   (60 days). Regenerate from the dashboard.
-- **Token expired** — if `GH_PAT` is not set, tokens die after 60 days. Add the
+- **Token expired**: if `GH_PAT` is not set, tokens die after 60 days. Add the
   PAT, or generate a fresh token and update `IG_ACCESS_TOKEN`.
-- **Workflow cannot push** — confirm **Settings → Actions → General → Workflow
+- **Workflow cannot push**: confirm **Settings → Actions → General → Workflow
   permissions** is set to *Read and write permissions*.

@@ -6,7 +6,7 @@
 #   ./scripts/indexnow.sh                 # submit every URL in sitemap.xml
 #   ./scripts/indexnow.sh https://ringmint.com/faq/ ...   # submit specific URLs
 #
-# Run it after pushing — IndexNow fetches the URLs, so telling it about a
+# Run it after pushing. IndexNow fetches the URLs, so telling it about a
 # change that is not live yet just gets the old page recrawled.
 
 set -euo pipefail
@@ -51,10 +51,10 @@ status="$(curl -s -o /tmp/indexnow_body.txt -w '%{http_code}' \
   -d "$payload")"
 
 case "$status" in
-  200|202) echo "OK (HTTP ${status}) — accepted." ;;
-  400) echo "HTTP 400 — malformed request." >&2; cat /tmp/indexnow_body.txt >&2; exit 1 ;;
-  403) echo "HTTP 403 — key not valid for this host. Check ${KEY_LOCATION}." >&2; exit 1 ;;
-  422) echo "HTTP 422 — URLs do not match the host, or the key does not match." >&2; exit 1 ;;
-  429) echo "HTTP 429 — too many requests. Wait and retry." >&2; exit 1 ;;
+  200|202) echo "OK (HTTP ${status}): accepted." ;;
+  400) echo "HTTP 400: malformed request." >&2; cat /tmp/indexnow_body.txt >&2; exit 1 ;;
+  403) echo "HTTP 403: key not valid for this host. Check ${KEY_LOCATION}." >&2; exit 1 ;;
+  422) echo "HTTP 422: URLs do not match the host, or the key does not match." >&2; exit 1 ;;
+  429) echo "HTTP 429: too many requests. Wait and retry." >&2; exit 1 ;;
   *)   echo "Unexpected HTTP ${status}." >&2; cat /tmp/indexnow_body.txt >&2; exit 1 ;;
 esac
