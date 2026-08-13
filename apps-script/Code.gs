@@ -11,10 +11,9 @@ var TO = 'chloe@ringmint.com';
 function doPost(e) {
   var p = (e && e.parameter) || {};
 
-  // Honeypot: only bots fill this. Return success so they stop retrying.
-  if (p.company) {
-    return json({ ok: true });
-  }
+  // Honeypot. Flag rather than discard: autofill can trip this for a real
+  // person, and a silently dropped inquiry is worse than a tagged one.
+  var suspected = !!(p.url_ref || p.company);
 
   var rows = [
     ['Name', p.name],
@@ -50,7 +49,8 @@ function doPost(e) {
 
   MailApp.sendEmail(
     TO,
-    'Ring Mint inquiry — ' + (p.name || 'no name'),
+    (suspected ? '[possible spam] ' : '') +
+      'Ring Mint inquiry — ' + (p.name || 'no name'),
     text,
     options
   );

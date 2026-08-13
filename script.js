@@ -24,12 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setStatus("Please add your name and email so we can reply.", "error");
         return;
       }
-      /* Honeypot: bots fill hidden fields, humans don’t. Pretend it worked. */
-      if (data.get("company")) {
-        setStatus("Thank you — we’ll be in touch shortly.", "success");
-        form.reset();
-        return;
-      }
+      /* The honeypot is deliberately NOT handled here. Dropping the submission
+         client-side means a false positive — autofill filling the trap for a
+         real person — loses the lead with no trace. Send everything; the server
+         flags suspected spam in the subject line instead of discarding it. */
 
       button.disabled = true;
       const originalLabel = button.textContent;
