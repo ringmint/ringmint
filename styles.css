@@ -688,6 +688,9 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
 .prose li::marker { color: var(--gold); }
 .prose strong { font-weight: 300; color: var(--ink); }
 .prose .text-link { color: var(--ink); text-decoration-color: var(--line-strong); }
+/* Secondary detail inside a section: true, worth stating, but not the point
+   the reader should leave with. Set smaller and lighter than body copy. */
+.prose p.aside { color: var(--muted); font-size: 0.92rem; line-height: 1.65; }
 
 /* In-body guide imagery. Sits inside .prose, so the 20px sibling gap applies;
    the extra top margin gives it a little more room than a paragraph gets. */
@@ -865,6 +868,21 @@ tbody tr:hover { background: var(--bg); }
   .ig-grid { gap: 16px; }
 }
 
+/* ---------- what we make ---------- */
+
+.offer-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+.offer-card {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.75);
+  padding: 22px;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.offer-card:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: var(--shadow-md); }
+.offer-card .serif { display: block; color: var(--ink); font-size: 1.12rem; line-height: 1.3; }
+.offer-card p { margin-top: 8px; font-size: 0.9rem; }
+.offer-note { margin-top: 24px; }
+
 /* ---------- related links ---------- */
 
 .related-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
@@ -1000,6 +1018,7 @@ input:focus, textarea:focus {
   .field-grid.three { grid-template-columns: repeat(3, 1fr); }
   .form-card { padding: 24px; }
   .related-grid { grid-template-columns: repeat(2, 1fr); }
+  .offer-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr; }
 }
 
@@ -1034,6 +1053,7 @@ input:focus, textarea:focus {
   .about-grid { grid-template-columns: 0.9fr 1.1fr; }
   .form-card { grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 40px; border-radius: var(--r-xl); }
   .related-grid { grid-template-columns: repeat(3, 1fr); }
+  .offer-grid { grid-template-columns: repeat(4, 1fr); }
   .footer-inner { grid-template-columns: 1.2fr 1fr; align-items: start; }
   .footer-legal { justify-items: end; text-align: right; }
   .footer-nav { justify-content: flex-start; }
