@@ -927,6 +927,18 @@ tbody tr:hover { background: var(--bg); }
 .ig-tile:hover .ig-mark { opacity: 1; transform: translateY(0); }
 .ig-follow { display: flex; justify-content: center; margin-top: 32px; }
 
+/* Section-close CTA: a centered button pair that ends a section with a next
+   step, so the page never goes more than one scroll without a path to the
+   inquiry form. */
+.section-cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin-top: 40px; }
+.section-cta .button { flex-direction: row; }
+.section-cta .cta-aside { width: 100%; text-align: center; margin: 2px 0 0; font-size: 0.85rem; color: var(--muted-dark); }
+.dark-band .section-cta .cta-aside, .about-section .section-cta .cta-aside { color: rgba(255, 255, 255, 0.65); }
+.dark-band .button.primary, .about-section .button.primary { background: var(--gold); color: var(--ink); }
+.dark-band .button.primary:hover, .about-section .button.primary:hover { background: var(--gold-bright); }
+.founder-cta { margin-top: 22px; }
+.page-hero .button-row { margin-top: 28px; }
+
 @media (min-width: 768px) {
   .ig-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
 }

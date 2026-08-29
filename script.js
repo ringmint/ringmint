@@ -74,6 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (link) track("generate_lead", { method: "whatsapp" });
   });
 
+  /* Which CTA actually sends people to the form. Every inquiry CTA carries a
+     data-cta location label; without this, GA4 sees the form submit but not
+     which button earned it. */
+  document.addEventListener("click", (event) => {
+    const cta = event.target.closest("a[data-cta]");
+    if (cta) track("cta_click", { cta_location: cta.dataset.cta });
+  });
+
   /* Purely decorative: adds a hairline under the sticky header once the
      page has scrolled. The header is sticky via CSS alone, so nothing
      here is required for the nav to work. */
