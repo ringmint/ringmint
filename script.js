@@ -88,4 +88,59 @@ document.addEventListener("DOMContentLoaded", () => {
       { threshold: 0 }
     ).observe(sentinel);
   }
+
+  /* Recent-work carousel. Native scroll + snap does the real work; this only
+     powers the arrow buttons and a slow auto-drift that stops for good the
+     moment the visitor touches the carousel themselves. */
+  const carousel = document.querySelector(".work-carousel");
+  if (carousel) {
+    const track = carousel.querySelector(".carousel-track");
+    const slides = Array.from(track.querySelectorAll(".carousel-slide"));
+    /* Scroll targets are always an exact snap position (a slide centered in
+       the track); engines are picky about smooth scrolls that mandatory
+       snapping would then adjust. */
+    const targetLeft = (slide) => {
+      const left = slide.offsetLeft + slide.offsetWidth / 2 - track.clientWidth / 2;
+      return Math.max(0, Math.min(left, track.scrollWidth - track.clientWidth));
+    };
+    const currentIndex = () => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - center);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      return best;
+    };
+    const advance = (dir) => {
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+      const next = dir > 0 && atEnd
+        ? 0
+        : Math.max(0, Math.min(slides.length - 1, currentIndex() + dir));
+      track.scrollTo({ left: targetLeft(slides[next]), behavior: "smooth" });
+    };
+
+    let timer = null;
+    let dismissed = false;
+    const stop = () => { clearInterval(timer); timer = null; };
+    const dismiss = () => { dismissed = true; stop(); };
+    const start = () => {
+      if (timer || dismissed) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      timer = setInterval(() => advance(1), 4000);
+    };
+
+    carousel.querySelector(".carousel-prev").addEventListener("click", () => { dismiss(); advance(-1); });
+    carousel.querySelector(".carousel-next").addEventListener("click", () => { dismiss(); advance(1); });
+    ["wheel", "touchstart", "pointerdown", "focusin"].forEach((type) =>
+      track.addEventListener(type, dismiss, { passive: true })
+    );
+
+    /* Drift only while the carousel is actually on screen. */
+    new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0.4 }
+    ).observe(carousel);
+  }
 });
