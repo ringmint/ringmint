@@ -764,6 +764,10 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-md);
 }
+/* Portrait images (screenshots, phone photos) would otherwise run taller than
+   the viewport at full column width. Cap the width (not the height, so the
+   width/height attributes still reserve space before a lazy image loads). */
+.prose-figure img.portrait { width: min(100%, 440px); margin: 0 auto; }
 .prose-figure figcaption {
   margin-top: 14px;
   color: var(--muted);
@@ -1228,9 +1232,11 @@ input:focus, textarea:focus {
 /* Post page: byline under the H1, hero image band below the page hero. */
 .post-meta { margin-top: 16px; font-size: 0.92rem; color: var(--muted); }
 .post-hero { margin: 0; background: var(--bg); }
+/* The hero is a band a little wider than the 760px reading column, not a
+   full-width billboard: 16:9 on tablets, a shorter 2:1 on desktop. */
 .post-hero img {
   display: block;
-  width: min(100% - 48px, 960px);
+  width: min(100% - 48px, 880px);
   height: auto; /* the width/height attributes are only layout hints; without this the 900px attribute wins */
   margin: 0 auto;
   aspect-ratio: 16 / 9;
@@ -1240,6 +1246,9 @@ input:focus, textarea:focus {
   box-shadow: var(--shadow-md);
 }
 .post-hero figcaption { margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
+@media (min-width: 1024px) {
+  .post-hero img { aspect-ratio: 2 / 1; }
+}
 /* Phones get the 4:5 hero-mobile crop via <picture>; the box must match it. */
 @media (max-width: 620px) {
   .post-hero img { width: calc(100% - 32px); aspect-ratio: 4 / 5; border-radius: 12px; }

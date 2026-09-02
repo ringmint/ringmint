@@ -99,6 +99,12 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 ### Images
 - [ ] Every image: descriptive `alt`, real `width`/`height` (prevents layout shift), `loading="lazy"` on everything **except** the hero.
 - [ ] Captions where they add information (credit, what stone/setting is shown).
+- [ ] **How each image is displayed, so you size the file for it, not larger:**
+  - Hero on desktop: an 880px band at 2:1 (16:9 on tablets). The 1600×900 file is the right size; do not upload a 4000px original.
+  - Hero on phones: the 1080×1350 `-hero-mobile.jpg`, full width at 4:5.
+  - In-body figures: the 760px reading column. Export landscape figures at 1200px wide and portrait ones at 800px wide, under 200 KB each. Add `class="portrait"` to any portrait image (screenshots, phone photos) so it is capped at 440px wide and centred instead of filling the screen.
+  - Listing card and featured card: 800×500 and the 1600×900 hero respectively; both are cropped by CSS to their boxes.
+- [ ] Weight check before publishing: `ls -la assets/blog/YOUR-SLUG-*` and nothing over 200 KB. A JPEG at quality 75 to 80 is invisible from quality 95 at these sizes and a third of the weight.
 
 ## 5. Wire the post into the site
 
