@@ -85,6 +85,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 ## 5. Wire the post into the site
 
 - [ ] **Listing card:** add a `.blog-card` at the **top** of the correct category grid in [blog/index.html](blog/index.html) (the commented example shows the exact markup). Remove the `.blog-empty` placeholder if it's the category's first post. Excerpt ≤ 160 chars.
+- [ ] **Featured slot (optional):** the `#featured` section at the top of [blog/index.html](blog/index.html) holds exactly one `.blog-card.blog-featured`. To feature a post, replace that card's href, image (use the 1600×900 `-hero.jpg`), title, and excerpt. The post keeps its normal card in its category grid too.
 - [ ] **Sitemap:** add to [sitemap.xml](sitemap.xml):
   ```xml
   <url>

@@ -1208,6 +1208,13 @@ input:focus, textarea:focus {
 }
 .blog-card:hover .blog-card-more { text-decoration-color: var(--gold); }
 
+/* Featured post: one large horizontal card above the category grids. */
+.blog-featured { margin-top: 24px; border-color: var(--line-strong); box-shadow: var(--shadow-md); }
+.blog-featured .blog-card-media { aspect-ratio: 16 / 9; }
+.blog-featured .blog-card-body { padding: 26px 26px 30px; gap: 12px; }
+.blog-featured h3 { font-size: 1.7rem; line-height: 1.2; }
+.blog-featured .blog-card-excerpt { font-size: 1.02rem; }
+
 /* Post page: byline under the H1, hero image band below the page hero. */
 .post-meta { margin-top: 16px; font-size: 0.92rem; color: var(--muted); }
 .post-hero { margin: 0; background: var(--bg); }
@@ -1228,4 +1235,8 @@ input:focus, textarea:focus {
 }
 @media (min-width: 1024px) {
   .blog-grid { grid-template-columns: repeat(3, 1fr); }
+  .blog-featured { flex-direction: row; align-items: stretch; }
+  .blog-featured .blog-card-media { flex: 0 0 58%; aspect-ratio: auto; }
+  .blog-featured .blog-card-body { flex: 1 1 auto; justify-content: center; padding: 36px 40px; }
+  .blog-featured h3 { font-size: 2rem; }
 }
