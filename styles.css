@@ -410,7 +410,7 @@ h1 {
   text-align: center;
 }
 
-/* Deliberately a step below the other section headings (clamp 1.8–2rem) so
+/* Deliberately a step below the other section headings (clamp 1.8-2rem) so
    this reads as a quieter beat rather than a fourth pitch. */
 .founder-copy h2 { margin-top: 10px; font-size: clamp(1.55rem, 6.5vw, 1.8rem); line-height: 1.08; letter-spacing: -0.025em; }
 .founder-body { display: grid; gap: 18px; margin-top: 22px; }
@@ -1159,7 +1159,7 @@ input:focus, textarea:focus {
 }
 
 /* ============================================================
-   Journal (blog) — listing cards, post hero image, byline.
+   Journal (blog): listing cards, post hero image, byline.
    Reuses .page-hero, .prose, .takeaway from the article pages.
    ============================================================ */
 
