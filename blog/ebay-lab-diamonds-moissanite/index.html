@@ -44,7 +44,8 @@
   <link rel="apple-touch-icon" href="/assets/fav.png" />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-400-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-300-latin.woff2" crossorigin />
-  <link rel="preload" as="image" href="/assets/blog/ebay-lab-diamonds-moissanite-hero.jpg" />
+  <link rel="preload" as="image" href="/assets/blog/ebay-lab-diamonds-moissanite-hero-mobile.jpg" media="(max-width: 620px)" />
+  <link rel="preload" as="image" href="/assets/blog/ebay-lab-diamonds-moissanite-hero.jpg" media="(min-width: 621px)" />
   <link rel="stylesheet" href="/styles.css" />
 
   <script type="application/ld+json">
@@ -203,11 +204,14 @@
       </section>
 
       <figure class="post-hero full-bleed">
-        <img
-          src="/assets/blog/ebay-lab-diamonds-moissanite-hero.jpg"
-          alt="A vivid blue radiant cut stone on a worn metal bench. It was sold on eBay as a lab grown diamond. It is a coated moissanite."
-          width="1600" height="900"
-          fetchpriority="high" />
+        <picture>
+          <source media="(max-width: 620px)" srcset="/assets/blog/ebay-lab-diamonds-moissanite-hero-mobile.jpg" width="1080" height="1350" />
+          <img
+            src="/assets/blog/ebay-lab-diamonds-moissanite-hero.jpg"
+            alt="A vivid blue radiant cut stone on a worn metal bench. It was sold on eBay as a lab grown diamond. It is a coated moissanite."
+            width="1600" height="900"
+            fetchpriority="high" />
+        </picture>
       </figure>
 
       <section class="section full-bleed">
@@ -263,6 +267,7 @@
 
             <h2>What are the eBay "lab diamonds" actually worth?</h2>
             <p><strong>Under $100 a stone, and frequently far less.</strong> Loose moissanite in these sizes trades wholesale for tens of dollars. A coated one is worth less than an uncoated one, because the coating is a liability, not a feature. Meanwhile a genuine two-carat fancy blue lab grown diamond, even after the price collapse of the last few years, costs many multiples of what these listings ask. The listing price is the tell. There is no version of the diamond market in which a two-carat vivid blue sells for what these sell for.</p>
+            <div class="table-wrap">
             <table>
               <thead>
                 <tr><th>What you were told</th><th>What you got</th></tr>
@@ -276,6 +281,7 @@
                 <tr><td>Insurable and resellable at diamond values</td><td>Worth under $100 as a moissanite</td></tr>
               </tbody>
             </table>
+            </div>
             <p>If you are actually shopping for a colored or white lab diamond, our page on <a href="/lab-created-diamond-engagement-rings/" class="text-link">lab created diamond engagement rings</a> covers what a real one costs, what an IGI or GIA report proves, and where the honest bargains are. The honest bargains are real; lab diamond prices have fallen hard. They are just not on eBay.</p>
 
             <h2>How do you tell moissanite from a lab diamond at home?</h2>

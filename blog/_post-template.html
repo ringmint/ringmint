@@ -53,7 +53,8 @@
   <link rel="apple-touch-icon" href="/assets/fav.png" />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-400-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-300-latin.woff2" crossorigin />
-  <link rel="preload" as="image" href="/assets/blog/POST-SLUG-hero.jpg" />
+  <link rel="preload" as="image" href="/assets/blog/POST-SLUG-hero-mobile.jpg" media="(max-width: 620px)" />
+  <link rel="preload" as="image" href="/assets/blog/POST-SLUG-hero.jpg" media="(min-width: 621px)" />
   <link rel="stylesheet" href="/styles.css" />
 
   <script type="application/ld+json">
@@ -173,11 +174,14 @@
       </section>
 
       <figure class="post-hero full-bleed">
-        <img
-          src="/assets/blog/POST-SLUG-hero.jpg"
-          alt="DESCRIBE WHAT IS IN THE IMAGE, naturally including the keyword if honest"
-          width="1600" height="900"
-          fetchpriority="high" />
+        <picture>
+          <source media="(max-width: 620px)" srcset="/assets/blog/POST-SLUG-hero-mobile.jpg" width="1080" height="1350" />
+          <img
+            src="/assets/blog/POST-SLUG-hero.jpg"
+            alt="DESCRIBE WHAT IS IN THE IMAGE, naturally including the keyword if honest"
+            width="1600" height="900"
+            fetchpriority="high" />
+        </picture>
         <figcaption class="container">OPTIONAL CAPTION: credit or context. Delete the figcaption element if unused.</figcaption>
       </figure>
 
@@ -195,7 +199,7 @@
             <p>Body copy. Short paragraphs, 2-4 sentences each. One idea per paragraph.</p>
 
             <h2>SECOND SUBHEAD</h2>
-            <p>Body copy. Use lists and tables where they genuinely clarify:</p>
+            <p>Body copy. Use lists and tables where they genuinely clarify (wrap every table in <code>&lt;div class="table-wrap"&gt;</code> or it will overflow on phones):</p>
             <ul>
               <li>List item one.</li>
               <li>List item two.</li>

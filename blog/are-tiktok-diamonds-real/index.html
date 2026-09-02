@@ -44,7 +44,8 @@
   <link rel="apple-touch-icon" href="/assets/fav.png" />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-400-latin.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-300-latin.woff2" crossorigin />
-  <link rel="preload" as="image" href="/assets/blog/are-tiktok-diamonds-real-hero.jpg" />
+  <link rel="preload" as="image" href="/assets/blog/are-tiktok-diamonds-real-hero-mobile.jpg" media="(max-width: 620px)" />
+  <link rel="preload" as="image" href="/assets/blog/are-tiktok-diamonds-real-hero.jpg" media="(min-width: 621px)" />
   <link rel="stylesheet" href="/styles.css" />
 
   <script type="application/ld+json">
@@ -203,11 +204,14 @@
       </section>
 
       <figure class="post-hero full-bleed">
-        <img
-          src="/assets/blog/are-tiktok-diamonds-real-hero.jpg"
-          alt="Gold line drawings of a round brilliant diamond seen from above and three diamond profiles on a dark background"
-          width="1600" height="900"
-          fetchpriority="high" />
+        <picture>
+          <source media="(max-width: 620px)" srcset="/assets/blog/are-tiktok-diamonds-real-hero-mobile.jpg" width="1080" height="1350" />
+          <img
+            src="/assets/blog/are-tiktok-diamonds-real-hero.jpg"
+            alt="Gold line drawings of a round brilliant diamond seen from above and three diamond profiles on a dark background"
+            width="1600" height="900"
+            fetchpriority="high" />
+        </picture>
       </figure>
 
       <section class="section full-bleed">

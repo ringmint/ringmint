@@ -25,12 +25,26 @@ The blog lives at `/blog/`. There is **one template**: hero image + text
 
 - [ ] Slug: lowercase, hyphens, 3-6 words, contains the primary keyword, **no dates, no stop words** (`/blog/lab-diamond-resale-value/`, not `/blog/2026/09/what-you-should-know-about-the-resale-value-of-lab-diamonds/`). Slugs are permanent. Never change one after publishing.
 - [ ] `cp blog/_post-template.html blog/YOUR-SLUG/index.html`
-- [ ] Images go in `/assets/blog/`:
-  - `YOUR-SLUG-hero.jpg`: 1600×900, the post hero.
-  - `YOUR-SLUG-og.jpg`: 1200×630, the social/OG image (can be a crop of the hero with the title overlaid).
+- [ ] **Every post ships five images**, all in `/assets/blog/`, all in the same house style (see below). None are optional.
+  - `YOUR-SLUG-hero.jpg`: 1600×900, the post hero on desktop and tablet.
+  - `YOUR-SLUG-hero-mobile.jpg`: 1080×1350 (4:5), the post hero on phones. The template serves it through `<picture>` below 620px. A 16:9 image cropped to a phone screen is either a tiny strip or a sliver of the middle; this file is a separate composition, not a resize.
+  - `YOUR-SLUG-og.jpg`: 1200×630, the social/OG image, title overlaid.
   - `YOUR-SLUG-card.jpg`: 800×500, the card image for the /blog/ listing.
-  - Compress everything (target < 200 KB each; Squoosh.app, quality ~75 JPEG or WebP).
+  - `YOUR-SLUG-story.jpg`: 1080×1920, the Instagram Story for the post. Not referenced by the site; it exists so the post is announced on Stories the day it publishes, in the same look as everything else. Text stays out of the top and bottom 250px (Instagram's own UI covers those), and the "read the post" pill sits at roughly 89% height so the link sticker can go on top of it.
+  - Compress everything (target < 200 KB each; the generator does this for you, otherwise Squoosh.app, quality ~75 JPEG).
   - Filenames are descriptive and keyworded: `oval-lab-diamond-ring-hero.jpg`, never `IMG_4021.jpg`.
+- [ ] **Generate them with the script, do not freehand them.** [tools/blog-images.py](tools/blog-images.py) produces all five from a slug and a headline, in the house style, at the right sizes and weights:
+  ```bash
+  python3 tools/blog-images.py generate --slug YOUR-SLUG --title "Line one|line two|line three" --answer "One short answer line." --sub "Supporting line,|second supporting line."
+  ```
+  If the post has a real photograph for its hero (a stone on the bench, a client's ring), keep the photo as `YOUR-SLUG-hero.jpg`, make the OG and card from it, and run only the two commands the script cannot replace with line art:
+  ```bash
+  python3 tools/blog-images.py crop-mobile --slug YOUR-SLUG
+  ```
+  ```bash
+  python3 tools/blog-images.py story --slug YOUR-SLUG --title "..." --answer "..." --sub "..."
+  ```
+- [ ] **House style for all five images.** Charcoal `#171717` ground with a warm radial glow, gold `rgb(212,183,134)` line-art diamonds (round brilliant seen from above, and the classic crown-and-pavilion profile), small four-point sparkles, a hairline gold frame inset 40px, Didot for headlines in cream `rgb(244,239,230)`, Didot italic in gold for the one-line answer, Georgia letter-spaced small caps for the "THE RING MINT JOURNAL" eyebrow. A photographic hero is fine, but the OG, card, and Story built from it still carry the same type, eyebrow, hairline, and pill. Do not introduce new colours, fonts, or icon styles for one post. If the style needs to change, change it in the script so every future post changes with it.
 
 ## 3. Fill in the template
 
@@ -54,7 +68,7 @@ Replace **every ALL-CAPS token**. Then verify:
 ### Body
 - [ ] Exactly **one `<h1>`**, matching (or close to) the title tag.
 - [ ] Byline present and linked to `/press/` (`rel="author"`), date in a `<time datetime="...">` element, read time filled in.
-- [ ] Hero image: real `width`/`height` attributes, `fetchpriority="high"`, **descriptive alt text** (describe the image honestly; include the keyword only if it truly belongs).
+- [ ] Hero image: keep the `<picture>` element from the template. The `<source>` points at `-hero-mobile.jpg` (1080×1350) for `(max-width: 620px)`, the `<img>` at `-hero.jpg` (1600×900) with real `width`/`height` attributes and `fetchpriority="high"`. **Descriptive alt text** (describe the image honestly; include the keyword only if it truly belongs). The two `<link rel="preload" as="image">` tags in the head carry matching `media` attributes so a phone only downloads the mobile file; update both hrefs.
 - [ ] Category eyebrow links to the right anchor on `/blog/`.
 
 ## 4. Writing rules (SEO + AI-search / GEO)
@@ -68,7 +82,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 - [ ] **First-hand experience (E-E-A-T).** Include at least one thing only a working jeweler would know: something from the bench, a real client scenario (anonymized), what you actually see under a loupe. This is the moat against AI-generated competitor content.
 - [ ] **Honesty is the brand and the ranking strategy.** State downsides plainly (resale value, treatments, trade-offs), exactly like the site's existing lab-diamond page does. Hedged sales copy doesn't get cited; blunt expert answers do.
 - [ ] **Plain language.** Short sentences, short paragraphs (2-4 sentences), one idea per paragraph. Define trade terms on first use.
-- [ ] **Use structure LLMs parse well:** bulleted/numbered lists for steps and criteria, a comparison `<table>` for any "X vs Y" topic, `<strong>` on the key claim of a section.
+- [ ] **Use structure LLMs parse well:** bulleted/numbered lists for steps and criteria, a comparison `<table>` for any "X vs Y" topic, `<strong>` on the key claim of a section. **Every `<table>` goes inside `<div class="table-wrap">`**; tables have a 560px minimum width and the wrapper is what lets them scroll sideways on a phone instead of breaking the page.
 - [ ] **Length:** as long as the question deserves, no longer. 800-1,500 words is the usual sweet spot; a news item can be 400. Never pad.
 - [ ] **No AI-content tells:** no "In today's fast-paced world," no "It's important to note," no conclusion that restates everything. Read it aloud once.
 - [ ] **No em dashes or en dashes, anywhere.** Not the long dash, not the short one, not in body copy, the takeaway box, the JSON-LD, the meta description, or the llms.txt line. They are the single most recognizable AI-writing tell. Rewrite the sentence with a period, comma, or colon, and write ranges with "to" ("$100 to $200", "2 to 3 sentences"). Plain hyphens in compound words ("lab-grown", "30-second") are fine. Before publishing, this must return nothing:
@@ -108,7 +122,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 - [ ] Open the page locally; check console for errors, click every link.
 - [ ] View source: no remaining ALL-CAPS tokens (`grep -n '[A-Z]\{4,\}' blog/YOUR-SLUG/index.html` and eyeball the hits).
 - [ ] `noindex` removed (this is the #1 way to silently publish an invisible post).
-- [ ] Mobile check: narrow the window to ~375px: no horizontal scroll, hero image legible.
+- [ ] Mobile check: narrow the window to ~375px: no horizontal scroll, and the hero is the 4:5 `-hero-mobile.jpg` (right-click, open image in new tab, check the filename). If it is the 16:9 file, the `<picture>` source is wrong.
 - [ ] Run https://pagespeed.web.dev on the URL after deploy: LCP < 2.5s, CLS < 0.1. The hero image is the LCP element; if it fails, compress harder.
 - [ ] Rich results test passes; social preview checked at https://www.opengraph.xyz (or the LinkedIn Post Inspector).
 
@@ -117,6 +131,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 - [ ] **Google Search Console:** URL Inspection → Request Indexing for the new URL.
 - [ ] **Bing Webmaster Tools:** submit the URL (Bing feeds ChatGPT search and Copilot, so do not skip this).
 - [ ] Share to the channels (Instagram, LinkedIn, Pinterest); social links are discovery signals and Pinterest jewelry content has long tail.
+- [ ] Post `YOUR-SLUG-story.jpg` to Instagram Stories the same day, with a link sticker to the post URL placed over the "READ THE POST" pill. Write the LinkedIn post as a hook plus the first idea, never the whole article, with the URL as the last line.
 - [ ] Note the publish in GA4 annotations if you use them (per the analytics setup, leads come via AI assistants and Direct, so watch `Direct` and referral from chat domains, not just organic).
 
 ## 8. Maintenance (quarterly)
@@ -137,7 +152,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 5. One thing only a real jeweler would know.
 6. Unique 50-60 char title, 140-160 char description.
 7. Valid `BlogPosting` JSON-LD (+ `FAQPage` when there's real Q&A).
-8. Compressed hero image with width/height and honest alt text.
+8. All five images (hero, hero-mobile, og, card, story) from `tools/blog-images.py`, same house style, honest alt text.
 9. `noindex` removed. Canonical correct.
 10. Card added to /blog/, entry added to sitemap.xml **and** llms.txt.
 11. At least one link *to* the post from an existing page.
