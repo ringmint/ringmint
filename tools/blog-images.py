@@ -13,13 +13,15 @@ writes to assets/blog/:
     SLUG-og.jpg           1200x630   social / OG card, title overlaid
     SLUG-card.jpg         800x500    /blog/ listing card
     SLUG-story.jpg        1080x1920  Instagram Story (not referenced by the site)
+    SLUG-pin.jpg          1000x1500  Pinterest pin, 2:3 (not referenced by the site)
 
 For a post whose hero is a photograph, keep the photo as SLUG-hero.jpg and run
-only the mobile crop and the story:
+only the mobile crop, the story, and the pin:
 
     python3 tools/blog-images.py crop-mobile --slug SLUG            # 4:5 centre crop of SLUG-hero.jpg
     python3 tools/blog-images.py crop-mobile --slug SLUG --source clean-photo.jpg   # if the hero has text on it
     python3 tools/blog-images.py story --slug SLUG --title ... --answer ... --sub ...
+    python3 tools/blog-images.py pin   --slug SLUG --title ... --answer ... --sub ...
 
 House style (do not drift): charcoal #171717 ground with a warm glow, gold
 (212,183,134) line-art diamonds, cream (244,239,230) Didot headline, gold Didot
@@ -214,6 +216,29 @@ def story(slug, title, answer, sub):
     c.save(OUT / f"{slug}-story.jpg", 1080, 1920, 85)
 
 
+def pin(slug, title, answer, sub):
+    # Pinterest's preferred 2:3. Same composition language as the Story, but no
+    # Instagram UI safe zones, so the type sits higher and larger.
+    c = Canvas(1000, 1500, glow_cy=0.36)
+    c.round_top(0.50, 0.27, 250)
+    c.diamond(0.22, 0.31, 130, 170)
+    c.diamond(0.78, 0.30, 150, 190)
+    c.diamond(0.97, 0.84, 320, 30)
+    c.round_top(0.04, 0.04, 220, 40)
+    c.sparkles([(.30, .16, 14), (.68, .13, 18), (.88, .22, 11), (.10, .40, 12), (.62, .42, 10), (.14, .70, 12), (.88, .58, 9), (.40, .93, 11)])
+    c.frame()
+    c.spaced("THE RING MINT JOURNAL", 0.475, c.font("georgia", 24), GOLD, 6)
+    n = len(title)
+    title_lines(c, title, 0.585 - (n - 1) * 0.055 / 2, 76, 0.055)
+    c.hairline(0.695)
+    c.center(answer, 0.740, c.font("didot_i", 48), GOLD)
+    for i, line in enumerate(sub):
+        c.center(line, 0.800 + i * 0.032, c.font("georgia", 28), (200, 190, 175))
+    c.pill("READ THE POST", 0.885, w=380, h=70)
+    c.center("ringmint.com", 0.935, c.font("georgia", 24), (150, 140, 125))
+    c.save(OUT / f"{slug}-pin.jpg", 1000, 1500, 82)
+
+
 def crop_mobile(slug, source=None):
     # A hero with a headline baked into it cannot be centre-cropped (the text gets
     # sliced), so pass --source with a clean photograph for those posts.
@@ -233,11 +258,11 @@ def crop_mobile(slug, source=None):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=["generate", "story", "crop-mobile"])
+    ap.add_argument("mode", choices=["generate", "story", "pin", "crop-mobile"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--title", help="headline, lines separated by |, 2 or 3 lines")
-    ap.add_argument("--answer", help="one short line, gold italic (story only)")
-    ap.add_argument("--sub", default="", help="one or two supporting lines separated by | (story only)")
+    ap.add_argument("--answer", help="one short line, gold italic (story and pin)")
+    ap.add_argument("--sub", default="", help="one or two supporting lines separated by | (story and pin)")
     ap.add_argument("--source", help="crop-mobile only: a clean photo in assets/blog/ to crop instead of SLUG-hero.jpg")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -253,8 +278,11 @@ def main():
         og(a.slug, title, h)
         card(a.slug, h)
     if not a.answer:
-        sys.exit("--answer is required for the story image")
-    story(a.slug, title, a.answer, sub)
+        sys.exit("--answer is required for the story and pin images")
+    if a.mode in ("generate", "story"):
+        story(a.slug, title, a.answer, sub)
+    if a.mode in ("generate", "pin"):
+        pin(a.slug, title, a.answer, sub)
 
 
 if __name__ == "__main__":

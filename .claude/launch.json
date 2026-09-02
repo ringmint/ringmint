@@ -6,7 +6,7 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": [
         "-c",
-        "cd /private/tmp/claude-501/-Users-chloealpert-Documents-GitHub-ringmint/037055e8-a1de-4982-ad4b-9bbe76d4656b/scratchpad/site && exec python3 -m http.server \"$PORT\""
+        "cd /private/tmp/claude-501/-Users-chloealpert-Documents-GitHub-ringmint/24784c6d-ef8c-4b26-92a5-1b428aac4dcd/scratchpad/site && exec python3 -m http.server \"$PORT\""
       ],
       "port": 8917,
       "autoPort": true
