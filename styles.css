@@ -226,8 +226,9 @@ p { color: var(--muted); line-height: 1.5; }
 }
 .button.secondary:hover { transform: translateY(-1px); }
 
-/* mobile: the links move to a compact scrollable row beneath the logo,
-   instead of vanishing entirely as they used to */
+/* mobile: the links move to a compact row beneath the logo that wraps to a
+   second line, so every destination (including the Journal) stays visible
+   instead of clipping off the end of a scrollable row */
 @media (max-width: 899px) {
   .nav { flex-wrap: wrap; height: auto; padding: 10px 0 0; }
   .brand-logo { order: 1; }
@@ -235,18 +236,12 @@ p { color: var(--muted); line-height: 1.5; }
   .nav-links {
     order: 3;
     width: 100%;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 6px 15px;
     margin-top: 8px;
     padding: 2px 0 10px;
-    overflow-x: auto;
-    scrollbar-width: none;
     font-size: 12px;
-    /* fade the right edge so a clipped link reads as "scroll me",
-       not as a broken layout */
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
-    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
   }
-  .nav-links::-webkit-scrollbar { display: none; }
   .brand-logo img { width: 116px; }
 }
 
@@ -1130,7 +1125,7 @@ input:focus, textarea:focus {
   .founder-body p { font-size: 1.02rem; }
   .about-grid { grid-template-columns: 0.9fr 1.1fr; }
   .form-card { grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 40px; border-radius: var(--r-xl); }
-  .related-grid { grid-template-columns: repeat(3, 1fr); }
+  .related-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .offer-grid { grid-template-columns: repeat(4, 1fr); }
   .footer-inner { grid-template-columns: 1.2fr 1fr; align-items: start; }
   .footer-legal { justify-items: end; text-align: right; }
