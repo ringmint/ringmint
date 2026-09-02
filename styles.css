@@ -1214,13 +1214,23 @@ input:focus, textarea:focus {
 .blog-featured .blog-card-body { padding: 26px 26px 30px; gap: 12px; }
 .blog-featured h3 { font-size: 1.7rem; line-height: 1.2; }
 .blog-featured .blog-card-excerpt { font-size: 1.02rem; }
+/* The featured image may carry a headline, so its box always matches the file's ratio. */
+@media (max-width: 620px) {
+  .blog-featured .blog-card-media { aspect-ratio: 4 / 5; }
+}
+/* The Journal index is wider than a reading column so the featured card and the grid can breathe. */
+.article-page main #featured .container,
+.article-page main #jewelry-news .container,
+.article-page main #diamonds-and-gemstones .container { width: min(100% - 48px, 1100px); }
+.article-page main #jewelry-news .section-head,
+.article-page main #diamonds-and-gemstones .section-head { max-width: 760px; }
 
 /* Post page: byline under the H1, hero image band below the page hero. */
 .post-meta { margin-top: 16px; font-size: 0.92rem; color: var(--muted); }
 .post-hero { margin: 0; background: var(--bg); }
 .post-hero img {
   display: block;
-  width: min(100% - 48px, 1280px);
+  width: min(100% - 48px, 960px);
   height: auto; /* the width/height attributes are only layout hints; without this the 900px attribute wins */
   margin: 0 auto;
   aspect-ratio: 16 / 9;
@@ -1241,7 +1251,9 @@ input:focus, textarea:focus {
 @media (min-width: 1024px) {
   .blog-grid { grid-template-columns: repeat(3, 1fr); }
   .blog-featured { flex-direction: row; align-items: stretch; }
-  .blog-featured .blog-card-media { flex: 0 0 58%; aspect-ratio: auto; }
+  .blog-featured .blog-card-media { flex: 0 0 58%; aspect-ratio: 16 / 9; background: #0f0f10; }
+  /* If the body ever runs taller than the image, letterbox on charcoal instead of cropping a headline. */
+  .blog-featured .blog-card-media img { object-fit: contain; }
   .blog-featured .blog-card-body { flex: 1 1 auto; justify-content: center; padding: 36px 40px; }
   .blog-featured h3 { font-size: 2rem; }
 }
