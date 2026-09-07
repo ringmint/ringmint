@@ -35,11 +35,23 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "blog"
 DIDOT = "/System/Library/Fonts/Supplemental/Didot.ttc"
 GEORGIA = "/System/Library/Fonts/Supplemental/Georgia.ttf"
+# The OG card uses the site's own brand faces rather than the macOS system fonts the
+# other images use. Pillow cannot read .woff2, so assets/fonts/*.woff2 are vendored
+# here as .ttf. Inter ships as a variable font, so the static weights under
+# tools/fonts/ are instances cut from it with fontTools.varLib.instancer;
+# regenerate them if the web fonts ever change.
+PLAYFAIR = str(pathlib.Path(__file__).resolve().parent / "fonts" / "playfair-display-400-latin.ttf")
+INTER = str(pathlib.Path(__file__).resolve().parent / "fonts" / "inter-500-latin.ttf")
 
 GOLD = (212, 183, 134)
 CREAM = (244, 239, 230)
 INK = (23, 23, 23)
 WARM = (64, 54, 42)
+# OG palette, taken from :root in styles.css so the card matches the site it links to
+OG_BG = (251, 248, 243)      # --bg
+OG_GOLD = (174, 143, 69)     # --gold
+OG_LINE = (215, 198, 156)    # --line-strong
+OG_MUTED = (98, 92, 82)      # --muted
 S = 2  # supersample factor for clean line-art
 
 
@@ -189,27 +201,73 @@ def hero_mobile(slug):
     c.save(OUT / f"{slug}-hero-mobile.jpg", 1080, 1350, 78)
 
 
-def og(slug, title, hero_img):
-    src = hero_img.crop((100, 60, 1540, 816)).resize((1200, 630), Image.LANCZOS)
-    c = Canvas(1200, 630)
-    c.img = src; c.d = ImageDraw.Draw(c.img, "RGBA")
-    c.W, c.H = 1200, 630
-    global S; S_prev = S
-    # the OG canvas is composed at 1x on top of the rendered hero, so scale text helpers accordingly
-    S = 1
-    c.dim(170)
-    c.spaced("THE RING MINT JOURNAL", 0.20, ImageFont.truetype(GEORGIA, 24), GOLD, 4)
-    n = len(title)
-    size = 74 if n <= 2 else 62
-    gap = 0.15 if n <= 2 else 0.125
-    fy0 = 0.49 - (n - 1) * gap / 2
-    for i, line in enumerate(title):
-        c.d.text((600, 630 * (fy0 + i * gap)), line, font=ImageFont.truetype(DIDOT, size, index=0), fill=CREAM, anchor="mm")
-    c.d.line([(510, 630 * 0.80), (690, 630 * 0.80)], fill=GOLD, width=2)
-    c.d.text((600, 630 * 0.88), "ringmint.com", font=ImageFont.truetype(GEORGIA, 24), fill=(190, 180, 165), anchor="mm")
-    S = S_prev
-    c.img.save(OUT / f"{slug}-og.jpg", quality=80, optimize=True, progressive=True)
-    print("wrote", f"assets/blog/{slug}-og.jpg")
+def og(slug, title):
+    """The 1200x630 social card.
+
+    Drawn from scratch at 2x rather than composited onto a downscaled hero: the
+    previous version drew 62-74px type at 1x over a busy crop, which rendered
+    around 26px in a feed and was unreadable. Cream ground with ink Playfair,
+    matching the site; the headline is auto-fit to the widest line and runs over
+    the line art, which sits at low alpha so the overlap reads as a watermark."""
+    s = 2
+    W, H = 1200 * s, 630 * s
+    play = lambda px: ImageFont.truetype(PLAYFAIR, int(px * s))
+    inter = lambda px: ImageFont.truetype(INTER, int(px * s))
+    img = Image.new("RGB", (W, H), OG_BG)
+    d = ImageDraw.Draw(img, "RGBA")
+
+    def stone_round(cx, cy, r, alpha):
+        col, n = (*OG_LINE, alpha), 16
+        outer = [(cx + r * math.cos(2 * math.pi * i / n - math.pi / 2), cy + r * math.sin(2 * math.pi * i / n - math.pi / 2)) for i in range(n)]
+        inner = [(cx + r * .52 * math.cos(2 * math.pi * (i + .5) / 8 - math.pi / 2), cy + r * .52 * math.sin(2 * math.pi * (i + .5) / 8 - math.pi / 2)) for i in range(8)]
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=col, width=2 * s)
+        d.polygon(inner, outline=col, width=s)
+        for i in range(8):
+            for k in (0, 1, 2):
+                d.line([outer[(i * 2 + k) % n], inner[i]], fill=col, width=s)
+
+    def stone_pear(cx, cy, w, alpha):
+        col = (*OG_LINE, alpha)
+        tw, ch, ph = w * .55, w * .30, w * .95
+        tl, tr = (cx - tw / 2, cy - ch), (cx + tw / 2, cy - ch)
+        gl, gr, tip = (cx - w / 2, cy), (cx + w / 2, cy), (cx, cy + ph)
+        d.polygon([tl, tr, gr, tip, gl], outline=col, width=2 * s)
+        for i in range(5):
+            d.line([(tl[0] + (tr[0] - tl[0]) * i / 4, tl[1]), (gl[0] + (gr[0] - gl[0]) * i / 4, cy)], fill=col, width=s)
+        d.line([gl, gr], fill=col, width=2 * s)
+        for i in range(1, 4):
+            d.line([(gl[0] + (gr[0] - gl[0]) * i / 3, cy), tip], fill=col, width=s)
+
+    def tracked(text, x, y, font, fill, sp):
+        for ch in text:
+            d.text((x, y), ch, font=font, fill=fill, anchor="lm")
+            x += d.textlength(ch, font=font) + sp * s
+
+    stone_round(W * .855, H * .44, 190 * s, 120)
+    stone_pear(W * .95, H * .80, 110 * s, 94)
+
+    L = 88 * s
+    tracked("THE RING MINT JOURNAL", L, H * .175, inter(23), OG_GOLD, 6)
+    d.line([(L, H * .245), (L + 120 * s, H * .245)], fill=OG_GOLD, width=3 * s)
+
+    # Largest size at which every line clears 86% of the width; the art is
+    # deliberately inside that column.
+    lines = title[:3]
+    size = 122 if len(lines) <= 2 else 100
+    while size > 52:
+        f = play(size)
+        if max(d.textlength(l, font=f) for l in lines) <= W * .86 - L:
+            break
+        size -= 2
+    gap = size * 1.18 * s
+    y0 = H * .535 - (len(lines) - 1) * gap / 2
+    for i, line in enumerate(lines):
+        d.text((L, y0 + i * gap), line, font=play(size), fill=INK, anchor="lm")
+
+    tracked("RINGMINT.COM", L, H * .875, inter(22), OG_MUTED, 5)
+    out = OUT / f"{slug}-og.jpg"
+    img.resize((1200, 630), Image.LANCZOS).save(out, quality=88, optimize=True, progressive=True)
+    print("wrote", f"assets/blog/{slug}-og.jpg", f"{out.stat().st_size // 1024} KB", f"headline {size}px")
 
 
 def card(slug, title, hero_img):
@@ -292,11 +350,12 @@ def crop_mobile(slug, source=None):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=["generate", "story", "pin", "crop-mobile"])
+    ap.add_argument("mode", choices=["generate", "og", "story", "pin", "crop-mobile"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--title", help="headline, lines separated by |, 2 or 3 lines")
     ap.add_argument("--answer", help="one short line, gold italic (story and pin)")
     ap.add_argument("--sub", default="", help="one or two supporting lines separated by | (story and pin)")
+    ap.add_argument("--og-title", help="shorter headline for the OG card, lines separated by |; defaults to --title")
     ap.add_argument("--source", help="crop-mobile only: a clean photo in assets/blog/ to crop instead of SLUG-hero.jpg")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -304,12 +363,17 @@ def main():
     sub = [s for s in a.sub.split("|") if s]
     if a.mode == "crop-mobile":
         return crop_mobile(a.slug, a.source)
+    og_title = a.og_title.split("|") if a.og_title else title
+    if a.mode == "og":
+        if not og_title:
+            sys.exit("--og-title (or --title) is required")
+        return og(a.slug, og_title)
     if not title:
         sys.exit("--title is required")
     if a.mode == "generate":
         h = hero(a.slug)
         hero_mobile(a.slug)
-        og(a.slug, title, h)
+        og(a.slug, og_title)
         card(a.slug, title, h)
     if not a.answer:
         sys.exit("--answer is required for the story and pin images")

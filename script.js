@@ -9,6 +9,82 @@ const track = (name, params) => {
   if (typeof window.gtag === "function") window.gtag("event", name, params || {});
 };
 
+/* Inspiration photos. Apps Script only accepts a "simple" request (see the
+   fetch below), so files ride along inside the same url-encoded body as
+   base64 rather than as multipart. That makes payload size the constraint,
+   not the file count: every photo is re-drawn to at most PHOTO_MAX_EDGE px
+   and re-encoded as JPEG in the browser first, which turns a 6 MB phone
+   photo into roughly 300 KB. Anything the browser cannot decode (HEIC on a
+   desktop, a PDF someone renamed) is skipped rather than sent raw. */
+const PHOTO_MAX_COUNT = 3;
+const PHOTO_MAX_EDGE = 1600;
+const PHOTO_QUALITY = 0.82;
+/* Ceiling for the whole request. Apps Script accepts far more, but a slow
+   phone connection makes a bigger body feel like a broken form. */
+const PHOTO_TOTAL_BUDGET = 6 * 1024 * 1024;
+
+const readAsDataUrl = (blob) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error("read failed"));
+    reader.readAsDataURL(blob);
+  });
+
+/* Returns { name, type, data } with data as bare base64, or null if the
+   image could not be decoded. */
+const shrinkImage = async (file) => {
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch (error) {
+    return null;
+  }
+  const scale = Math.min(1, PHOTO_MAX_EDGE / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close && bitmap.close();
+
+  const blob = await new Promise((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg", PHOTO_QUALITY)
+  );
+  if (!blob) return null;
+
+  const dataUrl = await readAsDataUrl(blob);
+  return {
+    /* Always .jpg: the canvas re-encode means the original extension would
+       be a lie, and Gmail trusts the extension over the MIME type. */
+    name: (file.name || "photo").replace(/\.[^.]+$/, "") + ".jpg",
+    type: "image/jpeg",
+    data: dataUrl.slice(dataUrl.indexOf(",") + 1)
+  };
+};
+
+/* Skipped files are reported back rather than swallowed, so someone who
+   attached a HEIC knows to send it another way instead of assuming Chloe
+   has seen it. */
+const preparePhotos = async (files) => {
+  const photos = [];
+  const skipped = [];
+  let budget = PHOTO_TOTAL_BUDGET;
+  for (const file of Array.from(files).slice(0, PHOTO_MAX_COUNT)) {
+    const photo = await shrinkImage(file);
+    if (!photo) {
+      skipped.push(file.name || "one photo");
+      continue;
+    }
+    if (photo.data.length > budget) {
+      skipped.push(file.name || "one photo");
+      continue;
+    }
+    budget -= photo.data.length;
+    photos.push(photo);
+  }
+  return { photos, skipped };
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   /* Inquiry form → Apps Script. Only present on the home page, so guard it
      without returning early; the header logic below runs everywhere. */
@@ -26,6 +102,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (pageField) pageField.value = window.location.pathname;
     const status = document.getElementById("formStatus");
     const button = form.querySelector("button[type='submit']");
+    const photoInput = form.querySelector("input[name='photos']");
+    const photoList = document.getElementById("photoList");
+    /* Names the files back to the person straight away. A file input on its
+       own shows nothing useful on mobile, and a silent attachment is one
+       people re-pick three times. */
+    if (photoInput && photoList) {
+      photoInput.addEventListener("change", () => {
+        const files = Array.from(photoInput.files).slice(0, PHOTO_MAX_COUNT);
+        photoList.textContent = "";
+        files.forEach((file) => {
+          const item = document.createElement("li");
+          item.textContent = file.name;
+          photoList.appendChild(item);
+        });
+        if (photoInput.files.length > PHOTO_MAX_COUNT) {
+          const item = document.createElement("li");
+          item.className = "photo-note";
+          item.textContent = `Only the first ${PHOTO_MAX_COUNT} will be sent.`;
+          photoList.appendChild(item);
+        }
+      });
+    }
     const setStatus = (message, state) => {
       if (!status) return;
       status.textContent = message;
@@ -62,6 +160,24 @@ document.addEventListener("DOMContentLoaded", () => {
       setStatus("Sending…", "pending");
 
       try {
+        /* The raw File entries can't survive URLSearchParams, so they are
+           replaced by base64 fields the Apps Script turns back into
+           attachments. */
+        data.delete("photos");
+        const chosen = photoInput ? photoInput.files : [];
+        let skipped = [];
+        if (chosen && chosen.length) {
+          setStatus("Preparing photos…", "pending");
+          const prepared = await preparePhotos(chosen);
+          skipped = prepared.skipped;
+          data.set("photo_count", String(prepared.photos.length));
+          prepared.photos.forEach((photo, index) => {
+            data.set(`photo_${index}_name`, photo.name);
+            data.set(`photo_${index}_type`, photo.type);
+            data.set(`photo_${index}_data`, photo.data);
+          });
+          setStatus("Sending…", "pending");
+        }
         const response = await fetch(INQUIRY_ENDPOINT, {
           method: "POST",
           /* URL-encoded keeps this a "simple" request, so the browser skips
@@ -70,7 +186,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         form.reset();
-        setStatus("Thank you, we got it. We’ll reply within one business day.", "success");
+        if (photoList) photoList.textContent = "";
+        setStatus(
+          skipped.length
+            ? "Thank you, we got it. We’ll reply within one business day. We could not read " +
+                skipped.join(", ") +
+                ", so please email that one to chloe@ringmint.com."
+            : "Thank you, we got it. We’ll reply within one business day.",
+          skipped.length ? "error" : "success"
+        );
         track("generate_lead", { method: "inquiry_form", cta_location: refParam || window.location.pathname });
       } catch (error) {
         setStatus(

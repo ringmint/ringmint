@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-07. Update the counts here whenever a batch ships.
 
-## Overall: ~28% complete
+## Overall: ~33% complete
 
 Weighted by effort, not by post count (220 posts is the long tail; the
 foundation and the first batches are what actually move leads).
@@ -10,18 +10,18 @@ foundation and the first batches are what actually move leads).
 | Phase | Weight | Done | Contribution |
 |---|---|---|---|
 | 0. Foundation — template, tools, lint, calendar, publish pipeline | 15% | 100% | 15.0% |
-| 1. Batch 1 — 9 posts written and wired | 15% | 85% (drafted, `noindex`, awaiting sign-off) | 12.8% |
+| 1. Batch 1 — 9 posts written and wired | 15% | 100% (signed off, indexed, in sitemap/feed/llms; awaiting commit+push) | 15.0% |
 | 2. Batch 2 — 6 posts | 15% | 0% | 0% |
 | 3. Remaining backlog — 203 posts | 40% | 1% | 0.4% |
 | 4. Off-page — backlinks, Trustpilot, GA4 hygiene, Apps Script redeploy | 15% | 0% | 0% |
-| **Total** | **100%** | | **~28%** |
+| **Total** | **100%** | | **~33%** |
 
-Raw post count: **11 of 220 written (5%)**, 2 of those live and indexed (0.9%).
+Raw post count: **11 of 220 written (5%)**, all 11 indexed and wired (5%). Not yet pushed.
 
 ## Calendar state
 
-- published: 2
-- drafted (noindex, blocked on bench sign-off): 9
+- published: 11
+- drafted: 0
 - backlog: 209
 
 Regenerate with:
@@ -32,11 +32,12 @@ python3 -c "import csv,collections;print(collections.Counter(r['status'] for r i
 
 ## Blocked on Chloe
 
-1. **Bench claims sign-off** — `content/BRIEF-2026-09-07.md` section 1. Blocks all 9 batch-1 posts.
-2. **Two backlinks** — teamanjewelry.com and chloealpert.com. Site has zero external links.
-3. **GA4 internal traffic filter** — Bellefonte / Park Forest Village PA.
-4. **Apps Script redeploy** — `apps-script/Code.gs` changed.
-5. **Trustpilot reviews** — six is thin.
+1. ~~Bench claims sign-off~~ — **done 2026-09-07.** Claims 1-8 confirmed. Wax post corrected twice: it is real wax, not printed resin (16 places, incl. baked-in card/OG image text); the mailed model is kept by the client and a fresh wax is cut for casting; the model usually confirms the design rather than changing it.
+2. **Commit and push**, then run the IndexNow ping printed by `publish-drafts.sh`.
+3. **Two backlinks** — teamanjewelry.com and chloealpert.com. Site has zero external links.
+4. **GA4 internal traffic filter** — Bellefonte / Park Forest Village PA.
+5. **Apps Script redeploy** — `apps-script/Code.gs` changed.
+6. **Trustpilot reviews** — six is thin.
 
 ## Recurring tasks
 
