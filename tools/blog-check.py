@@ -19,6 +19,9 @@ CATEGORIES = {
     "Jewelry News": "jewelry-news",
     "Diamonds & Gemstones": "diamonds-and-gemstones",
     "Buying Guides": "buying-guides",
+    "Custom Ring Guides": "custom-ring-guides",
+    "Pricing & Budgets": "pricing-and-budgets",
+    "Ring Styles": "ring-styles",
 }
 IMAGES = {  # suffix: (width, height)
     "hero": (1600, 900), "hero-mobile": (1080, 1350), "og": (1200, 630),
@@ -31,7 +34,7 @@ TEMPLATE_TOKENS = [
     "CATEGORY-ANCHOR", "DESCRIBE WHAT", "DESCRIBE THE", "DESCRIBE IT", "OPTIONAL CAPTION",
     "OPTIONAL ASIDE", "ANSWER THE POST", "OPENING PARAGRAPH", "SUBHEAD", "Body copy.",
     "N min read", "Month D, YYYY", "List item one", "PRIMARY KEYWORD", "SECONDARY KEYWORD",
-    "THIRD KEYWORD", "SAME OR SLIGHTLY WARMER", "MAX 110 CHARS", "SHORT FORM",
+    "THIRD KEYWORD", "SAME OR SLIGHTLY WARMER", "MAX 110 CHARS", "SHORT FORM", "RELATED LINK", "RELATED-SLUG",
 ]
 CAPS_ALLOW = {"HPHT", "GIA", "IGI", "GCAL", "AGS", "HRD", "JSON", "HTML", "TIKTOK", "FAQ",
               "DOCTYPE", "UTF", "LLM", "LLMS", "FTC", "JCK", "CVD", "AAA", "SI", "VS", "VVS",
@@ -80,8 +83,8 @@ def main():
     # --- slug -------------------------------------------------------------
     if not re.fullmatch(r'[a-z0-9]+(-[a-z0-9]+)*', slug):
         fail(f"slug '{slug}' is not lowercase-hyphenated")
-    elif re.search(r'\d{4}', slug):
-        warn(f"slug '{slug}' contains a 4-digit number; the guide says no dates in slugs")
+    elif re.search(r'\b(19|20)\d{2}\b', slug):
+        warn(f"slug '{slug}' looks like it contains a year; the guide says no dates in slugs")
     n_words = len(slug.split("-"))
     if not 3 <= n_words <= 6:
         warn(f"slug has {n_words} words; the guide says 3 to 6")

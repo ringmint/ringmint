@@ -25,7 +25,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ring Mint" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="Ring Mint | Your Custom Engagement Ring Concierge" />
+  <meta property="og:title" content="Custom Engagement Rings | Ring Mint Concierge" />
   <meta property="og:description" content="Luxury custom engagement rings designed from scratch with concierge-level support. CAD previews, global diamond sourcing, wax try-ons, and proposal-ready delivery. Plus custom jewelry of every other kind." />
   <meta property="og:url" content="https://ringmint.com/" />
   <meta property="og:image" content="https://ringmint.com/assets/ringmint-og-cover.jpg" />
@@ -38,7 +38,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@theringmint" />
-  <meta name="twitter:title" content="Ring Mint | Your Custom Engagement Ring Concierge" />
+  <meta name="twitter:title" content="Custom Engagement Rings | Ring Mint Concierge" />
   <meta name="twitter:description" content="Custom engagement rings with CAD design, diamond sourcing, wax try-ons, and direct concierge guidance from concept to final ring." />
   <meta name="twitter:image" content="https://ringmint.com/assets/ringmint-og-cover.jpg" />
 
@@ -69,6 +69,19 @@
           "caption": "Ring Mint"
         },
         "image": "https://ringmint.com/assets/ringmint-og-cover.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "PA",
+          "addressCountry": "US"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "bestRating": "5",
+          "worstRating": "1",
+          "reviewCount": "6",
+          "url": "https://www.trustpilot.com/review/ringmint.com"
+        },
         "founder": {
           "@id": "https://ringmint.com/#chloe"
         },
@@ -123,7 +136,14 @@
         "@id": "https://ringmint.com/#chloe",
         "name": "Chloe Alpert",
         "jobTitle": "Founder and Ring Concierge",
+        "url": "https://ringmint.com/about/",
         "image": "https://ringmint.com/assets/chloe-alpert-ring-mint-founder.jpg",
+        "sameAs": [
+          "https://chloealpert.com/",
+          "https://www.instagram.com/theringmint",
+          "https://www.linkedin.com/company/ringmint",
+          "https://www.pinterest.com/theringmint"
+        ],
         "worksFor": {
           "@id": "https://ringmint.com/#organization"
         },
@@ -168,7 +188,7 @@
         "@type": "WebPage",
         "@id": "https://ringmint.com/#webpage",
         "url": "https://ringmint.com/",
-        "name": "Custom Engagement Rings & Fine Jewelry | Ring Mint Concierge",
+        "name": "Custom Engagement Rings | Ring Mint Concierge",
         "description": "Ring Mint is a custom engagement ring concierge offering CAD design, natural and lab created diamonds, wax try-ons, and direct concierge support. Custom jewelry of every other kind is available at every price point.",
         "isPartOf": {
           "@id": "https://ringmint.com/#website"
@@ -459,7 +479,7 @@
           </div>
           <div class="founder-signoff">
             <p class="serif founder-name">Chloe</p>
-            <p class="founder-role">Founder &amp; ring concierge · Gem-A certified in gemology, London</p>
+            <p class="founder-role">Founder &amp; ring concierge · Gem-A certified in gemology, London · <a href="/about/" class="text-link">More about Chloe</a> · <a href="/press/" class="text-link">Press kit</a></p>
           </div>
           <div class="button-row founder-cta">
             <a href="#inquire" class="button primary" data-cta="founder">Start a conversation with Chloe →</a>
@@ -863,7 +883,7 @@
           <p class="trustbox">
             <span class="trust-stars" aria-hidden="true">★★★★★</span>
             <span>Rated <strong>5.0 out of 5</strong> from 6 reviews ·
-              <a href="https://www.trustpilot.com/review/ringmint.com" target="_blank" rel="noopener">Read them all on Trustpilot</a></span>
+              <a href="/reviews/">Read every review</a> · <a href="https://www.trustpilot.com/review/ringmint.com" target="_blank" rel="noopener">Trustpilot</a></span>
           </p>
         </div>
         <div class="section-cta reveal">
@@ -1008,6 +1028,8 @@
                display:none, which Chrome and password managers skip. A visible
                or off-screen field named "company" gets autofilled for real
                people, which silently swallowed their inquiry. -->
+          <input type="hidden" name="ref" value="" />
+          <input type="hidden" name="page" value="" />
           <div class="hp-field" aria-hidden="true">
             <input name="url_ref" tabindex="-1" autocomplete="off" />
           </div>

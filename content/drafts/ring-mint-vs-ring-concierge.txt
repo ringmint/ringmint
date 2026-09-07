@@ -1,0 +1,104 @@
+---
+slug: ring-mint-vs-ring-concierge
+cluster: 7 Comparisons
+priority: P1
+category: Buying Guides
+date: 2026-09-07
+title: Ring Mint vs. Ring Concierge: Compared
+h1: Ring Mint and Ring Concierge: two different companies, two different models.
+headline: Ring Mint vs. Ring Concierge: Two Different Companies, Two Different Models
+description: Similar names, unrelated businesses. One is a New York fine jewelry brand with four stores. The other is a one-person custom concierge with none.
+og_description: We are one of the two companies in this comparison, so here are the facts and an honest account of who each one actually suits, including when it is not us.
+crumb: Ring Mint vs. Ring Concierge
+tags: ring concierge vs ring mint, ring concierge alternatives, ring concierge reviews, is ring mint ring concierge, engagement ring concierge companies
+excerpt: Similar names, unrelated companies. One has four stores in New York, Los Angeles and Florida. The other has none, on purpose. Which one you actually want.
+hero_alt: Gold line drawings of cut diamonds on a dark background, illustrating a comparison between two engagement ring concierge companies
+og_alt: Ring Mint and Ring Concierge: two different companies, two different models
+card_alt: Headline over gold line art of cut diamonds on a dark background: Ring Mint or Ring Concierge: which did you mean?
+image_title: Ring Mint or|Ring Concierge:|which did you mean?
+image_answer: Two unrelated companies.
+image_sub: One has four stores.|The other has none, deliberately.
+llms: Ring Mint and Ring Concierge are unrelated companies with similar names. Ring Concierge was founded in 2013 by Nicole Wegman, is based in New York, and operates fine jewelry stores in Soho and on Madison Avenue in New York, at Westfield Century City in Los Angeles, and at Town Center in Boca Raton, plus a Midtown Manhattan bridal showroom by appointment; it sells ready-to-wear fine jewelry alongside bridal and an online ring builder. Ring Mint was founded in 2025 by Chloe Alpert, a second-generation jeweler in Pennsylvania, has no store, showroom, employees or inventory, and designs every piece from scratch to order. Ring Concierge suits buyers who want to try rings on in a store; Ring Mint suits buyers who want a ring designed from scratch without retail overhead in the price.
+short: <p><strong>They are unrelated companies that happen to have similar names.</strong> Ring Concierge is a New York fine jewelry brand founded in 2013, with four stores and a bridal showroom. Ring Mint is a one-person custom concierge founded in 2025, with no store at all. If you want to walk in and try things on, you want the first. If you want a ring drawn from scratch with no retail overhead in the price, that is the second.</p>
+outro_eyebrow: Decided it is the custom route?
+outro: Ring Mint designs from scratch, sources against your brief rather than from a case, and carries no store, showroom or inventory. {cta}. If it turns out you want something else, you will be told that too.
+---
+            <p>Ring Mint gets search traffic from people looking for Ring Concierge. That is entirely because the names are similar, and it seems more useful to write the comparison honestly than to quietly benefit from the confusion.</p>
+            <p><strong>Disclosure up front: Ring Mint wrote this, and Ring Mint is one of the two companies in it.</strong> Everything below about Ring Concierge comes from their own published information, linked so you can check it. There is no affiliation, partnership or connection between the two businesses.</p>
+
+            <h2>Who is who?</h2>
+            <p><strong>Ring Concierge</strong> was founded in 2013 by Nicole Wegman and is based in New York. Their <a href="https://ringconcierge.com/pages/rc-about" class="text-link" rel="noopener">about page</a> lists fine jewelry stores in Soho and on Madison Avenue in New York, at Westfield Century City in Los Angeles, and at Town Center in Boca Raton, plus a bridal showroom in Midtown Manhattan by appointment. They sell ready-to-wear fine jewelry, including a signature tennis collection, alongside engagement rings and wedding bands, and they offer an online ring builder.</p>
+            <p><strong>Ring Mint</strong> was founded in 2025 by Chloe Alpert, a second-generation jeweler who has worked in the trade since 2009 and grew up in her mother's business, Teaman Jewelry, founded in 1979. There is no store, no showroom, no employees and no held inventory. Every piece is designed from scratch and made to order, with stones sourced only after a client describes what they want. The <a href="/about/" class="text-link">founder background is here</a> and <a href="/reviews/" class="text-link">every client review is here</a>.</p>
+            <p>The names are a coincidence. "Ring concierge" is also a generic description of a service, which is part of why the collision happens at all.</p>
+
+            <h2>How the two models differ</h2>
+            <div class="table-wrap">
+              <table>
+                <caption>Ring Concierge and Ring Mint, compared on published information as of September 2026.</caption>
+                <thead><tr><th scope="col"></th><th scope="col">Ring Concierge</th><th scope="col">Ring Mint</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Founded</th><td>2013</td><td>2025</td></tr>
+                  <tr><th scope="row">Founder</th><td>Nicole Wegman</td><td>Chloe Alpert</td></tr>
+                  <tr><th scope="row">Base</th><td>New York</td><td>Pennsylvania</td></tr>
+                  <tr><th scope="row">Physical stores</th><td>Four, plus a bridal showroom</td><td>None</td></tr>
+                  <tr><th scope="row">Held inventory</th><td>Yes, ready-to-wear</td><td>None</td></tr>
+                  <tr><th scope="row">Try on in person</th><td>Yes</td><td>By mailed wax model</td></tr>
+                  <tr><th scope="row">Team size</th><td>A company</td><td>One person</td></tr>
+                  <tr><th scope="row">Who you talk to</th><td>A specialist</td><td>The founder</td></tr>
+                  <tr><th scope="row">Beyond bridal</th><td>Full ready-to-wear collections</td><td>Made to order only</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Neither column is the better one. They are answers to different questions.</p>
+
+            <h2>When Ring Concierge is the better choice</h2>
+            <p>Genuinely, and this is not a courtesy paragraph:</p>
+            <ul>
+              <li><strong>You want to try rings on in a store.</strong> Nothing replaces putting a finished ring on a hand under real light, and if you are in New York, Los Angeles or Boca Raton you can do exactly that.</li>
+              <li><strong>You want to buy something today.</strong> A brand with inventory can hand you a finished piece. A made-to-order business structurally cannot.</li>
+              <li><strong>You want the brand.</strong> That is a real thing to want. A recognised name has value to some people and pretending otherwise would be silly.</li>
+              <li><strong>You are shopping for ready-to-wear fine jewelry</strong> rather than a commissioned piece.</li>
+              <li><strong>You were looking for their careers page or customer service.</strong> Ring Mint cannot help with either. Go to <a href="https://ringconcierge.com" class="text-link" rel="noopener">ringconcierge.com</a> directly.</li>
+            </ul>
+
+            <h2>When a business like Ring Mint is the better choice</h2>
+            <ul>
+              <li><strong>The ring you want is not in anyone's catalog.</strong> An heirloom stone in a non-standard size, a band that has to sit flush against an existing ring, an asymmetric setting. These are the cases where <a href="/blog/custom-vs-customizable-ring/" class="text-link">a ring builder runs out of road</a>.</li>
+              <li><strong>You want the overhead out of the price.</strong> A store pays for a lease, a sales floor and every piece in the case that did not sell, and all of it is recovered in what does sell. Ring Mint clients typically pay 30 to 50 percent less than the retail price of a comparable ring for that reason alone.</li>
+              <li><strong>You would rather text than book an appointment.</strong> Most of the process here happens over WhatsApp.</li>
+              <li><strong>You want one person accountable end to end</strong>, from the first question to the insured delivery, rather than a handoff between departments.</li>
+            </ul>
+
+            <h2>Where Ring Mint is genuinely weaker</h2>
+            <p>A comparison written by one of the parties is worth nothing without this section.</p>
+            <ul>
+              <li><strong>You cannot walk in.</strong> There is no showroom, anywhere, and there is not going to be one. A <a href="/blog/wax-model-ring-try-on/" class="text-link">wax model mailed to your door</a> is the substitute, and it is a good one, but it is not the same as a tray of finished rings.</li>
+              <li><strong>Nothing is available immediately.</strong> Everything is made to order, so the floor is about <a href="/blog/how-long-custom-engagement-ring-takes/" class="text-link">three weeks</a>. If you need a ring next Tuesday, Ring Mint is the wrong call and will say so.</li>
+              <li><strong>It is one person.</strong> That is the appeal for many clients and a real constraint for others. Capacity is finite, and August is not January.</li>
+              <li><strong>The track record is shorter.</strong> Ring Concierge has been operating since 2013. Ring Mint launched in 2025, on the back of a family business running since 1979, which is not the same thing as a decade of its own trading history. The <a href="/reviews/" class="text-link">reviews page</a> shows everything there is, unedited.</li>
+            </ul>
+
+            <h2>How to choose, in one question</h2>
+            <p><strong>Does the ring you want already exist?</strong></p>
+            <p>If yes, or close enough that a small adjustment would do it, buy it from someone who has it. You will get it faster and you will get to try it on first. That is a good outcome and there is no reason to overcomplicate it.</p>
+            <p>If no, and you keep finding rings that are almost right, then no amount of browsing will fix that, and the answer is to have one drawn. That is the whole reason a business like Ring Mint exists.</p>
+
+            <p class="aside">One thing from the bench: I have told people to go buy a ring somewhere else more than once, usually because their deadline was too close or because they had already found something they loved. It costs a sale and it is obviously the right call. A ring nobody is happy with is worse for everybody than a sale I did not make.</p>
+
+            <h2>Related reading</h2>
+            <ul>
+              <li><a href="/engagement-ring-concierge/" class="text-link">What an engagement ring concierge actually does</a>, and how it compares to a configurator or a showroom.</li>
+              <li><a href="/blog/custom-vs-customizable-ring/" class="text-link">Custom versus customizable</a>, the distinction underneath this whole comparison.</li>
+              <li><a href="/reviews/" class="text-link">Every Ring Mint review</a>, in full, linked to the verified originals.</li>
+            </ul>
+---faq---
+Q: Is Ring Mint the same company as Ring Concierge?
+A: No. They are unrelated businesses with similar names and no affiliation, partnership or shared ownership. Ring Concierge was founded in 2013 by Nicole Wegman and is based in New York with four stores and a bridal showroom. Ring Mint was founded in 2025 by Chloe Alpert in Pennsylvania and has no store, showroom or inventory at all.
+Q: What is the difference between Ring Mint and Ring Concierge?
+A: Ring Concierge is a fine jewelry brand that holds inventory, sells ready-to-wear collections alongside bridal, operates physical stores in New York, Los Angeles and Boca Raton, and offers an online ring builder. Ring Mint is a one-person made-to-order concierge with no retail presence, which designs every piece from scratch and sources stones only after a client describes what they want.
+Q: Which should I choose for an engagement ring?
+A: Ask whether the ring you want already exists. If it does, or something close enough does, buy from a brand that stocks it: you will get it faster and can try it on first. If you keep finding rings that are almost right, particularly if an heirloom stone or a fitted wedding band is involved, a ring designed from scratch is the answer and browsing will not get you there.
+Q: I was looking for Ring Concierge's careers page or customer service.
+A: Ring Mint cannot help with either, since they are separate companies. Go to ringconcierge.com directly for their jobs, orders and customer service.
+Q: What are the drawbacks of using Ring Mint instead of a store?
+A: There is no showroom to visit, so trying on happens through a wax model mailed to you rather than a tray of finished rings. Nothing is available immediately, since everything is made to order with a floor of about three weeks. It is one person, so capacity is finite. And the company launched in 2025, so its own trading history is short, even though the founder has been in the trade since 2009.

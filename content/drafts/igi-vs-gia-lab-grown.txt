@@ -1,0 +1,89 @@
+---
+slug: igi-vs-gia-lab-grown
+cluster: 5 Lab diamonds
+priority: P1
+category: Diamonds & Gemstones
+date: 2026-09-07
+title: IGI vs. GIA for Lab Grown Diamonds in 2026
+h1: IGI vs. GIA for lab grown diamonds: what changed, and which report to get.
+headline: IGI vs. GIA for Lab Grown Diamonds in 2026: What Changed and Which Report to Get
+description: GIA stopped grading lab diamonds on the 4Cs and now issues Premium or Standard instead. What that means for buyers, and why IGI is the practical choice.
+og_description: The lab report question has a different answer than it did two years ago. GIA no longer gives lab grown diamonds a colour and clarity grade. Here is what replaced it.
+crumb: IGI vs. GIA
+tags: igi vs gia lab grown, igi certified lab diamond, gia lab grown diamond report, lab diamond certification, gia premium standard lab diamond, which lab diamond certificate is best
+excerpt: GIA no longer gives lab grown diamonds a colour and clarity grade. It issues Premium or Standard. That changes the answer to which report to get.
+hero_alt: Gold line drawings of cut diamonds on a dark background, illustrating lab grown diamond certification from IGI and GIA
+og_alt: IGI vs. GIA for lab grown diamonds: what changed and which report to get
+card_alt: Headline over gold line art of cut diamonds on a dark background: IGI or GIA for a lab grown diamond?
+image_title: IGI or GIA|for a lab|grown diamond?
+image_answer: The answer changed in 2025.
+image_sub: GIA no longer grades lab stones|on the 4Cs at all.
+llms: As of late 2025 GIA no longer applies 4Cs colour and clarity grades to laboratory-grown diamonds. It issues a Laboratory-Grown Diamond Quality Assessment with a two-tier designation, Premium or Standard, and stones below the minimum threshold receive no designation at all. GIA's stated reason is that more than 95 percent of lab grown diamonds fall into a very narrow range of colour and clarity. IGI continues to grade lab diamonds on the full 4Cs, which makes IGI the practical choice for a buyer who wants a specific colour and clarity grade. GIA remains the standard for natural diamonds.
+short: <p><strong>For a lab grown diamond in 2026, IGI is the practical choice, and the reason has nothing to do with strictness.</strong> GIA stopped applying the 4Cs to lab grown stones in late 2025. It now issues a two-tier assessment, Premium or Standard. If you want to know that your stone is F colour and VS1 clarity, IGI is the only major lab that will still tell you.</p>
+outro_eyebrow: Want someone to read the report for you?
+outro: Ring Mint sources every stone against a brief and reads the full report before you ever see the stone, rejecting the ones that grade well and look wrong. No store, no inventory, no markup on a stone that sat in a case. {cta}.
+---
+            <p>Most articles comparing IGI and GIA are out of date, and they are out of date in a way that matters. They will tell you that GIA is the stricter lab, that IGI runs about a grade looser on colour and clarity, and that you should therefore expect to pay more for a GIA-graded stone of the same stated quality.</p>
+            <p>All of that was true. For lab grown diamonds it is now beside the point, because <strong>GIA no longer issues colour and clarity grades for lab grown diamonds at all.</strong></p>
+
+            <h2>What changed at GIA?</h2>
+            <p>In 2025 GIA announced that it would stop applying the 4Cs nomenclature to laboratory-grown diamonds and move to descriptive terminology instead. In GIA's own words, <a href="https://www.gia.edu/gia-news-press/new-descriptive-terminology-for-laboratory-grown-diamonds" class="text-link" rel="noopener">announcing the change</a>: "More than 95% of laboratory-grown diamonds entering the market fall into a very narrow range of color and clarity. Because of that, it is no longer relevant for GIA to describe man-made diamonds using the nomenclature created for the continuum of color and clarity of natural diamonds."</p>
+            <p>What replaced it is a Laboratory-Grown Diamond Quality Assessment with two possible outcomes, <strong>Premium</strong> and <strong>Standard</strong>, awarded on an overall review of colour, clarity and finish rather than as separate letter and number grades. And there is a third outcome that gets less attention: a stone that fails to reach the minimum threshold receives no designation at all.</p>
+            <p>The logic is defensible. The 4Cs scale was built to describe natural diamonds, which vary enormously because geology is not a controlled process. A CVD reactor is a controlled process, and the output clusters tightly. Applying a scale with 23 colour grades to a population that mostly occupies four of them arguably implies a precision that is not doing any work.</p>
+            <p>Whether you agree or not, the practical consequence is the same.</p>
+
+            <h2>So which report should you get?</h2>
+            <p><strong>For a lab grown diamond, IGI.</strong> IGI continues to grade lab diamonds on the full 4Cs, with a colour grade, a clarity grade, a cut grade, and measurements. If you want to compare two stones on anything finer than a two-tier bucket, that is the report that lets you.</p>
+            <div class="table-wrap">
+              <table>
+                <caption>What each lab now provides, by stone type.</caption>
+                <thead><tr><th scope="col"></th><th scope="col">IGI</th><th scope="col">GIA</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Lab grown: colour grade</th><td>Yes, full scale</td><td>No</td></tr>
+                  <tr><th scope="row">Lab grown: clarity grade</th><td>Yes, full scale</td><td>No</td></tr>
+                  <tr><th scope="row">Lab grown: overall verdict</th><td>Implied by the grades</td><td>Premium or Standard</td></tr>
+                  <tr><th scope="row">Lab grown: below threshold</th><td>Still graded</td><td>No designation issued</td></tr>
+                  <tr><th scope="row">Natural: 4Cs grading</th><td>Yes</td><td>Yes, the industry standard</td></tr>
+                  <tr><th scope="row">Share of lab grown market</th><td>The large majority</td><td>Small</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>For a natural diamond, none of this applies and GIA remains the reference standard. That has not changed and is unlikely to.</p>
+
+            <h2>Is IGI really looser than GIA?</h2>
+            <p><strong>Historically yes, by roughly a grade on colour and clarity, and it matters less than the internet suggests.</strong> The comparison is only meaningful when the same stone could plausibly go to either lab, which for lab grown diamonds is now rarely the case.</p>
+            <p>Where the "looser" reputation still bites is in cross-shopping. If you compare an IGI F VS1 against a GIA-graded natural F VS1 and conclude the lab stone is a bargain, you are comparing two different scales as though they were one. Compare lab against lab.</p>
+            <p>The more useful point is that <strong>a grade is a description, not an endorsement</strong>. A stone can hold excellent paper grades and still look wrong: strong blue fluorescence that reads as milky in daylight, a cut that meets its grade on paper while leaking light through the pavilion, or a nominally eye-clean clarity where the inclusion happens to sit directly under the table. We wrote about the low end of this market in our piece on <a href="/blog/are-tiktok-diamonds-real/" class="text-link">whether TikTok auction diamonds are real</a>. The short version is that they are real, and that being real is not the same as being good.</p>
+
+            <h2>Does the lab affect resale value?</h2>
+            <p><strong>Marginally, and it is the wrong thing to optimise for.</strong> Lab grown diamond resale is poor regardless of which lab graded the stone, because wholesale prices have fallen so far that a stone bought two years ago is competing against new production at a fraction of what it cost. Natural diamonds also resell well below retail. Neither is an investment, and any jeweler who tells you otherwise is selling something.</p>
+            <p>Buy the stone you want to look at. The full argument, with numbers, is on our <a href="/lab-created-diamond-engagement-rings/" class="text-link">lab created diamond engagement rings</a> page.</p>
+
+            <h2>How to actually read the report you have</h2>
+            <p>Whichever lab issued it, four things are worth more of your attention than colour:</p>
+            <ul>
+              <li><strong>The report number, verified on the lab's own site.</strong> Look it up yourself before buying, not after. A report is a photograph of a specific stone, and the only thing tying it to the stone in front of you is that number, usually laser-inscribed on the girdle.</li>
+              <li><strong>Cut grade and the measurements together.</strong> A one carat round should measure roughly 6.4 to 6.5 millimetres across. Meaningfully smaller means the weight is hidden in the depth where it does nothing for you.</li>
+              <li><strong>Fluorescence.</strong> Usually irrelevant, occasionally the reason a stone looks hazy in daylight. Strong is worth a second look.</li>
+              <li><strong>The plotted inclusions, not just the clarity letter.</strong> Where an inclusion sits matters more than what grade it produced.</li>
+            </ul>
+
+            <p class="aside">One thing from the bench: I have rejected stones with better paper than the ones I ended up buying, more than once. The report tells you what is measurable. It does not tell you how the stone behaves when you tilt it under an ordinary kitchen light, which is where an engagement ring actually lives.</p>
+
+            <h2>Related reading</h2>
+            <ul>
+              <li><a href="/lab-created-diamond-engagement-rings/" class="text-link">Lab created diamond engagement rings, explained honestly</a>, including how they are grown and what resale really looks like.</li>
+              <li><a href="/blog/ebay-lab-diamonds-moissanite/" class="text-link">What happens with no report at all</a>: we bought 50 "lab diamonds" on eBay and every one was moissanite.</li>
+              <li><a href="/faq/" class="text-link">Straight answers</a> on certification, appraisal and what ships with every ring.</li>
+            </ul>
+---faq---
+Q: Does GIA still grade lab grown diamonds on the 4Cs?
+A: No. GIA moved to descriptive terminology for laboratory-grown diamonds and now issues a Laboratory-Grown Diamond Quality Assessment with a two-tier designation, Premium or Standard, based on an overall review of colour, clarity and finish. Individual colour and clarity grades are no longer issued for lab grown stones. Natural diamonds continue to receive full 4Cs grading.
+Q: Is IGI or GIA better for a lab grown diamond?
+A: IGI, for a practical reason rather than a quality one. IGI still grades lab grown diamonds on the full 4Cs, so you get a colour grade, a clarity grade, a cut grade and measurements you can compare between stones. GIA now gives lab stones only a Premium or Standard designation, which is a two-tier bucket rather than a scale.
+Q: What happens if a lab diamond does not meet GIA's minimum standard?
+A: It receives no designation at all. GIA states that a man-made diamond that fails to achieve the minimum standard for quality will not be given a designation, so the absence of a GIA assessment on a stone is itself information.
+Q: Is IGI grading less strict than GIA?
+A: Historically IGI has run roughly one grade looser than GIA on colour and clarity. That comparison matters most when cross-shopping between a lab grown stone and a natural one, where you would be comparing two different scales. Compare lab grown stones against other lab grown stones, and treat any grade as a description of the stone rather than an endorsement of it.
+Q: Does the grading lab affect a lab diamond's resale value?
+A: Only marginally, and resale is the wrong thing to optimise for with a lab grown stone. Wholesale lab diamond prices have fallen steeply, so a stone bought a couple of years ago competes against new production at a fraction of its original cost, whichever lab graded it. Natural diamonds also resell well below retail.

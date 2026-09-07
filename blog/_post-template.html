@@ -44,8 +44,8 @@
   <meta property="og:image:alt" content="DESCRIBE THE OG IMAGE IN ONE SENTENCE." />
   <meta property="article:published_time" content="YYYY-MM-DD" />
   <meta property="article:modified_time" content="YYYY-MM-DD" />
-  <meta property="article:author" content="https://ringmint.com/press/" />
-  <meta property="article:section" content="CATEGORY NAME (Jewelry News | Diamonds &amp; Gemstones)" />
+  <meta property="article:author" content="https://ringmint.com/about/" />
+  <meta property="article:section" content="CATEGORY NAME (Jewelry News | Diamonds &amp; Gemstones | Buying Guides | Custom Ring Guides | Pricing &amp; Budgets | Ring Styles)" />
   <meta property="article:tag" content="PRIMARY KEYWORD" />
   <meta property="article:tag" content="SECONDARY KEYWORD" />
   <meta property="article:tag" content="THIRD KEYWORD" />
@@ -107,7 +107,7 @@
         "@id": "https://ringmint.com/#chloe",
         "name": "Chloe Alpert",
         "jobTitle": "Founder and Ring Concierge",
-        "url": "https://ringmint.com/press/",
+        "url": "https://ringmint.com/about/",
         "image": "https://ringmint.com/assets/chloe-alpert-ring-mint-founder.jpg",
         "sameAs": [
           "https://www.instagram.com/theringmint",
@@ -147,7 +147,7 @@
   <!-- OPTIONAL: if the post has a genuine Q&A section, add a second JSON-LD
        script with FAQPage markup. See BLOG_PUBLISHING_GUIDE.md §Structured data. -->
 </head>
-<body class="article-page">
+<body class="article-page has-sticky-cta">
   <header class="site-header">
     <nav class="nav container" aria-label="Primary">
       <a href="/" class="brand-logo" aria-label="Ring Mint home"><img src="/assets/logo1.svg" alt="Ring Mint" width="217" height="48" /></a>
@@ -159,7 +159,7 @@
         <a href="/blog/">Journal</a>
         <a href="/faq/">FAQ</a>
       </div>
-      <a href="/#inquire" class="nav-email" data-cta="nav">Email Us</a>
+      <a href="/contact/" class="nav-email" data-cta="nav">Start a ring</a>
     </nav>
   </header>
 
@@ -179,7 +179,7 @@
             <p class="eyebrow"><a href="/blog/#CATEGORY-ANCHOR">CATEGORY NAME</a></p>
             <h1>POST TITLE AS THE READER SEES IT (H1: exactly one on the page)</h1>
             <p class="post-meta">
-              By <a href="/press/" class="text-link" rel="author">Chloe Alpert</a>
+              By <a href="/about/" class="text-link" rel="author">Chloe Alpert</a>
               · <time datetime="YYYY-MM-DD">Month D, YYYY</time>
               · <span>N min read</span>
             </p>
@@ -231,15 +231,41 @@
 
             <p class="aside">OPTIONAL ASIDE: a caveat, a trade detail, an honest limitation. Delete if unused.</p>
 
+            <!-- Related reading: 3 hand-picked links, one of them a pillar or hub. Counts toward the 2+ internal links. -->
+            <h2>Related reading</h2>
+            <ul>
+              <li><a href="/custom-engagement-rings/" class="text-link">RELATED LINK 1: a pillar or hub page</a></li>
+              <li><a href="/blog/RELATED-SLUG/" class="text-link">RELATED LINK 2: an older post</a></li>
+              <li><a href="/faq/" class="text-link">RELATED LINK 3</a></li>
+            </ul>
+
             <div class="takeaway">
               <span class="eyebrow">Thinking about a custom piece?</span>
-              <p>Ring Mint designs every piece from scratch, sources stones only after you describe what you want, and charges below jewelry store prices because there is no store. <a href="/#inquire" class="text-link" data-cta="article-outro">Email Chloe</a>. Real questions welcome, no pressure.</p>
+              <p>Ring Mint designs every piece from scratch, sources stones only after you describe what you want, and charges below jewelry store prices because there is no store. <a href="/contact/?ref=POST-SLUG" class="text-link" data-cta="article-outro">Email Chloe</a>. Real questions welcome, no pressure.</p>
             </div>
+            <form class="capture" data-capture="POST-SLUG">
+              <span class="eyebrow">New guides by email</span>
+              <p>Investigations, price trackers and buying guides from the bench, no more than twice a month. Unsubscribe with one reply.</p>
+              <div class="capture-row">
+                <input type="email" name="email" placeholder="Your email" aria-label="Your email" autocomplete="email" required />
+                <button type="submit">Send me new guides</button>
+              </div>
+              <input type="hidden" name="type" value="newsletter" />
+              <input type="hidden" name="ref" value="POST-SLUG" />
+              <div class="hp-field" aria-hidden="true"><input name="url_ref" tabindex="-1" autocomplete="off" /></div>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
+
           </div>
         </div>
       </section>
     </article>
   </main>
+
+  <div class="sticky-cta" aria-label="Start a ring">
+    <a href="/contact/?ref=POST-SLUG" class="button primary" data-cta="sticky-mobile">Start a ring</a>
+    <a href="https://wa.me/18148760095" class="button secondary" data-cta="sticky-mobile" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -252,7 +278,9 @@
           <a href="/returns-and-warranty/">Returns &amp; warranty</a>
           <a href="/press/">Press</a>
           <a href="/blog/">Journal</a>
-          <a href="/#inquire" data-cta="footer">Email</a>
+          <a href="/about/">About Chloe</a>
+          <a href="/reviews/">Reviews</a>
+          <a href="/contact/" data-cta="footer">Contact</a>
         </nav>
       </div>
       <div class="footer-legal">

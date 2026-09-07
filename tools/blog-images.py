@@ -28,7 +28,7 @@ House style (do not drift): charcoal #171717 ground with a warm glow, gold
 italic answer line, Georgia small caps eyebrow, a hairline frame inset 40px.
 Requires Pillow (pip3 install --user Pillow). Uses macOS system Didot and Georgia.
 """
-import argparse, math, pathlib, sys
+import argparse, hashlib, math, pathlib, random, sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -140,15 +140,37 @@ def title_lines(c, lines, fy0, size, gap):
 
 
 # --- compositions -------------------------------------------------------
+def _rng(slug):
+    """Deterministic per-slug randomness. The same slug always produces the same
+    artwork, so re-running the generator never silently changes a published image,
+    but two different posts never come out byte-identical either."""
+    return random.Random(hashlib.sha256(slug.encode()).hexdigest())
+
+
 def hero(slug):
+    """House-style line art, arranged differently for every slug.
+
+    The composition is fixed in kind (one focal stone, two or three secondary
+    stones, two large faint shapes bleeding off the edges, scattered sparkles)
+    and varied in placement, scale and which stone shape leads. Without this
+    every post on the index carried an identical image."""
+    r = _rng(slug)
     c = Canvas(1600, 900)
-    c.round_top(0.32, 0.44, 190)
-    c.diamond(0.62, 0.38, 230)
-    c.diamond(0.78, 0.42, 150, 190)
-    c.diamond(0.52, 0.47, 100, 150)
-    c.diamond(0.96, 0.30, 340, 45)
-    c.round_top(0.08, 0.92, 220, 45)
-    c.sparkles([(.24, .22, 14), (.44, .62, 10), (.70, .18, 16), (.86, .62, 11), (.57, .24, 9), (.12, .55, 12), (.92, .80, 9)])
+    focal_round = r.random() < 0.5
+    fx, fy = r.uniform(0.28, 0.42), r.uniform(0.40, 0.50)
+    fsize = r.uniform(175, 215)
+    # focal stone, left of centre
+    (c.round_top if focal_round else c.diamond)(fx, fy, fsize)
+    # secondary cluster, right of centre
+    c.diamond(r.uniform(0.58, 0.66), r.uniform(0.34, 0.42), r.uniform(210, 250))
+    c.diamond(r.uniform(0.74, 0.82), r.uniform(0.38, 0.48), r.uniform(135, 165), 190)
+    if r.random() < 0.7:
+        c.diamond(r.uniform(0.48, 0.55), r.uniform(0.44, 0.52), r.uniform(90, 115), 150)
+    # oversized faint shapes bleeding off opposite corners
+    c.diamond(r.uniform(0.92, 1.00), r.uniform(0.24, 0.34), r.uniform(310, 360), 45)
+    (c.round_top if r.random() < 0.5 else c.diamond)(r.uniform(0.04, 0.12), r.uniform(0.86, 0.96), r.uniform(200, 240), 45)
+    pts = [(r.uniform(0.08, 0.95), r.uniform(0.14, 0.88), r.randint(9, 18)) for _ in range(r.randint(6, 8))]
+    c.sparkles(pts)
     c.frame()
     c.save(OUT / f"{slug}-hero.jpg", 1600, 900, 78)
     return c.img.resize((1600, 900), Image.LANCZOS)
@@ -190,8 +212,20 @@ def og(slug, title, hero_img):
     print("wrote", f"assets/blog/{slug}-og.jpg")
 
 
-def card(slug, hero_img):
-    hero_img.crop((160, 75, 1440, 875)).resize((800, 500), Image.LANCZOS).save(OUT / f"{slug}-card.jpg", quality=78, optimize=True, progressive=True)
+def card(slug, title, hero_img):
+    """The /blog/ listing card. The headline is burned in so the index is
+    scannable and so two posts are never visually interchangeable."""
+    img = hero_img.crop((160, 75, 1440, 875)).resize((800, 500), Image.LANCZOS)
+    d = ImageDraw.Draw(img, "RGBA")
+    d.rectangle([0, 0, 800, 500], fill=(23, 23, 23, 165))
+    lines = title[:3]
+    size = 40 if len(lines) <= 2 else 34
+    gap = 0.17 if len(lines) <= 2 else 0.145
+    fy0 = 0.47 - (len(lines) - 1) * gap / 2
+    for i, line in enumerate(lines):
+        d.text((400, 500 * (fy0 + i * gap)), line, font=ImageFont.truetype(DIDOT, size, index=0), fill=CREAM, anchor="mm")
+    d.line([(345, 500 * 0.83), (455, 500 * 0.83)], fill=GOLD, width=2)
+    img.save(OUT / f"{slug}-card.jpg", quality=78, optimize=True, progressive=True)
     print("wrote", f"assets/blog/{slug}-card.jpg")
 
 
@@ -276,7 +310,7 @@ def main():
         h = hero(a.slug)
         hero_mobile(a.slug)
         og(a.slug, title, h)
-        card(a.slug, h)
+        card(a.slug, title, h)
     if not a.answer:
         sys.exit("--answer is required for the story and pin images")
     if a.mode in ("generate", "story"):

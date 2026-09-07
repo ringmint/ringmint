@@ -10,7 +10,27 @@ The blog lives at `/blog/`. There is **one template**: hero image + text
 |---|---|---|---|
 | Jewelry News | `#jewelry-news` | `Jewelry News` | Trade news and what it means for a buyer |
 | Diamonds & Gemstones | `#diamonds-and-gemstones` | `Diamonds & Gemstones` | Grading, sourcing, lab vs natural, colored stones |
-| Buying Guides | `#buying-guides` | `Buying Guides` | Cost, timelines, what to ask, how to compare options |
+| Buying Guides | `#buying-guides` | `Buying Guides` | Comparisons, where to buy, proposal logistics, heirloom resets |
+| Custom Ring Guides | `#custom-ring-guides` | `Custom Ring Guides` | How a ring gets designed and made: CAD, wax, timelines, revisions, red flags |
+| Pricing & Budgets | `#pricing-and-budgets` | `Pricing & Budgets` | What rings and stones cost at retail (dated, sourced) and what $X buys |
+| Ring Styles | `#ring-styles` | `Ring Styles` | Toi et moi, east-west, bezel, hidden halo, every shape and setting |
+
+**Reference pages** (gemstones, diamond shapes, 4Cs, sizing, metals, glossary, case studies) do **not** live under `/blog/`.
+They sit under their hub (`/gemstones/<stone>-engagement-rings/`, `/diamond-shapes/<shape>-diamonds/`, `/rings/<slug>/`) and use
+`Article` (not `BlogPosting`) with no category. They still follow every writing rule below.
+
+**The editorial calendar** is `content/calendar.csv`: one row per planned URL with cluster, priority, keyword and status
+(`backlog | briefed | drafted | published`). Update the row when a page moves, and run `python3 tools/calendar-report.py`
+(or `... P1`, `... refresh`, `... check`) to see what is next, what is overdue for a refresh, and what is on disk but unmarked.
+
+**Pricing rule (Chloe's decision, Sep 2026).** Never publish a Ring Mint price, quote, invoice or wholesale stone cost. Price
+content quotes *dated public retail prices* (Blue Nile, James Allen, Brilliant Earth listings; Golan, Rapaport, The Knot data)
+as the benchmark, then states that Ring Mint clients typically pay 30 to 50% less than those figures because there is no store,
+no inventory, no staff and no concierge fee. Budget posts describe rings in retail-equivalent terms ("what lists for $8,000 to
+$10,000 online").
+
+**Bench rule.** Every post ships with at least one first-hand detail from Chloe (a stone she priced this week, a client story,
+a photo from the bench). Draft without it, but leave the post `noindex` and log the question in the weekly brief until it lands.
 
 Three tools do the mechanical work. Learn these three commands and the rest of this guide is context:
 
@@ -33,6 +53,7 @@ Three tools do the mechanical work. Learn these three commands and the rest of t
 
 ## 2. Slug and files
 
+- [ ] **Attribution and conversion elements are in the template already**: the outro CTA and the sticky mobile bar point to `/contact/?ref=YOUR-SLUG` (replace `POST-SLUG` in both), and the email capture form carries the slug in `data-capture` and its hidden `ref`. Leave them in; they are how a lead gets traced back to the post.
 - [ ] Slug: lowercase, hyphens, 3-6 words, contains the primary keyword, **no dates, no stop words** (`/blog/lab-diamond-resale-value/`, not `/blog/2026/09/what-you-should-know-about-the-resale-value-of-lab-diamonds/`). Slugs are permanent. Never change one after publishing.
 - [ ] `cp blog/_post-template.html blog/YOUR-SLUG/index.html`
 - [ ] **Every post ships six images**, all in `/assets/blog/`, all in the same house style (see below). None are optional.
@@ -85,7 +106,7 @@ Replace **every ALL-CAPS token**. Then verify (`tools/blog-check.py` checks all 
 
 ### Body
 - [ ] Exactly **one `<h1>`**, matching (or close to) the title tag.
-- [ ] Byline present and linked to `/press/` (`rel="author"`), date in a `<time datetime="...">` element equal to `article:published_time`, read time filled in (about 230 words a minute).
+- [ ] Byline present and linked to `/about/` (`rel="author"`), date in a `<time datetime="...">` element equal to `article:published_time`, read time filled in (about 230 words a minute).
 - [ ] Hero image: keep the `<picture>` element from the template. The `<source>` points at `-hero-mobile.jpg` (1080×1350) for `(max-width: 620px)`, the `<img>` at `-hero.jpg` (1600×900) with real `width`/`height` attributes and `fetchpriority="high"`. **Descriptive alt text** (describe the image honestly; include the keyword only if it truly belongs). The two `<link rel="preload" as="image">` tags in the head carry matching `media` attributes so a phone only downloads the mobile file; update both hrefs.
 - [ ] Category eyebrow links to the right anchor on `/blog/`.
 

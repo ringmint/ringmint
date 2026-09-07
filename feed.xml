@@ -12,7 +12,7 @@
     <copyright>Ring Mint</copyright>
     <managingEditor>chloe@ringmint.com (Chloe Alpert)</managingEditor>
     <webMaster>chloe@ringmint.com (Chloe Alpert)</webMaster>
-    <lastBuildDate>Wed, 02 Sep 2026 20:42:45 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 18:42:18 +0000</lastBuildDate>
     <ttl>1440</ttl>
     <image>
       <url>https://ringmint.com/assets/fav.png</url>
@@ -24,7 +24,7 @@
       <link>https://ringmint.com/blog/ebay-lab-diamonds-moissanite/</link>
       <guid isPermaLink="true">https://ringmint.com/blog/ebay-lab-diamonds-moissanite/</guid>
       <pubDate>Wed, 02 Sep 2026 12:00:00 +0000</pubDate>
-      <atom:updated>2026-09-02T12:00:00Z</atom:updated>
+      <atom:updated>2026-09-07T12:00:00Z</atom:updated>
       <dc:creator>Chloe Alpert</dc:creator>
       <category>Diamonds &amp; Gemstones</category>
       <category>ebay lab diamonds</category>
@@ -124,8 +124,20 @@
 
             <div class="takeaway">
               <span class="eyebrow">Want a stone that is what it says it is?</span>
-              <p>Every diamond Ring Mint sources comes with an IGI or GIA report you can verify yourself, plus an independent appraisal, at below jewelry store prices because there is no store. <a href="https://ringmint.com/#inquire" class="text-link">Email Chloe</a>, including if you just want to know whether the eBay stone in your drawer is real. It probably is not, but I would rather tell you than have you find out at a pawn counter.</p>
+              <p>Every diamond Ring Mint sources comes with an IGI or GIA report you can verify yourself, plus an independent appraisal, at below jewelry store prices because there is no store. <a href="https://ringmint.com/contact/?ref=ebay-lab-diamonds-moissanite" class="text-link" data-cta="article-outro">Email Chloe</a>, including if you just want to know whether the eBay stone in your drawer is real. It probably is not, but I would rather tell you than have you find out at a pawn counter.</p>
             </div>
+            <form class="capture" data-capture="ebay-lab-diamonds-moissanite">
+              <span class="eyebrow">New guides by email</span>
+              <p>Investigations, price trackers and buying guides from the bench, no more than twice a month. Unsubscribe with one reply.</p>
+              <div class="capture-row">
+                <input type="email" name="email" placeholder="Your email" aria-label="Your email" autocomplete="email" required />
+                <button type="submit">Send me new guides</button>
+              </div>
+              <input type="hidden" name="type" value="newsletter" />
+              <input type="hidden" name="ref" value="ebay-lab-diamonds-moissanite" />
+              <div class="hp-field" aria-hidden="true"><input name="url_ref" tabindex="-1" autocomplete="off" /></div>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
       ]]></content:encoded>
     </item>
     <item>
@@ -133,7 +145,7 @@
       <link>https://ringmint.com/blog/are-tiktok-diamonds-real/</link>
       <guid isPermaLink="true">https://ringmint.com/blog/are-tiktok-diamonds-real/</guid>
       <pubDate>Wed, 02 Sep 2026 12:00:00 +0000</pubDate>
-      <atom:updated>2026-09-02T12:00:00Z</atom:updated>
+      <atom:updated>2026-09-07T12:00:00Z</atom:updated>
       <dc:creator>Chloe Alpert</dc:creator>
       <category>Jewelry News</category>
       <category>are tiktok diamonds real</category>
@@ -143,7 +155,7 @@
       <category>diamond fluorescence</category>
       <category>moissanite vs diamond</category>
       <description>Yes, TikTok auction diamonds are almost always real lab grown stones. The catch is quality: strong fluorescence, poor cuts, and bottom-of-the-market picks.</description>
-      <enclosure url="https://ringmint.com/assets/blog/are-tiktok-diamonds-real-og.jpg" length="40249" type="image/jpeg" />
+      <enclosure url="https://ringmint.com/assets/blog/are-tiktok-diamonds-real-og.jpg" length="39569" type="image/jpeg" />
       <content:encoded><![CDATA[
 <div class="takeaway">
               <span class="eyebrow">The short answer</span>
@@ -195,8 +207,20 @@
 
             <div class="takeaway">
               <span class="eyebrow">Want a stone someone actually evaluated?</span>
-              <p>Ring Mint sources every diamond to order and rejects the milky, the muddy, and the badly cut before you ever see them, at below jewelry store prices, because there is no store. <a href="https://ringmint.com/#inquire" class="text-link">Email Chloe</a>. Real questions welcome, including "is this TikTok stone any good?"</p>
+              <p>Ring Mint sources every diamond to order and rejects the milky, the muddy, and the badly cut before you ever see them, at below jewelry store prices, because there is no store. <a href="https://ringmint.com/contact/?ref=are-tiktok-diamonds-real" class="text-link" data-cta="article-outro">Email Chloe</a>. Real questions welcome, including "is this TikTok stone any good?"</p>
             </div>
+            <form class="capture" data-capture="are-tiktok-diamonds-real">
+              <span class="eyebrow">New guides by email</span>
+              <p>Investigations, price trackers and buying guides from the bench, no more than twice a month. Unsubscribe with one reply.</p>
+              <div class="capture-row">
+                <input type="email" name="email" placeholder="Your email" aria-label="Your email" autocomplete="email" required />
+                <button type="submit">Send me new guides</button>
+              </div>
+              <input type="hidden" name="type" value="newsletter" />
+              <input type="hidden" name="ref" value="are-tiktok-diamonds-real" />
+              <div class="hp-field" aria-hidden="true"><input name="url_ref" tabindex="-1" autocomplete="off" /></div>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
       ]]></content:encoded>
     </item>
   </channel>

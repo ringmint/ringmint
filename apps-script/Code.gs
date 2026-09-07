@@ -25,12 +25,26 @@ function doPost(e) {
   // person, and a silently dropped inquiry is worse than a tagged one.
   var suspected = !!(p.url_ref || p.company);
 
+  // Email capture from guides and posts (form[data-capture] in script.js).
+  // Filed as a signup, not an inquiry, so the two never get mixed up.
+  if (p.type === 'newsletter') {
+    MailApp.sendEmail(
+      TO,
+      (suspected ? '[possible spam] ' : '') + 'Ring Mint newsletter signup: ' + (p.email || 'no email'),
+      'Email: ' + (p.email || '-') + '\nFrom page: ' + (p.page || '-') + '\nRef: ' + (p.ref || '-'),
+      { name: 'Ring Mint Website' }
+    );
+    return json({ ok: true });
+  }
+
   var rows = [
     ['Name', p.name],
     ['Email', p.email],
     ['Phone / WhatsApp', p.phone],
     ['Timeline', p.timeline],
-    ['Budget', p.budget]
+    ['Budget', p.budget],
+    // Which guide or page sent them (the ?ref= on /contact/), for attribution.
+    ['Came from', p.ref || p.page]
   ];
 
   var text = rows

@@ -13,7 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
   /* Inquiry form → Apps Script. Only present on the home page, so guard it
      without returning early; the header logic below runs everywhere. */
   const form = document.getElementById("inquiryForm");
+  /* Attribution. /contact/?ref=<slug> is how every guide, gemstone page and
+     case study sends people to the form, so the lead can be traced back to
+     the page that produced it. The value rides along in the email and in the
+     GA4 generate_lead event (as cta_location, which is already a registered
+     custom dimension). */
+  const refParam = (new URLSearchParams(window.location.search).get("ref") || "").slice(0, 80);
   if (form) {
+    const refField = form.querySelector("input[name='ref']");
+    const pageField = form.querySelector("input[name='page']");
+    if (refField) refField.value = refParam;
+    if (pageField) pageField.value = window.location.pathname;
     const status = document.getElementById("formStatus");
     const button = form.querySelector("button[type='submit']");
     const setStatus = (message, state) => {
@@ -61,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         form.reset();
         setStatus("Thank you, we got it. We’ll reply within one business day.", "success");
-        track("generate_lead", { method: "inquiry_form" });
+        track("generate_lead", { method: "inquiry_form", cta_location: refParam || window.location.pathname });
       } catch (error) {
         setStatus(
           "Something went wrong sending that. Please email chloe@ringmint.com or message us on WhatsApp.",
@@ -85,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (/wa\.me/.test(href)) return "whatsapp";
     if (/^mailto:/.test(href)) return "email";
     if (/instagram\.com/.test(href)) return "instagram";
-    if (/#inquire/.test(href)) return "inquiry_form";
+    if (/#inquire/.test(href) || /\/contact\//.test(href)) return "inquiry_form";
     return "other";
   };
   document.addEventListener("click", (event) => {
@@ -101,6 +111,33 @@ document.addEventListener("DOMContentLoaded", () => {
       track("generate_lead", { method: "whatsapp", cta_location: cta.dataset.cta });
     }
   });
+
+  /* Email capture on guides and posts. Same Apps Script endpoint; the
+     type=newsletter field tells Code.gs to file it as a signup rather than an
+     inquiry. One form per page at most, so a plain querySelector is enough. */
+  const capture = document.querySelector("form[data-capture]");
+  if (capture) {
+    const cStatus = capture.querySelector(".form-status");
+    const cButton = capture.querySelector("button[type='submit']");
+    capture.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(capture);
+      if (!data.get("email")) return;
+      data.set("page", window.location.pathname);
+      cButton.disabled = true;
+      try {
+        const response = await fetch(INQUIRY_ENDPOINT, { method: "POST", body: new URLSearchParams(data) });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        capture.reset();
+        if (cStatus) { cStatus.textContent = "Done. New guides will land in your inbox."; cStatus.className = "form-status is-success"; }
+        track("newsletter_signup", { cta_location: capture.dataset.capture || window.location.pathname });
+      } catch (error) {
+        if (cStatus) { cStatus.textContent = "That did not send. Email chloe@ringmint.com and we will add you."; cStatus.className = "form-status is-error"; }
+      } finally {
+        cButton.disabled = false;
+      }
+    });
+  }
 
   /* Purely decorative: adds a hairline under the sticky header once the
      page has scrolled. The header is sticky via CSS alone, so nothing

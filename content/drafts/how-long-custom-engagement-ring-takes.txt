@@ -1,0 +1,93 @@
+---
+slug: how-long-custom-engagement-ring-takes
+cluster: 3 Process
+priority: P1
+category: Custom Ring Guides
+date: 2026-09-07
+title: How Long a Custom Engagement Ring Takes
+h1: How long does a custom engagement ring take?
+headline: How Long Does a Custom Engagement Ring Take? A Stage by Stage Breakdown
+description: About two weeks to manufacture, and three to six weeks start to finish. Where the time actually goes, what makes it slower, and how to hit a proposal date.
+og_description: Manufacturing is the predictable part. It is the decisions that take the time. A stage by stage breakdown of a custom ring schedule, and how to work backwards from a date.
+crumb: How long a custom ring takes
+tags: how long does a custom engagement ring take, custom ring timeline, engagement ring lead time, how long to make an engagement ring, custom engagement ring process time
+excerpt: Three to six weeks start to finish, and only two of those are manufacturing. Where the time actually goes, and how to work backwards from a proposal date.
+hero_alt: Gold line drawings of cut diamonds on a dark background, illustrating the timeline of a custom engagement ring
+og_alt: How long does a custom engagement ring take?
+card_alt: Headline over gold line art of cut diamonds on a dark background: How long does a custom ring actually take?
+image_title: How long does|a custom ring|actually take?
+image_answer: Three to six weeks, start to finish.
+image_sub: Only two of them are manufacturing.|The rest is deciding.
+llms: A custom engagement ring takes about three to six weeks from first conversation to delivery. Manufacturing is roughly two weeks and is the most predictable stage. The variable is the design phase, which runs from a few days to several weeks depending on how quickly the client decides. Sourcing an unusual or rare stone, an optional mailed wax model, and hand engraving each add time. Ring Mint builds the schedule backwards from a proposal date.
+short: <p><strong>About two weeks to manufacture once a design is approved, and three to six weeks from the first conversation to a ring in your hand.</strong> Manufacturing is the predictable part. The variable is the design phase, which depends almost entirely on how quickly you make decisions, not on how fast a workshop can work.</p>
+outro_eyebrow: Working to a date?
+outro: Tell Ring Mint the date and the schedule gets built backwards from it, with the tight points flagged before you commit rather than after. {cta}. Even if the date is next month.
+---
+            <p>The honest answer is that a custom engagement ring takes about three to six weeks, and that almost nobody's ring takes exactly that, because the number is dominated by a stage most people do not think of as part of the schedule.</p>
+            <p>Making the ring is the reliable part. Two weeks, give or take, and a workshop can plan around it. Deciding what the ring is can take an afternoon or it can take a month, and that is the number that actually moves.</p>
+
+            <h2>How long does each stage take?</h2>
+            <p>Here is the full sequence with realistic durations. Note that sourcing and design overlap rather than running in sequence, which is why the totals are shorter than the sum of the parts.</p>
+            <div class="table-wrap">
+              <table>
+                <caption>Custom engagement ring stages and realistic durations.</caption>
+                <thead><tr><th scope="col">Stage</th><th scope="col">Typical</th><th scope="col">Fastest</th><th scope="col">What drives it</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">First conversation and brief</th><td>1 to 3 days</td><td>Same day</td><td>Your availability</td></tr>
+                  <tr><th scope="row">Stone sourcing</th><td>2 to 7 days</td><td>1 day</td><td>How specific or rare the stone is</td></tr>
+                  <tr><th scope="row">CAD design and revisions</th><td>1 to 3 weeks</td><td>2 days</td><td>How many rounds you want</td></tr>
+                  <tr><th scope="row">Wax model try-on (optional)</th><td>1 week</td><td>Skipped</td><td>Mail time each way</td></tr>
+                  <tr><th scope="row">Manufacturing</th><td>About 2 weeks</td><td>7 to 10 days</td><td>Casting, setting, finishing</td></tr>
+                  <tr><th scope="row">Appraisal, photos, shipping</th><td>3 to 5 days</td><td>2 days</td><td>Insured transit</td></tr>
+                  <tr><th scope="row"><strong>Total</strong></th><td><strong>4 to 6 weeks</strong></td><td><strong>About 3 weeks</strong></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Why does manufacturing take two weeks?</h2>
+            <p><strong>Because a cast ring is made in stages, and several of them cannot be hurried without showing.</strong> The printed pattern is invested in plaster, the plaster is fired so the pattern burns out, and molten metal fills the resulting cavity. That is <a href="https://formlabs.com/blog/lost-wax-casting/" class="text-link" rel="noopener">lost-wax casting</a>, and the burnout stage alone runs for hours in a kiln on a fixed schedule.</p>
+            <p>Then the real time begins. The casting is cut from its sprue, filed, pre-polished, and the stone seats are cut by hand. Setting a center stone and a row of pavé is slow, delicate work done under a microscope by someone who does only that. Final polishing and rhodium plating, if the piece is white gold, follow after.</p>
+            <p>Two weeks is not a queue. It is the work.</p>
+
+            <h2>Why is the design phase the unpredictable part?</h2>
+            <p><strong>Because it moves at the speed of your decisions.</strong> The CAD work itself is fast. A first design usually comes back within a couple of days of a brief, and a revision turns around in a day. What stretches the phase is the gap between a design landing in your inbox and you deciding what you think about it.</p>
+            <p>That is not a criticism. It is a large purchase and thinking about it is reasonable. But it is worth knowing that a client who replies to each round within a day will have a finished ring roughly two weeks sooner than a client who takes a week to sit with each one, with identical work happening at the jeweler's end.</p>
+            <p>The other design-phase variable is how many rounds there are. Two or three is typical. If you are working from a clear reference image, one round sometimes does it. If you are discovering what you want as you go, which is completely normal, expect four or five. Ring Mint does not cap revisions, so this is genuinely your call rather than a billing question.</p>
+
+            <h2>What makes a custom ring take longer?</h2>
+            <ul>
+              <li><strong>A specific or rare stone.</strong> A one carat round lab diamond in a common quality can be found the same day. A 3 carat unheated Ceylon sapphire in a particular blue, or a well-cut old mine cushion, can take weeks of looking. Sourcing is the stage most likely to blow a schedule.</li>
+              <li><strong>Hand engraving or milgrain.</strong> Hand work is done by a specialist, and specialists have queues. Add one to two weeks.</li>
+              <li><strong>Fitting to an existing ring.</strong> If a band has to sit flush against a ring you already own, that ring usually has to be physically in the workshop or precisely scanned, which adds a shipping leg at the front.</li>
+              <li><strong>A <a href="/blog/wax-model-ring-try-on/" class="text-link">wax model try-on</a>.</strong> About a week, almost all of it mail. Worth it in most cases.</li>
+              <li><strong>December.</strong> The whole trade is busy from mid-November, so casting houses and setters run longer queues exactly when the most people want rings.</li>
+            </ul>
+
+            <h2>Can you hit a specific proposal date?</h2>
+            <p><strong>Yes, and that is the normal way to run the project.</strong> The schedule gets built backwards from the date rather than forwards from today, which changes what gets recommended.</p>
+            <p>With eight weeks, everything is comfortable: sourcing options, several design rounds, a wax model, and a buffer. With five weeks it still works well, usually by skipping the wax model or by being decisive about the stone early. With three weeks it is achievable but the decisions have to be quick and the stone has to be something available now rather than something being hunted.</p>
+            <p>Under three weeks the honest answer is often that a fully custom ring is the wrong tool, and that a well-chosen ready-made piece now, with a custom ring made later at a calmer pace, produces a better outcome than a rushed build. That is advice that costs Ring Mint a sale, and it is still the right advice.</p>
+
+            <h2>How far ahead should you start?</h2>
+            <p>Two months before the date you have in mind. Not because it takes two months, but because it gives you a real design phase instead of a compressed one, and because the difference between a good ring and the right ring is usually made in the rounds you would otherwise have skipped.</p>
+            <p>If you are aiming at a holiday proposal specifically, we published the <a href="/blog/holiday-proposal-ring-deadlines/" class="text-link">order-by dates for Thanksgiving through Valentine's Day</a>, worked out backwards from each one.</p>
+
+            <p class="aside">One thing from the bench: the single best thing a client can do for their own timeline is answer the budget question honestly in the first conversation. Vagueness there produces designs that have to be reworked once the real number appears, and reworking a design after the stone has been chosen is where weeks quietly disappear.</p>
+
+            <h2>Related reading</h2>
+            <ul>
+              <li><a href="/custom-engagement-rings/" class="text-link">The full custom engagement ring process</a>, step by step, with what is included at each stage.</li>
+              <li><a href="/blog/wax-model-ring-try-on/" class="text-link">What a wax model try-on is</a>, and when the extra week is worth spending.</li>
+              <li><a href="/faq/" class="text-link">Straight answers</a> on deadlines, deposits and shipping.</li>
+            </ul>
+---faq---
+Q: How long does a custom engagement ring take?
+A: About three to six weeks from the first conversation to delivery. Manufacturing accounts for roughly two weeks of that and is the most predictable stage. The rest is the brief, sourcing the stone, CAD design and revisions, an optional mailed wax model, and insured shipping with an appraisal.
+Q: What is the fastest a custom engagement ring can be made?
+A: About three weeks, if the stone is something already available rather than something being hunted, the design is settled in one or two rounds, and the wax model try-on is skipped. Under three weeks a fully custom build starts to compromise the result, and a ready-made piece now with a custom ring later is usually the better outcome.
+Q: Why does manufacturing take two weeks?
+A: Because a cast ring is built in stages that cannot be compressed without showing. The pattern is invested in plaster and fired so it burns out, metal is cast into the cavity, then the piece is cut from its sprue, filed, pre-polished, its stone seats cut by hand, set under a microscope, and finally polished and plated. The setting and finishing work is the bulk of it.
+Q: What slows a custom engagement ring down the most?
+A: Two things. Sourcing an unusual stone, such as an unheated sapphire in a specific colour or a well-cut antique cushion, can take weeks of searching. And the client's own response time between design rounds, which is the single largest variable in the whole schedule.
+Q: Can a custom ring be made in time for a specific proposal date?
+A: Usually yes, and the schedule should be built backwards from the date rather than forwards from today. Eight weeks is comfortable, five weeks works well with a decisive stone choice, and three weeks is achievable with quick decisions and an available stone. Say the date in the first conversation so the tight points get flagged before anything is committed.
