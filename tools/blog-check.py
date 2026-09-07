@@ -14,6 +14,7 @@ import html, json, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://ringmint.com"
+GA_ID = "G-Y2LDM6JVVC"
 CATEGORIES = {
     "Jewelry News": "jewelry-news",
     "Diamonds & Gemstones": "diamonds-and-gemstones",
@@ -95,6 +96,23 @@ def main():
     caps = sorted({w for w in re.findall(r'\b[A-Z]{4,}\b', body_text) if w not in CAPS_ALLOW})
     if caps:
         warn(f"ALL-CAPS words to eyeball (real acronyms are fine): {', '.join(caps)}")
+
+    # --- Google Analytics -------------------------------------------------
+    ga_loads = re.findall(r'googletagmanager\.com/gtag/js\?id=([A-Z0-9-]+)', src)
+    ga_configs = re.findall(r"gtag\('config',\s*'([A-Z0-9-]+)'\)", src)
+    if not ga_loads or not ga_configs:
+        fail("Google Analytics tag missing; copy the two gtag <script> blocks from the top of the template")
+    elif set(ga_loads) != {GA_ID} or set(ga_configs) != {GA_ID}:
+        fail(f"Google Analytics ID is {ga_loads + ga_configs}, expected {GA_ID}")
+    elif len(ga_loads) > 1 or len(ga_configs) > 1:
+        fail("Google Analytics tag appears more than once (double-counts every pageview)")
+    else:
+        head = src.split("</head>", 1)[0]
+        first_script = re.search(r'<script\b[^>]*>', head)
+        if not first_script or "googletagmanager" not in first_script.group(0):
+            warn("Google Analytics tag is not the first <script> in <head>; the template puts it first")
+        else:
+            ok(f"Google Analytics {GA_ID} present once, first in <head>")
 
     # --- robots / canonical ----------------------------------------------
     robots = meta(src, "name", "robots") or ""

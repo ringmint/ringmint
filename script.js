@@ -22,6 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
       status.className = `form-status is-${state}`;
     };
 
+    /* Fires once, on the first keystroke or focus in any field, so GA4 can
+       show how many people start the form versus finish it. */
+    let formStarted = false;
+    const markStarted = () => {
+      if (formStarted) return;
+      formStarted = true;
+      track("inquiry_form_start", { method: "inquiry_form" });
+    };
+    form.addEventListener("focusin", markStarted);
+    form.addEventListener("input", markStarted);
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = new FormData(form);
@@ -66,20 +77,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* WhatsApp is a real lead channel, and outbound clicks are invisible to
-     GA4 by default, so form-only tracking would undercount leads. Delegated
-     from the document because these links appear on every page. */
-  document.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href*="wa.me"]');
-    if (link) track("generate_lead", { method: "whatsapp" });
-  });
-
-  /* Which CTA actually sends people to the form. Every inquiry CTA carries a
-     data-cta location label; without this, GA4 sees the form submit but not
-     which button earned it. */
+  /* Every call to action on the site carries a data-cta label naming the
+     section it sits in (hero, cta-band, footer, ...). The channel is derived
+     from the href so the markup only has to say *where* the link is, not
+     what it does. GA4 reports slice cta_click by both. */
+  const ctaChannel = (href) => {
+    if (/wa\.me/.test(href)) return "whatsapp";
+    if (/^mailto:/.test(href)) return "email";
+    if (/instagram\.com/.test(href)) return "instagram";
+    if (/#inquire/.test(href)) return "inquiry_form";
+    return "other";
+  };
   document.addEventListener("click", (event) => {
     const cta = event.target.closest("a[data-cta]");
-    if (cta) track("cta_click", { cta_location: cta.dataset.cta });
+    if (!cta) return;
+    const href = cta.getAttribute("href") || "";
+    const channel = ctaChannel(href);
+    track("cta_click", { cta_location: cta.dataset.cta, cta_channel: channel });
+    /* WhatsApp is a real lead channel, and outbound clicks are invisible to
+       GA4 by default, so form-only tracking would undercount leads. The
+       location rides along so a lead can be traced back to the button. */
+    if (channel === "whatsapp") {
+      track("generate_lead", { method: "whatsapp", cta_location: cta.dataset.cta });
+    }
   });
 
   /* Purely decorative: adds a hairline under the sticky header once the

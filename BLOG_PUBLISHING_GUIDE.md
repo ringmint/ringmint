@@ -65,6 +65,7 @@ Three tools do the mechanical work. Learn these three commands and the rest of t
 Replace **every ALL-CAPS token**. Then verify (`tools/blog-check.py` checks all of this, but know what it is checking):
 
 ### Head / metadata
+- [ ] **Google Analytics is present and is the first thing in `<head>`.** The template ships with the GA4 tag (`G-Y2LDM6JVVC`) as its first two `<script>` elements, above `<meta charset>`. Never delete it, move it, or paste a post's head from anywhere but the template. A post without the tag is invisible in GA4, which is the only place the AI-assistant and Direct traffic the site depends on is measured. The check script fails any post where the tag is missing, uses a different measurement ID, or appears twice.
 - [ ] `<title>`: 50-60 characters, primary keyword at the front, ends `| Ring Mint`. Unique across the site.
 - [ ] Meta description: 140-160 characters, contains the primary keyword, states the answer or promise. Unique across the site.
 - [ ] **Delete the `noindex` line and uncomment the `index, follow` robots line.** (The template ships noindexed so an unfinished copy can't leak into Google.)
@@ -148,7 +149,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
   ```bash
   python3 tools/blog-check.py YOUR-SLUG
   ```
-  What it checks: leftover template tokens, `noindex` gone, no dashes, canonical and `og:url` match the folder, title and description lengths and site-wide uniqueness, every OG/Twitter/article meta present with the right image, `article:tag` count, hero preloads, JSON-LD parses with matching dates and IDs, FAQ questions visible on the page, one `<h1>`, byline and `<time>`, category anchor, `<picture>` wiring, tables wrapped, in-body images with alt/size/lazy, link counts, word count and read-time drift, all six images present at the right pixel size and under 200 KB, and the post present in `sitemap.xml`, `llms.txt`, `blog/index.html` (in the right category, placeholder removed), and `feed.xml`, plus at least one inbound link.
+  What it checks: leftover template tokens, the GA4 tag present once with the right ID, `noindex` gone, no dashes, canonical and `og:url` match the folder, title and description lengths and site-wide uniqueness, every OG/Twitter/article meta present with the right image, `article:tag` count, hero preloads, JSON-LD parses with matching dates and IDs, FAQ questions visible on the page, one `<h1>`, byline and `<time>`, category anchor, `<picture>` wiring, tables wrapped, in-body images with alt/size/lazy, link counts, word count and read-time drift, all six images present at the right pixel size and under 200 KB, and the post present in `sitemap.xml`, `llms.txt`, `blog/index.html` (in the right category, placeholder removed), and `feed.xml`, plus at least one inbound link.
 - [ ] Open the page locally; check console for errors, click every link.
 - [ ] Mobile check: narrow the window to ~375px: no horizontal scroll, and the hero is the 4:5 `-hero-mobile.jpg` (right-click, open image in new tab, check the filename). If it is the 16:9 file, the `<picture>` source is wrong.
 - [ ] Rich results test passes: https://search.google.com/test/rich-results.
@@ -189,7 +190,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 6. Unique 50-60 char title, 140-160 char description, full OG set, 3 to 6 `article:tag` lines.
 7. Valid `BlogPosting` JSON-LD (+ `FAQPage` when there's real Q&A).
 8. All six images (hero, hero-mobile, og, card, story, pin) from `tools/blog-images.py`, same house style, honest alt text.
-9. `noindex` removed. Canonical correct.
+9. `noindex` removed. Canonical correct. GA4 tag untouched.
 10. Card added to /blog/, entry added to sitemap.xml **and** llms.txt, `tools/build-feed.py` run.
 11. At least one link *to* the post from an existing page.
 12. `tools/blog-check.py` passes, then IndexNow, Google Search Console, Stories, and a Pinterest pin.
