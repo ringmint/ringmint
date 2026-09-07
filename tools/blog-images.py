@@ -4,6 +4,7 @@ Generate the full image set for a Ring Mint Journal post in the house style.
 
     python3 tools/blog-images.py generate --slug are-tiktok-diamonds-real \
         --title "Are the diamonds|on TikTok Live|actually real?" \
+        --og-title "Are TikTok|diamonds real?" \
         --answer "Yes. That's not the problem." \
         --sub "What $100 a carat actually buys,|from a jeweler who sorts these parcels."
 
@@ -15,143 +16,166 @@ writes to assets/blog/:
     SLUG-story.jpg        1080x1920  Instagram Story (not referenced by the site)
     SLUG-pin.jpg          1000x1500  Pinterest pin, 2:3 (not referenced by the site)
 
+--og-title is a shorter, hand-broken headline for the social card and listing
+card, which set type far larger than the hero does. It falls back to --title,
+but a full post title is usually too long to render at full size.
+
 For a post whose hero is a photograph, keep the photo as SLUG-hero.jpg and run
-only the mobile crop, the story, and the pin:
+only the pieces that do not derive from it:
 
     python3 tools/blog-images.py crop-mobile --slug SLUG            # 4:5 centre crop of SLUG-hero.jpg
     python3 tools/blog-images.py crop-mobile --slug SLUG --source clean-photo.jpg   # if the hero has text on it
+    python3 tools/blog-images.py og    --slug SLUG --og-title ...
+    python3 tools/blog-images.py card  --slug SLUG --og-title ...
     python3 tools/blog-images.py story --slug SLUG --title ... --answer ... --sub ...
     python3 tools/blog-images.py pin   --slug SLUG --title ... --answer ... --sub ...
 
-House style (do not drift): charcoal #171717 ground with a warm glow, gold
-(212,183,134) line-art diamonds, cream (244,239,230) Didot headline, gold Didot
-italic answer line, Georgia small caps eyebrow, a hairline frame inset 40px.
-Requires Pillow (pip3 install --user Pillow). Uses macOS system Didot and Georgia.
+House style (do not drift): cream #fbf8f3 ground with a warm radial wash, gold
+(174,143,69) line-art diamonds drawn as a faint watermark, ink #171717 Playfair
+Display headlines, gold Playfair italic answer line, Inter 500 letter-spaced
+small caps eyebrow, a hairline gold frame. This replaced an earlier charcoal and
+Didot treatment: cream ground with dark type stays legible at the sizes these
+images are actually viewed at, and matches the site the images link to. If the
+style needs to change, change it here so every post changes with it.
+
+Requires Pillow (pip3 install --user Pillow). Fonts are the site's own brand
+faces, vendored under tools/fonts/ as .ttf because Pillow cannot read .woff2.
+Inter ships as a variable font, so its static weights there are instances cut
+with fontTools.varLib.instancer; regenerate them if the web fonts change.
 """
 import argparse, hashlib, math, pathlib, random, sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "blog"
-DIDOT = "/System/Library/Fonts/Supplemental/Didot.ttc"
-GEORGIA = "/System/Library/Fonts/Supplemental/Georgia.ttf"
-# The OG card uses the site's own brand faces rather than the macOS system fonts the
-# other images use. Pillow cannot read .woff2, so assets/fonts/*.woff2 are vendored
-# here as .ttf. Inter ships as a variable font, so the static weights under
-# tools/fonts/ are instances cut from it with fontTools.varLib.instancer;
-# regenerate them if the web fonts ever change.
-PLAYFAIR = str(pathlib.Path(__file__).resolve().parent / "fonts" / "playfair-display-400-latin.ttf")
-INTER = str(pathlib.Path(__file__).resolve().parent / "fonts" / "inter-500-latin.ttf")
+FONTS = pathlib.Path(__file__).resolve().parent / "fonts"
+PLAYFAIR = str(FONTS / "playfair-display-400-latin.ttf")
+PLAYFAIR_I = str(FONTS / "playfair-display-400-italic-latin.ttf")
+INTER = str(FONTS / "inter-500-latin.ttf")
 
-GOLD = (212, 183, 134)
-CREAM = (244, 239, 230)
-INK = (23, 23, 23)
-WARM = (64, 54, 42)
-# OG palette, taken from :root in styles.css so the card matches the site it links to
-OG_BG = (251, 248, 243)      # --bg
-OG_GOLD = (174, 143, 69)     # --gold
-OG_LINE = (215, 198, 156)    # --line-strong
-OG_MUTED = (98, 92, 82)      # --muted
-S = 2  # supersample factor for clean line-art
+# Palette, taken from :root in styles.css so the images match the site
+BG = (251, 248, 243)         # --bg
+BG_WARM = (246, 241, 231)    # --bg-warm
+INK = (23, 23, 23)           # --ink
+GOLD = (174, 143, 69)        # --gold
+LINE = (215, 198, 156)       # --line-strong
+MUTED = (98, 92, 82)         # --muted
+S = 2  # supersample factor; every canvas is drawn at S and downsampled on save
 
 
-class Canvas:
-    def __init__(self, w, h, glow_cx=0.5, glow_cy=0.42):
+class Sheet:
+    """A cream page with gold line art and the brand faces.
+
+    Everything is drawn at S times final size and downsampled in save(), which
+    is what keeps the type crisp. Coordinates are given as fractions of the
+    canvas so the same composition code works at any aspect ratio.
+    """
+
+    def __init__(self, w, h, wash_cx=0.72, wash_cy=0.45):
         self.W, self.H = w * S, h * S
-        self.img = Image.new("RGB", (self.W, self.H), INK)
-        glow = Image.new("L", (self.W, self.H), 0)
-        gd = ImageDraw.Draw(glow)
-        cx, cy = self.W * glow_cx, self.H * glow_cy
-        R0 = max(self.W, self.H) * 0.7
+        img = Image.new("RGB", (self.W, self.H), BG)
+        # a warm radial wash, just enough to keep a large flat area from looking dead
+        wash = Image.new("L", (self.W, self.H), 0)
+        wd = ImageDraw.Draw(wash)
+        cx, cy = self.W * wash_cx, self.H * wash_cy
+        R0 = max(self.W, self.H) * 0.8
         for r in range(int(R0), 0, -8):
-            a = int(72 * (1 - r / R0) ** 1.6)
-            gd.ellipse([cx - r * 1.2, cy - r * 0.8, cx + r * 1.2, cy + r * 0.8], fill=a)
-        glow = glow.filter(ImageFilter.GaussianBlur(45))
-        self.img = Image.composite(Image.new("RGB", (self.W, self.H), WARM), self.img, glow)
+            wd.ellipse([cx - r * 1.15, cy - r * 0.9, cx + r * 1.15, cy + r * 0.9],
+                       fill=int(150 * (1 - r / R0) ** 1.5))
+        wash = wash.filter(ImageFilter.GaussianBlur(45 * S // 2))
+        self.img = Image.composite(Image.new("RGB", (self.W, self.H), BG_WARM), img, wash)
         self.d = ImageDraw.Draw(self.img, "RGBA")
-        self.lw = 3 * S
+
+    # --- fonts ----------------------------------------------------------
+    def play(self, px):   return ImageFont.truetype(PLAYFAIR, int(px * S))
+    def play_i(self, px): return ImageFont.truetype(PLAYFAIR_I, int(px * S))
+    def inter(self, px):  return ImageFont.truetype(INTER, int(px * S))
 
     # --- line art -------------------------------------------------------
-    def diamond(self, fx, fy, w, alpha=255):
-        d, lw = self.d, self.lw
+    def diamond(self, fx, fy, w, alpha=120):
+        """The crown-and-pavilion profile, as a faint watermark."""
+        d, col = self.d, (*LINE, alpha)
         cx, cy, w = self.W * fx, self.H * fy, w * S
-        col, dim = (*GOLD, alpha), (*GOLD, int(alpha * 0.55))
-        tw, ch, ph = w * 0.55, w * 0.30, w * 0.95
+        lw = 2 * S
+        tw, ch, ph = w * .55, w * .30, w * .95
         tl, tr = (cx - tw / 2, cy - ch), (cx + tw / 2, cy - ch)
         gl, gr, tip = (cx - w / 2, cy), (cx + w / 2, cy), (cx, cy + ph)
         d.polygon([tl, tr, gr, tip, gl], outline=col, width=lw)
         for i in range(5):
-            d.line([(tl[0] + (tr[0] - tl[0]) * i / 4, tl[1]), (gl[0] + (gr[0] - gl[0]) * i / 4, cy)], fill=dim, width=lw - S)
+            d.line([(tl[0] + (tr[0] - tl[0]) * i / 4, tl[1]), (gl[0] + (gr[0] - gl[0]) * i / 4, cy)], fill=col, width=S)
         d.line([gl, gr], fill=col, width=lw)
         for i in range(1, 4):
-            d.line([(gl[0] + (gr[0] - gl[0]) * i / 3, cy), tip], fill=dim, width=lw - S)
+            d.line([(gl[0] + (gr[0] - gl[0]) * i / 3, cy), tip], fill=col, width=S)
 
-    def round_top(self, fx, fy, r, alpha=255):
-        d, lw = self.d, self.lw
+    def round_top(self, fx, fy, r, alpha=120):
+        """A round brilliant seen from above."""
+        d, col, n = self.d, (*LINE, alpha), 16
         cx, cy, r = self.W * fx, self.H * fy, r * S
-        col, dim, n = (*GOLD, alpha), (*GOLD, int(alpha * 0.55)), 16
+        lw = 2 * S
         outer = [(cx + r * math.cos(2 * math.pi * i / n - math.pi / 2), cy + r * math.sin(2 * math.pi * i / n - math.pi / 2)) for i in range(n)]
         inner = [(cx + r * .52 * math.cos(2 * math.pi * (i + .5) / 8 - math.pi / 2), cy + r * .52 * math.sin(2 * math.pi * (i + .5) / 8 - math.pi / 2)) for i in range(8)]
         d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=col, width=lw)
-        d.polygon(inner, outline=col, width=lw - S)
+        d.polygon(inner, outline=col, width=S)
         for i in range(8):
             for k in (0, 1, 2):
-                d.line([outer[(i * 2 + k) % n], inner[i]], fill=dim, width=lw - S)
+                d.line([outer[(i * 2 + k) % n], inner[i]], fill=col, width=S)
 
     def sparkles(self, pts):
         for fx, fy, r in pts:
             cx, cy, r = self.W * fx, self.H * fy, r * S
-            col = (240, 228, 205, 200)
+            col = (*GOLD, 130)
             self.d.line([(cx - r, cy), (cx + r, cy)], fill=col, width=S)
             self.d.line([(cx, cy - r), (cx, cy + r)], fill=col, width=S)
             self.d.line([(cx - r * .4, cy - r * .4), (cx + r * .4, cy + r * .4)], fill=col, width=S)
             self.d.line([(cx - r * .4, cy + r * .4), (cx + r * .4, cy - r * .4)], fill=col, width=S)
 
-    def frame(self):
-        m = 40 * S
-        self.d.rectangle([m, m, self.W - m, self.H - m], outline=(*GOLD, 60), width=S)
+    def frame(self, inset=40):
+        m = inset * S
+        self.d.rectangle([m, m, self.W - m, self.H - m], outline=(*LINE, 150), width=S)
 
     # --- type -----------------------------------------------------------
-    def font(self, which, px):
-        if which == "didot":   return ImageFont.truetype(DIDOT, px * S, index=0)
-        if which == "didot_i": return ImageFont.truetype(DIDOT, px * S, index=1)
-        return ImageFont.truetype(GEORGIA, px * S)
+    def tracked(self, text, fx, fy, font, fill, sp, anchor="lm"):
+        """Letter-spaced small caps. Pillow has no tracking, so step per glyph."""
+        widths = [self.d.textlength(c, font=font) for c in text]
+        total = sum(widths) + sp * S * (len(text) - 1)
+        x = self.W * fx
+        if anchor == "mm":
+            x -= total / 2
+        for c, w in zip(text, widths):
+            self.d.text((x, self.H * fy), c, font=font, fill=fill, anchor="lm")
+            x += w + sp * S
 
-    def center(self, text, fy, font, fill):
-        self.d.text((self.W / 2, self.H * fy), text, font=font, fill=fill, anchor="mm")
+    def fit(self, lines, start, minimum, maxw):
+        """Largest Playfair size at which every line clears maxw (in device px)."""
+        size = start
+        while size > minimum:
+            if max(self.d.textlength(l, font=self.play(size)) for l in lines) <= maxw:
+                break
+            size -= 2
+        return size
 
-    def spaced(self, text, fy, font, fill, spacing):
-        widths = [self.d.textlength(ch, font=font) for ch in text]
-        x = (self.W - (sum(widths) + spacing * S * (len(text) - 1))) / 2
-        for ch, w in zip(text, widths):
-            self.d.text((x, self.H * fy), ch, font=font, fill=fill, anchor="lm")
-            x += w + spacing * S
+    def headline(self, lines, fx, fy, size, anchor="lm", leading=1.18):
+        gap = size * leading * S
+        y0 = self.H * fy - (len(lines) - 1) * gap / 2
+        for i, line in enumerate(lines):
+            self.d.text((self.W * fx, y0 + i * gap), line, font=self.play(size), fill=INK, anchor=anchor)
 
-    def hairline(self, fy, half=0.10):
-        self.d.line([(self.W * (.5 - half), self.H * fy), (self.W * (.5 + half), self.H * fy)], fill=(*GOLD, 255), width=S)
+    def hairline(self, fx, fy, w):
+        x, y = self.W * fx, self.H * fy
+        self.d.line([(x, y), (x + w * S, y)], fill=GOLD, width=3 * S)
 
     def pill(self, label, fy, w=420, h=76):
         pw, ph = w * S, h * S
         px, py = (self.W - pw) / 2, self.H * fy - ph / 2
-        self.d.rounded_rectangle([px, py, px + pw, py + ph], radius=ph / 2, outline=(*GOLD, 255), width=2 * S)
-        self.spaced(label, fy, self.font("georgia", 26), CREAM, 5)
+        self.d.rounded_rectangle([px, py, px + pw, py + ph], radius=ph / 2, outline=GOLD, width=2 * S)
+        self.tracked(label, 0.5, fy, self.inter(26), GOLD, 5, anchor="mm")
 
-    def dim(self, alpha=150):
-        ov = Image.new("RGBA", self.img.size, (15, 15, 15, alpha))
-        self.img = Image.alpha_composite(self.img.convert("RGBA"), ov).convert("RGB")
-        self.d = ImageDraw.Draw(self.img, "RGBA")
-
-    def save(self, path, w, h, q=80):
+    def save(self, path, w, h, q=86):
         self.img.resize((w, h), Image.LANCZOS).save(path, quality=q, optimize=True, progressive=True)
         print("wrote", path.relative_to(ROOT), f"{path.stat().st_size // 1024} KB")
+        return self.img.resize((w, h), Image.LANCZOS)
 
 
-def title_lines(c, lines, fy0, size, gap):
-    for i, line in enumerate(lines):
-        c.center(line, fy0 + i * gap, c.font("didot", size), CREAM)
-
-
-# --- compositions -------------------------------------------------------
 def _rng(slug):
     """Deterministic per-slug randomness. The same slug always produces the same
     artwork, so re-running the generator never silently changes a published image,
@@ -159,176 +183,125 @@ def _rng(slug):
     return random.Random(hashlib.sha256(slug.encode()).hexdigest())
 
 
+# --- compositions -------------------------------------------------------
 def hero(slug):
-    """House-style line art, arranged differently for every slug.
-
-    The composition is fixed in kind (one focal stone, two or three secondary
-    stones, two large faint shapes bleeding off the edges, scattered sparkles)
-    and varied in placement, scale and which stone shape leads. Without this
-    every post on the index carried an identical image."""
+    """Untyped line-art plate. The post's own <h1> sits above it in the page,
+    so the hero carries no headline; it varies per slug so the index does not
+    show eleven identical images."""
     r = _rng(slug)
-    c = Canvas(1600, 900)
+    c = Sheet(1600, 900, wash_cx=r.uniform(0.55, 0.75), wash_cy=r.uniform(0.38, 0.52))
     focal_round = r.random() < 0.5
-    fx, fy = r.uniform(0.28, 0.42), r.uniform(0.40, 0.50)
-    fsize = r.uniform(175, 215)
-    # focal stone, left of centre
-    (c.round_top if focal_round else c.diamond)(fx, fy, fsize)
-    # secondary cluster, right of centre
-    c.diamond(r.uniform(0.58, 0.66), r.uniform(0.34, 0.42), r.uniform(210, 250))
-    c.diamond(r.uniform(0.74, 0.82), r.uniform(0.38, 0.48), r.uniform(135, 165), 190)
+    fx, fy = r.uniform(0.30, 0.44), r.uniform(0.40, 0.50)
+    (c.round_top if focal_round else c.diamond)(fx, fy, r.uniform(175, 215), 150)
+    c.diamond(r.uniform(0.58, 0.66), r.uniform(0.34, 0.42), r.uniform(210, 250), 130)
+    c.diamond(r.uniform(0.74, 0.82), r.uniform(0.38, 0.48), r.uniform(135, 165), 110)
     if r.random() < 0.7:
-        c.diamond(r.uniform(0.48, 0.55), r.uniform(0.44, 0.52), r.uniform(90, 115), 150)
+        c.diamond(r.uniform(0.48, 0.55), r.uniform(0.44, 0.52), r.uniform(90, 115), 95)
     # oversized faint shapes bleeding off opposite corners
-    c.diamond(r.uniform(0.92, 1.00), r.uniform(0.24, 0.34), r.uniform(310, 360), 45)
-    (c.round_top if r.random() < 0.5 else c.diamond)(r.uniform(0.04, 0.12), r.uniform(0.86, 0.96), r.uniform(200, 240), 45)
-    pts = [(r.uniform(0.08, 0.95), r.uniform(0.14, 0.88), r.randint(9, 18)) for _ in range(r.randint(6, 8))]
-    c.sparkles(pts)
+    c.diamond(r.uniform(0.92, 1.00), r.uniform(0.24, 0.34), r.uniform(310, 360), 70)
+    (c.round_top if r.random() < 0.5 else c.diamond)(r.uniform(0.04, 0.12), r.uniform(0.86, 0.96), r.uniform(200, 240), 70)
+    c.sparkles([(r.uniform(0.08, 0.95), r.uniform(0.14, 0.88), r.randint(9, 18)) for _ in range(r.randint(6, 8))])
     c.frame()
-    c.save(OUT / f"{slug}-hero.jpg", 1600, 900, 78)
-    return c.img.resize((1600, 900), Image.LANCZOS)
+    return c.save(OUT / f"{slug}-hero.jpg", 1600, 900, 84)
 
 
 def hero_mobile(slug):
-    c = Canvas(1080, 1350, glow_cy=0.45)
-    c.round_top(0.50, 0.36, 300)
-    c.diamond(0.22, 0.70, 170, 200)
-    c.diamond(0.78, 0.70, 170, 200)
-    c.diamond(0.50, 0.78, 120, 150)
-    c.diamond(1.02, 0.12, 300, 40)
-    c.round_top(-0.05, 1.0, 260, 40)
+    r = _rng(slug + "-mobile")
+    c = Sheet(1080, 1350, wash_cx=0.5, wash_cy=0.42)
+    c.round_top(0.50, 0.36, 300, 150)
+    c.diamond(0.22, 0.70, 170, 120)
+    c.diamond(0.78, 0.70, 170, 120)
+    c.diamond(0.50, 0.78, 120, 100)
+    c.diamond(1.02, 0.12, 300, 70)
+    c.round_top(-0.05, 1.0, 260, 70)
     c.sparkles([(.18, .18, 14), (.82, .22, 18), (.12, .50, 11), (.88, .48, 12), (.30, .92, 10), (.72, .95, 9), (.50, .08, 11)])
     c.frame()
-    c.save(OUT / f"{slug}-hero-mobile.jpg", 1080, 1350, 78)
+    c.save(OUT / f"{slug}-hero-mobile.jpg", 1080, 1350, 84)
 
 
 def og(slug, title):
     """The 1200x630 social card.
 
-    Drawn from scratch at 2x rather than composited onto a downscaled hero: the
-    previous version drew 62-74px type at 1x over a busy crop, which rendered
-    around 26px in a feed and was unreadable. Cream ground with ink Playfair,
-    matching the site; the headline is auto-fit to the widest line and runs over
-    the line art, which sits at low alpha so the overlap reads as a watermark."""
-    s = 2
-    W, H = 1200 * s, 630 * s
-    play = lambda px: ImageFont.truetype(PLAYFAIR, int(px * s))
-    inter = lambda px: ImageFont.truetype(INTER, int(px * s))
-    img = Image.new("RGB", (W, H), OG_BG)
-    d = ImageDraw.Draw(img, "RGBA")
-
-    def stone_round(cx, cy, r, alpha):
-        col, n = (*OG_LINE, alpha), 16
-        outer = [(cx + r * math.cos(2 * math.pi * i / n - math.pi / 2), cy + r * math.sin(2 * math.pi * i / n - math.pi / 2)) for i in range(n)]
-        inner = [(cx + r * .52 * math.cos(2 * math.pi * (i + .5) / 8 - math.pi / 2), cy + r * .52 * math.sin(2 * math.pi * (i + .5) / 8 - math.pi / 2)) for i in range(8)]
-        d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=col, width=2 * s)
-        d.polygon(inner, outline=col, width=s)
-        for i in range(8):
-            for k in (0, 1, 2):
-                d.line([outer[(i * 2 + k) % n], inner[i]], fill=col, width=s)
-
-    def stone_pear(cx, cy, w, alpha):
-        col = (*OG_LINE, alpha)
-        tw, ch, ph = w * .55, w * .30, w * .95
-        tl, tr = (cx - tw / 2, cy - ch), (cx + tw / 2, cy - ch)
-        gl, gr, tip = (cx - w / 2, cy), (cx + w / 2, cy), (cx, cy + ph)
-        d.polygon([tl, tr, gr, tip, gl], outline=col, width=2 * s)
-        for i in range(5):
-            d.line([(tl[0] + (tr[0] - tl[0]) * i / 4, tl[1]), (gl[0] + (gr[0] - gl[0]) * i / 4, cy)], fill=col, width=s)
-        d.line([gl, gr], fill=col, width=2 * s)
-        for i in range(1, 4):
-            d.line([(gl[0] + (gr[0] - gl[0]) * i / 3, cy), tip], fill=col, width=s)
-
-    def tracked(text, x, y, font, fill, sp):
-        for ch in text:
-            d.text((x, y), ch, font=font, fill=fill, anchor="lm")
-            x += d.textlength(ch, font=font) + sp * s
-
-    stone_round(W * .855, H * .44, 190 * s, 120)
-    stone_pear(W * .95, H * .80, 110 * s, 94)
-
-    L = 88 * s
-    tracked("THE RING MINT JOURNAL", L, H * .175, inter(23), OG_GOLD, 6)
-    d.line([(L, H * .245), (L + 120 * s, H * .245)], fill=OG_GOLD, width=3 * s)
-
-    # Largest size at which every line clears 86% of the width; the art is
-    # deliberately inside that column.
+    Drawn from scratch rather than composited onto a downscaled hero: the
+    original version drew 62-74px type at 1x over a busy crop, which rendered
+    around 26px in a feed and was unreadable. The headline is auto-fit to the
+    widest line and runs over the line art, which sits low enough in alpha that
+    the overlap reads as a watermark."""
+    c = Sheet(1200, 630, wash_cx=0.78, wash_cy=0.45)
+    c.round_top(0.855, 0.44, 190, 120)
+    c.diamond(0.95, 0.80, 110, 94)
+    L = 88 / 1200
+    c.tracked("THE RING MINT JOURNAL", L, 0.175, c.inter(23), GOLD, 6)
+    c.hairline(L, 0.245, 120)
     lines = title[:3]
-    size = 122 if len(lines) <= 2 else 100
-    while size > 52:
-        f = play(size)
-        if max(d.textlength(l, font=f) for l in lines) <= W * .86 - L:
-            break
-        size -= 2
-    gap = size * 1.18 * s
-    y0 = H * .535 - (len(lines) - 1) * gap / 2
-    for i, line in enumerate(lines):
-        d.text((L, y0 + i * gap), line, font=play(size), fill=INK, anchor="lm")
-
-    tracked("RINGMINT.COM", L, H * .875, inter(22), OG_MUTED, 5)
-    out = OUT / f"{slug}-og.jpg"
-    img.resize((1200, 630), Image.LANCZOS).save(out, quality=88, optimize=True, progressive=True)
-    print("wrote", f"assets/blog/{slug}-og.jpg", f"{out.stat().st_size // 1024} KB", f"headline {size}px")
+    size = c.fit(lines, 122 if len(lines) <= 2 else 100, 52, c.W * 0.86 - 88 * S)
+    c.headline(lines, L, 0.535, size)
+    c.tracked("RINGMINT.COM", L, 0.875, c.inter(22), MUTED, 5)
+    c.save(OUT / f"{slug}-og.jpg", 1200, 630, 88)
+    print("   headline", f"{size}px")
 
 
-def card(slug, title, hero_img):
-    """The /blog/ listing card. The headline is burned in so the index is
-    scannable and so two posts are never visually interchangeable."""
-    img = hero_img.crop((160, 75, 1440, 875)).resize((800, 500), Image.LANCZOS)
-    d = ImageDraw.Draw(img, "RGBA")
-    d.rectangle([0, 0, 800, 500], fill=(23, 23, 23, 165))
+def card(slug, title):
+    """The /blog/ listing card. Same construction as the OG card at 800x500, so
+    the index and the social previews read as one set. The headline is burned in
+    so the index is scannable and two posts are never interchangeable."""
+    c = Sheet(800, 500, wash_cx=0.78, wash_cy=0.45)
+    c.round_top(0.87, 0.42, 130, 120)
+    c.diamond(0.96, 0.82, 78, 94)
+    L = 60 / 800
+    c.tracked("THE RING MINT JOURNAL", L, 0.16, c.inter(16), GOLD, 4)
+    c.hairline(L, 0.235, 80)
     lines = title[:3]
-    size = 40 if len(lines) <= 2 else 34
-    gap = 0.17 if len(lines) <= 2 else 0.145
-    fy0 = 0.47 - (len(lines) - 1) * gap / 2
-    for i, line in enumerate(lines):
-        d.text((400, 500 * (fy0 + i * gap)), line, font=ImageFont.truetype(DIDOT, size, index=0), fill=CREAM, anchor="mm")
-    d.line([(345, 500 * 0.83), (455, 500 * 0.83)], fill=GOLD, width=2)
-    img.save(OUT / f"{slug}-card.jpg", quality=78, optimize=True, progressive=True)
-    print("wrote", f"assets/blog/{slug}-card.jpg")
+    size = c.fit(lines, 78 if len(lines) <= 2 else 62, 32, c.W * 0.86 - 60 * S)
+    c.headline(lines, L, 0.545, size)
+    c.tracked("RINGMINT.COM", L, 0.89, c.inter(15), MUTED, 4)
+    c.save(OUT / f"{slug}-card.jpg", 800, 500, 84)
 
 
 def story(slug, title, answer, sub):
-    c = Canvas(1080, 1920, glow_cy=0.40)
-    c.round_top(0.12, 0.16, 300, 50)
-    c.diamond(0.50, 0.29, 250)
-    c.diamond(0.24, 0.32, 130, 170)
-    c.diamond(0.77, 0.31, 150, 190)
-    c.diamond(0.96, 0.80, 360, 30)
-    c.sparkles([(.30, .20, 14), (.68, .17, 18), (.86, .24, 11), (.12, .42, 12), (.62, .44, 10), (.14, .72, 12), (.86, .60, 9), (.40, .90, 11)])
+    c = Sheet(1080, 1920, wash_cx=0.5, wash_cy=0.30)
+    c.round_top(0.12, 0.14, 300, 90)
+    c.diamond(0.50, 0.26, 250, 140)
+    c.diamond(0.24, 0.29, 130, 110)
+    c.diamond(0.77, 0.28, 150, 120)
+    c.diamond(0.96, 0.80, 360, 60)
+    c.sparkles([(.30, .18, 14), (.68, .15, 18), (.86, .22, 11), (.12, .40, 12), (.62, .42, 10), (.14, .72, 12), (.86, .60, 9), (.40, .90, 11)])
     c.frame()
-    c.spaced("THE RING MINT JOURNAL", 0.505, c.font("georgia", 26), GOLD, 7)
-    n = len(title)
-    title_lines(c, title, 0.615 - (n - 1) * 0.05 / 2, 84, 0.05)
-    c.hairline(0.715)
-    c.center(answer, 0.757, c.font("didot_i", 52), GOLD)
+    c.tracked("THE RING MINT JOURNAL", 0.5, 0.505, c.inter(26), GOLD, 7, anchor="mm")
+    lines = title[:3]
+    size = c.fit(lines, 92, 46, c.W * 0.84)
+    c.headline(lines, 0.5, 0.615, size, anchor="mm", leading=1.20)
+    c.hairline(0.40, 0.715, 216)
+    c.d.text((c.W / 2, c.H * 0.757), answer, font=c.play_i(52), fill=GOLD, anchor="mm")
     for i, line in enumerate(sub):
-        c.center(line, 0.815 + i * 0.03, c.font("georgia", 30), (200, 190, 175))
+        c.d.text((c.W / 2, c.H * (0.815 + i * 0.03)), line, font=c.inter(29), fill=MUTED, anchor="mm")
     c.pill("READ THE POST", 0.895)
-    c.center("ringmint.com", 0.94, c.font("georgia", 24), (150, 140, 125))
-    c.save(OUT / f"{slug}-story.jpg", 1080, 1920, 85)
+    c.tracked("RINGMINT.COM", 0.5, 0.94, c.inter(23), MUTED, 4, anchor="mm")
+    c.save(OUT / f"{slug}-story.jpg", 1080, 1920, 86)
 
 
 def pin(slug, title, answer, sub):
     # Pinterest's preferred 2:3. Same composition language as the Story, but no
     # Instagram UI safe zones, so the type sits higher and larger.
-    c = Canvas(1000, 1500, glow_cy=0.36)
-    c.round_top(0.50, 0.27, 250)
-    c.diamond(0.22, 0.31, 130, 170)
-    c.diamond(0.78, 0.30, 150, 190)
-    c.diamond(0.97, 0.84, 320, 30)
-    c.round_top(0.04, 0.04, 220, 40)
-    c.sparkles([(.30, .16, 14), (.68, .13, 18), (.88, .22, 11), (.10, .40, 12), (.62, .42, 10), (.14, .70, 12), (.88, .58, 9), (.40, .93, 11)])
+    c = Sheet(1000, 1500, wash_cx=0.5, wash_cy=0.28)
+    c.round_top(0.50, 0.25, 250, 140)
+    c.diamond(0.22, 0.29, 130, 110)
+    c.diamond(0.78, 0.28, 150, 120)
+    c.diamond(0.97, 0.84, 320, 60)
+    c.round_top(0.04, 0.04, 220, 70)
+    c.sparkles([(.30, .15, 14), (.68, .12, 18), (.88, .21, 11), (.10, .39, 12), (.62, .41, 10), (.14, .70, 12), (.88, .58, 9), (.40, .93, 11)])
     c.frame()
-    c.spaced("THE RING MINT JOURNAL", 0.475, c.font("georgia", 24), GOLD, 6)
-    n = len(title)
-    title_lines(c, title, 0.585 - (n - 1) * 0.055 / 2, 76, 0.055)
-    c.hairline(0.695)
-    c.center(answer, 0.740, c.font("didot_i", 48), GOLD)
+    c.tracked("THE RING MINT JOURNAL", 0.5, 0.475, c.inter(24), GOLD, 6, anchor="mm")
+    lines = title[:3]
+    size = c.fit(lines, 84, 42, c.W * 0.84)
+    c.headline(lines, 0.5, 0.585, size, anchor="mm", leading=1.20)
+    c.hairline(0.40, 0.695, 200)
+    c.d.text((c.W / 2, c.H * 0.740), answer, font=c.play_i(48), fill=GOLD, anchor="mm")
     for i, line in enumerate(sub):
-        c.center(line, 0.800 + i * 0.032, c.font("georgia", 28), (200, 190, 175))
+        c.d.text((c.W / 2, c.H * (0.800 + i * 0.032)), line, font=c.inter(27), fill=MUTED, anchor="mm")
     c.pill("READ THE POST", 0.885, w=380, h=70)
-    c.center("ringmint.com", 0.935, c.font("georgia", 24), (150, 140, 125))
-    c.save(OUT / f"{slug}-pin.jpg", 1000, 1500, 82)
+    c.tracked("RINGMINT.COM", 0.5, 0.935, c.inter(23), MUTED, 4, anchor="mm")
+    c.save(OUT / f"{slug}-pin.jpg", 1000, 1500, 84)
 
 
 def crop_mobile(slug, source=None):
@@ -344,37 +317,41 @@ def crop_mobile(slug, source=None):
     out = src.crop(box)
     if out.width > 1080:
         out = out.resize((1080, 1350), Image.LANCZOS)
-    out.save(OUT / f"{slug}-hero-mobile.jpg", quality=80, optimize=True, progressive=True)
+    out.save(OUT / f"{slug}-hero-mobile.jpg", quality=84, optimize=True, progressive=True)
     print("wrote", f"assets/blog/{slug}-hero-mobile.jpg", out.size)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=["generate", "og", "story", "pin", "crop-mobile"])
+    ap.add_argument("mode", choices=["generate", "hero", "og", "card", "story", "pin", "crop-mobile"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--title", help="headline, lines separated by |, 2 or 3 lines")
+    ap.add_argument("--og-title", help="shorter headline for the OG and listing cards, lines separated by |; defaults to --title")
     ap.add_argument("--answer", help="one short line, gold italic (story and pin)")
     ap.add_argument("--sub", default="", help="one or two supporting lines separated by | (story and pin)")
-    ap.add_argument("--og-title", help="shorter headline for the OG card, lines separated by |; defaults to --title")
     ap.add_argument("--source", help="crop-mobile only: a clean photo in assets/blog/ to crop instead of SLUG-hero.jpg")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     title = a.title.split("|") if a.title else []
+    og_title = a.og_title.split("|") if a.og_title else title
     sub = [s for s in a.sub.split("|") if s]
+
     if a.mode == "crop-mobile":
         return crop_mobile(a.slug, a.source)
-    og_title = a.og_title.split("|") if a.og_title else title
-    if a.mode == "og":
+    if a.mode == "hero":
+        hero(a.slug)
+        return hero_mobile(a.slug)
+    if a.mode in ("og", "card"):
         if not og_title:
             sys.exit("--og-title (or --title) is required")
-        return og(a.slug, og_title)
+        return (og if a.mode == "og" else card)(a.slug, og_title)
     if not title:
         sys.exit("--title is required")
     if a.mode == "generate":
-        h = hero(a.slug)
+        hero(a.slug)
         hero_mobile(a.slug)
         og(a.slug, og_title)
-        card(a.slug, title, h)
+        card(a.slug, og_title)
     if not a.answer:
         sys.exit("--answer is required for the story and pin images")
     if a.mode in ("generate", "story"):
