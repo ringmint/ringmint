@@ -17,7 +17,7 @@
  */
 
 var TO = 'chloe@ringmint.com';
-var MAX_PHOTOS = 3;
+var MAX_PHOTOS = 2;
 // MailApp caps a message at 25 MB; stay well under it.
 var MAX_ATTACHMENT_BYTES = 15 * 1024 * 1024;
 
@@ -65,7 +65,12 @@ function doPost(e) {
     '<p style="font-family:Arial,sans-serif;font-size:14px"><strong>What they\'re looking for:</strong><br>' +
     escapeHtml(p.details || '-').replace(/\n/g, '<br>') + '</p>';
 
-  var photos = collectPhotos(p);
+  var photos;
+  try {
+    photos = collectPhotos(p);
+  } catch (err) {
+    return json({ ok: false, error: "Please attach up to two valid images and try again." });
+  }
   if (photos.length) {
     text += '\n\nAttached: ' + photos.length + ' photo(s).';
     html += '<p style="font-family:Arial,sans-serif;font-size:14px"><strong>' +
@@ -93,43 +98,34 @@ function doPost(e) {
   return json({ ok: true });
 }
 
-/**
- * Inspiration photos. script.js resizes and re-encodes each one to JPEG in
- * the browser, then sends it as base64 in photo_<n>_data, because the form
- * posts url-encoded (multipart would force a CORS preflight that Apps Script
- * does not answer).
- *
- * A photo that fails to decode is skipped rather than thrown: losing an
- * attachment is recoverable, losing the whole inquiry is not.
- */
+/** Decode the JPEG images prepared by the browser. Reject incomplete uploads
+ * before sending so an inquiry never silently loses its attachments. */
 function collectPhotos(p) {
-  var count = Math.min(parseInt(p.photo_count, 10) || 0, MAX_PHOTOS);
+  var count = Number(p.photo_count || 0);
+  if (!isFinite(count) || count < 0 || count > MAX_PHOTOS || Math.floor(count) !== count) {
+    throw new Error('Invalid photo count');
+  }
   var blobs = [];
   var total = 0;
   for (var i = 0; i < count; i++) {
     var data = p['photo_' + i + '_data'];
-    if (!data) continue;
-    try {
-      var bytes = Utilities.base64Decode(data);
-      // MailApp rejects the whole message if the attachments exceed its
-      // limit, so stop short rather than lose the inquiry with them.
-      if (total + bytes.length > MAX_ATTACHMENT_BYTES) break;
-      total += bytes.length;
-      blobs.push(Utilities.newBlob(
-        bytes,
-        p['photo_' + i + '_type'] || 'image/jpeg',
-        p['photo_' + i + '_name'] || ('photo-' + (i + 1) + '.jpg')
-      ));
-    } catch (err) {
-      // Skip this one and keep the rest.
-    }
+    if (!data || data.length > MAX_ATTACHMENT_BYTES * 4 / 3 ||
+        p['photo_' + i + '_type'] !== 'image/jpeg') throw new Error('Invalid image');
+    var bytes = Utilities.base64Decode(data);
+    if (bytes.length < 3 || (bytes[0] & 255) !== 255 ||
+        (bytes[1] & 255) !== 216 || (bytes[2] & 255) !== 255) throw new Error('Invalid JPEG');
+    total += bytes.length;
+    if (total > MAX_ATTACHMENT_BYTES) throw new Error('Images too large');
+    var name = String(p['photo_' + i + '_name'] || ('photo-' + (i + 1) + '.jpg'))
+      .replace(/[\\/\r\n]/g, '_').slice(0, 150).replace(/\.[^.]*$/, '') + '.jpg';
+    blobs.push(Utilities.newBlob(bytes, 'image/jpeg', name));
   }
   return blobs;
 }
 
 // Visiting the /exec URL in a browser, handy for confirming the deployment.
 function doGet() {
-  return json({ ok: true, message: 'Ring Mint inquiry endpoint is live.' });
+  return json({ ok: true, message: 'Ring Mint inquiry endpoint is live.', maxPhotos: MAX_PHOTOS, version: 'photos-2-v1' });
 }
 
 function json(obj) {

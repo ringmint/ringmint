@@ -16,7 +16,7 @@ const track = (name, params) => {
    and re-encoded as JPEG in the browser first, which turns a 6 MB phone
    photo into roughly 300 KB. Anything the browser cannot decode (HEIC on a
    desktop, a PDF someone renamed) is skipped rather than sent raw. */
-const PHOTO_MAX_COUNT = 3;
+const PHOTO_MAX_COUNT = 2;
 const PHOTO_MAX_EDGE = 1600;
 const PHOTO_QUALITY = 0.82;
 /* Ceiling for the whole request. Apps Script accepts far more, but a slow
@@ -62,15 +62,14 @@ const shrinkImage = async (file) => {
   };
 };
 
-/* Skipped files are reported back rather than swallowed, so someone who
-   attached a HEIC knows to send it another way instead of assuming Chloe
-   has seen it. */
+/* Report unreadable images so the customer can correct them before sending. */
 const preparePhotos = async (files) => {
   const photos = [];
   const skipped = [];
   let budget = PHOTO_TOTAL_BUDGET;
   for (const file of Array.from(files).slice(0, PHOTO_MAX_COUNT)) {
-    const photo = await shrinkImage(file);
+    let photo;
+    try { photo = await shrinkImage(file); } catch (error) { photo = null; }
     if (!photo) {
       skipped.push(file.name || "one photo");
       continue;
@@ -86,8 +85,8 @@ const preparePhotos = async (files) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* Inquiry form → Apps Script. Only present on the home page, so guard it
-     without returning early; the header logic below runs everywhere. */
+  /* Inquiry form → Apps Script on the home and contact pages.
+     Guard it without returning early; the header logic runs everywhere. */
   const form = document.getElementById("inquiryForm");
   /* Attribution. /contact/?ref=<slug> is how every guide, gemstone page and
      case study sends people to the form, so the lead can be traced back to
@@ -109,7 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
        people re-pick three times. */
     if (photoInput && photoList) {
       photoInput.addEventListener("change", () => {
-        const files = Array.from(photoInput.files).slice(0, PHOTO_MAX_COUNT);
+        const files = Array.from(photoInput.files);
+        photoInput.setCustomValidity(files.length > PHOTO_MAX_COUNT
+          ? "Please choose no more than two images." : "");
         photoList.textContent = "";
         files.forEach((file) => {
           const item = document.createElement("li");
@@ -119,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (photoInput.files.length > PHOTO_MAX_COUNT) {
           const item = document.createElement("li");
           item.className = "photo-note";
-          item.textContent = `Only the first ${PHOTO_MAX_COUNT} will be sent.`;
+          item.textContent = "Please choose no more than two images.";
           photoList.appendChild(item);
         }
       });
@@ -143,6 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (button.disabled) return;
+      if (photoInput && photoInput.files.length > PHOTO_MAX_COUNT) {
+        setStatus("Please choose no more than two images.", "error");
+        return;
+      }
       const data = new FormData(form);
 
       if (!data.get("name") || !data.get("email")) {
@@ -170,6 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
           setStatus("Preparing photos…", "pending");
           const prepared = await preparePhotos(chosen);
           skipped = prepared.skipped;
+          if (skipped.length) {
+            setStatus("We could not prepare " + skipped.join(", ") +
+              ". Please choose JPG, PNG, or WebP images, or remove the photos to send your inquiry without them.", "error");
+            return;
+          }
           data.set("photo_count", String(prepared.photos.length));
           prepared.photos.forEach((photo, index) => {
             data.set(`photo_${index}_name`, photo.name);
@@ -185,16 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
           body: new URLSearchParams(data)
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        if (result.ok !== true) throw new Error("Inquiry was not accepted");
         form.reset();
         if (photoList) photoList.textContent = "";
-        setStatus(
-          skipped.length
-            ? "Thank you, we got it. We’ll reply within one business day. We could not read " +
-                skipped.join(", ") +
-                ", so please email that one to chloe@ringmint.com."
-            : "Thank you, we got it. We’ll reply within one business day.",
-          skipped.length ? "error" : "success"
-        );
+        if (photoInput) photoInput.setCustomValidity("");
+        setStatus("Thank you, we got it. We’ll reply within one business day.", "success");
         track("generate_lead", { method: "inquiry_form", cta_location: refParam || window.location.pathname });
       } catch (error) {
         setStatus(

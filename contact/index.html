@@ -164,10 +164,10 @@
             </div>
             <textarea name="details" placeholder="Tell us anything: what you have in mind, style, stone shape or type, inspiration links, deadline, ring size, or what you are unsure about." aria-label="Tell us about your ring"></textarea>
             <div class="photo-field">
-              <label for="inquiryPhotos">Inspiration photos <span>optional, up to 3</span></label>
-              <input id="inquiryPhotos" name="photos" type="file" accept="image/*" multiple />
-              <p class="photo-hint">A screenshot, a Pinterest save, or a photo of a ring in the family. Large photos are resized in your browser before sending.</p>
-              <ul id="photoList" class="photo-list"></ul>
+              <label for="inquiryPhotos">Inspiration photos <span>optional, up to 2</span></label>
+              <input id="inquiryPhotos" name="photos" type="file" accept="image/*" aria-describedby="photoHint" multiple />
+              <p id="photoHint" class="photo-hint">A screenshot, a Pinterest save, or a photo of a ring in the family. Choose up to two images to attach to your inquiry email. Large photos are resized before sending.</p>
+              <ul id="photoList" class="photo-list" aria-live="polite"></ul>
             </div>
             <input type="hidden" name="ref" value="" />
             <input type="hidden" name="page" value="" />
