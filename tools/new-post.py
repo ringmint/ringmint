@@ -164,10 +164,16 @@ def main():
     print(f"wrote {dest.relative_to(ROOT)} ({words} words, {read_min} min, {'index' if publish else 'NOINDEX draft'})")
 
     # images
-    hero = ROOT / "assets" / "blog" / f"{slug}-hero.jpg"
-    if "--no-images" not in flags and not hero.exists():
-        cmd = [sys.executable, str(ROOT / "tools" / "blog-images.py"), "generate", "--slug", slug,
-               "--title", meta.get("image_title", h1), "--answer", meta.get("image_answer", ""), "--sub", meta.get("image_sub", "")]
+    # No hero: a post gets in-body imagery only when there is a real image worth
+    # showing, added deliberately. What is generated here is the social card, the
+    # /blog/ listing card, and the Story and pin, none of which appear in the post.
+    card = ROOT / "assets" / "blog" / f"{slug}-og.jpg"
+    if "--no-images" not in flags and not card.exists():
+        cmd = [sys.executable, str(ROOT / "tools" / "blog-images.py"), "social", "--slug", slug,
+               "--title", meta.get("image_title", h1),
+               "--answer", meta.get("image_answer", ""), "--sub", meta.get("image_sub", "")]
+        if meta.get("image_og_title"):
+            cmd += ["--og-title", meta["image_og_title"]]
         subprocess.run(cmd, check=True)
 
     # blog index card

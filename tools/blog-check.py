@@ -208,9 +208,15 @@ def main():
         fail(f"article:section '{section}' is not one of: {', '.join(CATEGORIES)}")
 
     # --- preloads ---------------------------------------------------------
-    for fname, media in ((f"{slug}-hero-mobile.jpg", "(max-width: 620px)"), (f"{slug}-hero.jpg", "(min-width: 621px)")):
-        if not re.search(rf'<link\s+rel="preload"\s+as="image"\s+href="/assets/blog/{re.escape(fname)}"\s+media="{re.escape(media)}"', src):
-            fail(f"hero preload for {fname} with media=\"{media}\" missing or wrong")
+    # Posts carry no hero by default; imagery is added only when there is a real
+    # image worth showing. A post that does have one must still preload it.
+    has_hero = f'src="/assets/blog/{slug}-hero.jpg"' in src
+    if has_hero:
+        for fname, media in ((f"{slug}-hero-mobile.jpg", "(max-width: 620px)"), (f"{slug}-hero.jpg", "(min-width: 621px)")):
+            if not re.search(rf'<link\s+rel="preload"\s+as="image"\s+href="/assets/blog/{re.escape(fname)}"\s+media="{re.escape(media)}"', src):
+                fail(f"hero preload for {fname} with media=\"{media}\" missing or wrong")
+    elif re.search(r'<link\s+rel="preload"\s+as="image"\s+href="/assets/blog/[^"]*-hero', src):
+        fail("hero preload present but the post has no hero <picture>")
 
     # --- JSON-LD ----------------------------------------------------------
     blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', src, re.S)
@@ -256,8 +262,9 @@ def main():
         if posting.get("@id") != f"{url}#article":
             fail(f"BlogPosting @id should be {url}#article")
         img = posting.get("image", {})
-        if isinstance(img, dict) and img.get("url") != f"{SITE}/assets/blog/{slug}-hero.jpg":
-            fail("BlogPosting image.url should be the -hero.jpg")
+        want = f"{SITE}/assets/blog/{slug}-{'hero' if has_hero else 'og'}.jpg"
+        if isinstance(img, dict) and img.get("url") != want:
+            fail(f"BlogPosting image.url should be {want.rsplit('/', 1)[-1]}")
         ok("BlogPosting node present")
 
     # --- body -------------------------------------------------------------
@@ -274,7 +281,7 @@ def main():
         fail(f"category eyebrow should link to /blog/#{CATEGORIES.get(section)}")
     pic = re.search(r'<picture>(.*?)</picture>', src, re.S)
     if not pic:
-        fail("hero <picture> element missing")
+        ok("no hero image (posts carry imagery only when there is one worth showing)")
     else:
         p = pic.group(1)
         if f"/assets/blog/{slug}-hero-mobile.jpg" not in p or 'media="(max-width: 620px)"' not in p:

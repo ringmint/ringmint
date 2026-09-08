@@ -57,21 +57,31 @@ Three tools do the mechanical work. Learn these three commands and the rest of t
 - [ ] Slug: lowercase, hyphens, 3-6 words, contains the primary keyword, **no dates, no stop words** (`/blog/lab-diamond-resale-value/`, not `/blog/2026/09/what-you-should-know-about-the-resale-value-of-lab-diamonds/`). Slugs are permanent. Never change one after publishing.
 - [ ] `cp blog/_post-template.html blog/YOUR-SLUG/index.html`
 - [ ] **Every post ships six images**, all in `/assets/blog/`, all in the same house style (see below). None are optional.
-  - `YOUR-SLUG-hero.jpg`: 1600×900, the post hero on desktop and tablet.
-  - `YOUR-SLUG-hero-mobile.jpg`: 1080×1350 (4:5), the post hero on phones. The template serves it through `<picture>` below 620px. A 16:9 image cropped to a phone screen is either a tiny strip or a sliver of the middle; this file is a separate composition, not a resize.
+  - **No hero by default.** A post carries no image at the top. Decorative line-art plates said nothing the headline did not already say, and read as blank panels. Add imagery to a post only when there is a real image worth showing — a stone on the bench, a client's ring, a screenshot that is evidence — and then write it in by hand.
+  - `YOUR-SLUG-hero.jpg` / `YOUR-SLUG-hero-mobile.jpg`: 1600×900 and 1080×1350, only for a post that has a genuine hero image. The template serves the mobile file through `<picture>` below 620px; a 16:9 image cropped to a phone screen is either a tiny strip or a sliver of the middle, so it is a separate composition, not a resize. Generate them with the `hero` mode, or drop in a photograph.
   - `YOUR-SLUG-og.jpg`: 1200×630, the social/OG image, title overlaid. This is what Facebook, LinkedIn, iMessage, Slack, and X show when the URL is pasted.
   - `YOUR-SLUG-card.jpg`: 800×500, the card image for the /blog/ listing.
   - `YOUR-SLUG-story.jpg`: 1080×1920, the Instagram Story for the post. Not referenced by the site; it exists so the post is announced on Stories the day it publishes, in the same look as everything else. Text stays out of the top and bottom 250px (Instagram's own UI covers those), and the "read the post" pill sits at roughly 89% height so the link sticker can go on top of it.
   - `YOUR-SLUG-pin.jpg`: 1000×1500 (2:3), the Pinterest pin. Not referenced by the site. Pinterest crops anything that isn't 2:3, so the Story and OG images both lose their headline there; this file is the one you pin.
   - Compress everything (target < 200 KB each; the generator does this for you, otherwise Squoosh.app, quality ~75 JPEG).
   - Filenames are descriptive and keyworded: `oval-lab-diamond-ring-hero.jpg`, never `IMG_4021.jpg`.
-- [ ] **Generate them with the script, do not freehand them.** [tools/blog-images.py](tools/blog-images.py) produces all six from a slug and a headline, in the house style, at the right sizes and weights:
+- [ ] **Generate them with the script, do not freehand them.** [tools/blog-images.py](tools/blog-images.py) produces them from a slug and a headline, in the house style, at the right sizes and weights. The default `social` mode makes the four images that live *outside* the post — the OG card, the listing card, the Story and the pin — and puts nothing inside it:
   ```bash
-  python3 tools/blog-images.py generate --slug YOUR-SLUG --title "Line one|line two|line three" --answer "One short answer line." --sub "Supporting line,|second supporting line."
+  python3 tools/blog-images.py social --slug YOUR-SLUG --title "Line one|line two|line three" --og-title "Short hook|two lines" --answer "One short answer line." --sub "Supporting line,|second supporting line."
   ```
-  If the post has a real photograph for its hero (a stone on the bench, a client's ring), keep the photo as `YOUR-SLUG-hero.jpg`, make the OG and card from it, and run only the three commands the script cannot replace with line art:
+  `--og-title` is a shorter, hand-broken headline used by the OG and listing cards, which set type far larger than the hero does. It falls back to `--title`, but a full post title is usually too long to render at full size — write a hook of two or three short lines.
+
+  Use `generate` instead of `social` only when the post genuinely wants a hero; it adds the two hero files, and you must then add the `<picture>` block and its preloads to the page by hand.
+
+  If the post has a real photograph for its hero (a stone on the bench, a client's ring), keep the photo as `YOUR-SLUG-hero.jpg` and never run `generate` on that slug — it would overwrite the photograph with line art. Run only the pieces that do not derive from the hero:
   ```bash
   python3 tools/blog-images.py crop-mobile --slug YOUR-SLUG
+  ```
+  ```bash
+  python3 tools/blog-images.py og --slug YOUR-SLUG --og-title "..."
+  ```
+  ```bash
+  python3 tools/blog-images.py card --slug YOUR-SLUG --og-title "..."
   ```
   ```bash
   python3 tools/blog-images.py story --slug YOUR-SLUG --title "..." --answer "..." --sub "..."
@@ -79,7 +89,9 @@ Three tools do the mechanical work. Learn these three commands and the rest of t
   ```bash
   python3 tools/blog-images.py pin --slug YOUR-SLUG --title "..." --answer "..." --sub "..."
   ```
-- [ ] **House style for all six images.** Charcoal `#171717` ground with a warm radial glow, gold `rgb(212,183,134)` line-art diamonds (round brilliant seen from above, and the classic crown-and-pavilion profile), small four-point sparkles, a hairline gold frame inset 40px, Didot for headlines in cream `rgb(244,239,230)`, Didot italic in gold for the one-line answer, Georgia letter-spaced small caps for the "THE RING MINT JOURNAL" eyebrow. A photographic hero is fine, but the OG, card, Story, and pin built from it still carry the same type, eyebrow, hairline, and pill. Do not introduce new colours, fonts, or icon styles for one post. If the style needs to change, change it in the script so every future post changes with it.
+- [ ] **House style for all six images.** Cream `#fbf8f3` ground with a warm radial wash, gold `#ae8f45` line-art diamonds (round brilliant seen from above, and the classic crown-and-pavilion profile), small four-point sparkles, a hairline gold frame, ink `#171717` Playfair Display for headlines, Playfair Display italic in gold for the one-line answer, Inter 500 letter-spaced small caps for the "THE RING MINT JOURNAL" eyebrow. These are the site's own brand faces and palette, taken from `:root` in `styles.css`, so an image and the page it links to match. A photographic hero is fine, but the OG, card, Story, and pin built from it still carry the same type, eyebrow, hairline, and pill. Do not introduce new colours, fonts, or icon styles for one post. If the style needs to change, change it in the script so every future post changes with it.
+
+  This replaced an earlier charcoal `#171717` and Didot treatment in September 2026. That version set OG type at 1x on a downscaled hero crop, so headlines rendered around 26px in a feed and could not be read; Didot's hairline strokes in cream on near-black made it worse. Dark type on a light ground survives feed-size rendering, which is the whole point of these images.
 
 ## 3. Fill in the template
 
@@ -210,7 +222,7 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 5. One thing only a real jeweler would know.
 6. Unique 50-60 char title, 140-160 char description, full OG set, 3 to 6 `article:tag` lines.
 7. Valid `BlogPosting` JSON-LD (+ `FAQPage` when there's real Q&A).
-8. All six images (hero, hero-mobile, og, card, story, pin) from `tools/blog-images.py`, same house style, honest alt text.
+8. The four social/listing images (og, card, story, pin) from `tools/blog-images.py`, same house style, honest alt text. A hero only if the post has a real image worth showing.
 9. `noindex` removed. Canonical correct. GA4 tag untouched.
 10. Card added to /blog/, entry added to sitemap.xml **and** llms.txt, `tools/build-feed.py` run.
 11. At least one link *to* the post from an existing page.

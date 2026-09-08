@@ -2,19 +2,25 @@
 """
 Generate the full image set for a Ring Mint Journal post in the house style.
 
-    python3 tools/blog-images.py generate --slug are-tiktok-diamonds-real \
+    python3 tools/blog-images.py social --slug are-tiktok-diamonds-real \
         --title "Are the diamonds|on TikTok Live|actually real?" \
         --og-title "Are TikTok|diamonds real?" \
         --answer "Yes. That's not the problem." \
         --sub "What $100 a carat actually buys,|from a jeweler who sorts these parcels."
 
+The default mode is "social", which writes the four images that live outside the
+post. Blog posts carry no hero: in-body imagery is added only when there is a
+real image worth showing. Use the "generate" mode when a post does want one.
+
 writes to assets/blog/:
-    SLUG-hero.jpg         1600x900   post hero (desktop)
-    SLUG-hero-mobile.jpg  1080x1350  post hero (phones, via <picture>)
     SLUG-og.jpg           1200x630   social / OG card, title overlaid
     SLUG-card.jpg         800x500    /blog/ listing card
     SLUG-story.jpg        1080x1920  Instagram Story (not referenced by the site)
     SLUG-pin.jpg          1000x1500  Pinterest pin, 2:3 (not referenced by the site)
+
+  and, in "generate" mode only:
+    SLUG-hero.jpg         1600x900   post hero (desktop)
+    SLUG-hero-mobile.jpg  1080x1350  post hero (phones, via <picture>)
 
 --og-title is a shorter, hand-broken headline for the social card and listing
 card, which set type far larger than the hero does. It falls back to --title,
@@ -92,9 +98,13 @@ class Sheet:
     def inter(self, px):  return ImageFont.truetype(INTER, int(px * S))
 
     # --- line art -------------------------------------------------------
-    def diamond(self, fx, fy, w, alpha=120):
-        """The crown-and-pavilion profile, as a faint watermark."""
-        d, col = self.d, (*LINE, alpha)
+    def diamond(self, fx, fy, w, alpha=120, color=None):
+        """The crown-and-pavilion profile.
+
+        On the cream ground pale gold all but disappears, so stones that should
+        actually read are drawn in full --gold and only the oversized shapes
+        bleeding off the edges use the pale --line-strong."""
+        d, col = self.d, (*(color or LINE), alpha)
         cx, cy, w = self.W * fx, self.H * fy, w * S
         lw = 2 * S
         tw, ch, ph = w * .55, w * .30, w * .95
@@ -107,9 +117,9 @@ class Sheet:
         for i in range(1, 4):
             d.line([(gl[0] + (gr[0] - gl[0]) * i / 3, cy), tip], fill=col, width=S)
 
-    def round_top(self, fx, fy, r, alpha=120):
+    def round_top(self, fx, fy, r, alpha=120, color=None):
         """A round brilliant seen from above."""
-        d, col, n = self.d, (*LINE, alpha), 16
+        d, col, n = self.d, (*(color or LINE), alpha), 16
         cx, cy, r = self.W * fx, self.H * fy, r * S
         lw = 2 * S
         outer = [(cx + r * math.cos(2 * math.pi * i / n - math.pi / 2), cy + r * math.sin(2 * math.pi * i / n - math.pi / 2)) for i in range(n)]
@@ -123,7 +133,7 @@ class Sheet:
     def sparkles(self, pts):
         for fx, fy, r in pts:
             cx, cy, r = self.W * fx, self.H * fy, r * S
-            col = (*GOLD, 130)
+            col = (*GOLD, 190)
             self.d.line([(cx - r, cy), (cx + r, cy)], fill=col, width=S)
             self.d.line([(cx, cy - r), (cx, cy + r)], fill=col, width=S)
             self.d.line([(cx - r * .4, cy - r * .4), (cx + r * .4, cy + r * .4)], fill=col, width=S)
@@ -155,10 +165,14 @@ class Sheet:
         return size
 
     def headline(self, lines, fx, fy, size, anchor="lm", leading=1.18):
+        """Draw the headline block centred on fy. Returns the fraction of the
+        canvas the block ends at, including descenders, so callers can hang a
+        rule or an answer line below it without knowing the line count."""
         gap = size * leading * S
         y0 = self.H * fy - (len(lines) - 1) * gap / 2
         for i, line in enumerate(lines):
             self.d.text((self.W * fx, y0 + i * gap), line, font=self.play(size), fill=INK, anchor=anchor)
+        return (y0 + (len(lines) - 1) * gap + size * S * 0.42) / self.H
 
     def hairline(self, fx, fy, w):
         x, y = self.W * fx, self.H * fy
@@ -192,14 +206,14 @@ def hero(slug):
     c = Sheet(1600, 900, wash_cx=r.uniform(0.55, 0.75), wash_cy=r.uniform(0.38, 0.52))
     focal_round = r.random() < 0.5
     fx, fy = r.uniform(0.30, 0.44), r.uniform(0.40, 0.50)
-    (c.round_top if focal_round else c.diamond)(fx, fy, r.uniform(175, 215), 150)
-    c.diamond(r.uniform(0.58, 0.66), r.uniform(0.34, 0.42), r.uniform(210, 250), 130)
-    c.diamond(r.uniform(0.74, 0.82), r.uniform(0.38, 0.48), r.uniform(135, 165), 110)
+    (c.round_top if focal_round else c.diamond)(fx, fy, r.uniform(175, 215), 255, GOLD)
+    c.diamond(r.uniform(0.58, 0.66), r.uniform(0.34, 0.42), r.uniform(210, 250), 230, GOLD)
+    c.diamond(r.uniform(0.74, 0.82), r.uniform(0.38, 0.48), r.uniform(135, 165), 190, GOLD)
     if r.random() < 0.7:
-        c.diamond(r.uniform(0.48, 0.55), r.uniform(0.44, 0.52), r.uniform(90, 115), 95)
+        c.diamond(r.uniform(0.48, 0.55), r.uniform(0.44, 0.52), r.uniform(90, 115), 160, GOLD)
     # oversized faint shapes bleeding off opposite corners
-    c.diamond(r.uniform(0.92, 1.00), r.uniform(0.24, 0.34), r.uniform(310, 360), 70)
-    (c.round_top if r.random() < 0.5 else c.diamond)(r.uniform(0.04, 0.12), r.uniform(0.86, 0.96), r.uniform(200, 240), 70)
+    c.diamond(r.uniform(0.92, 1.00), r.uniform(0.24, 0.34), r.uniform(310, 360), 150)
+    (c.round_top if r.random() < 0.5 else c.diamond)(r.uniform(0.04, 0.12), r.uniform(0.86, 0.96), r.uniform(200, 240), 150)
     c.sparkles([(r.uniform(0.08, 0.95), r.uniform(0.14, 0.88), r.randint(9, 18)) for _ in range(r.randint(6, 8))])
     c.frame()
     return c.save(OUT / f"{slug}-hero.jpg", 1600, 900, 84)
@@ -208,12 +222,12 @@ def hero(slug):
 def hero_mobile(slug):
     r = _rng(slug + "-mobile")
     c = Sheet(1080, 1350, wash_cx=0.5, wash_cy=0.42)
-    c.round_top(0.50, 0.36, 300, 150)
-    c.diamond(0.22, 0.70, 170, 120)
-    c.diamond(0.78, 0.70, 170, 120)
-    c.diamond(0.50, 0.78, 120, 100)
-    c.diamond(1.02, 0.12, 300, 70)
-    c.round_top(-0.05, 1.0, 260, 70)
+    c.round_top(0.50, 0.36, 300, 255, GOLD)
+    c.diamond(0.22, 0.70, 170, 220, GOLD)
+    c.diamond(0.78, 0.70, 170, 220, GOLD)
+    c.diamond(0.50, 0.78, 120, 175, GOLD)
+    c.diamond(1.02, 0.12, 300, 150)
+    c.round_top(-0.05, 1.0, 260, 150)
     c.sparkles([(.18, .18, 14), (.82, .22, 18), (.12, .50, 11), (.88, .48, 12), (.30, .92, 10), (.72, .95, 9), (.50, .08, 11)])
     c.frame()
     c.save(OUT / f"{slug}-hero-mobile.jpg", 1080, 1350, 84)
@@ -260,21 +274,21 @@ def card(slug, title):
 
 def story(slug, title, answer, sub):
     c = Sheet(1080, 1920, wash_cx=0.5, wash_cy=0.30)
-    c.round_top(0.12, 0.14, 300, 90)
-    c.diamond(0.50, 0.26, 250, 140)
-    c.diamond(0.24, 0.29, 130, 110)
-    c.diamond(0.77, 0.28, 150, 120)
-    c.diamond(0.96, 0.80, 360, 60)
+    c.round_top(0.12, 0.14, 300, 150)
+    c.diamond(0.50, 0.26, 250, 245, GOLD)
+    c.diamond(0.24, 0.29, 130, 205, GOLD)
+    c.diamond(0.77, 0.28, 150, 215, GOLD)
+    c.diamond(0.96, 0.80, 360, 140)
     c.sparkles([(.30, .18, 14), (.68, .15, 18), (.86, .22, 11), (.12, .40, 12), (.62, .42, 10), (.14, .72, 12), (.86, .60, 9), (.40, .90, 11)])
     c.frame()
     c.tracked("THE RING MINT JOURNAL", 0.5, 0.505, c.inter(26), GOLD, 7, anchor="mm")
     lines = title[:3]
     size = c.fit(lines, 92, 46, c.W * 0.84)
-    c.headline(lines, 0.5, 0.615, size, anchor="mm", leading=1.20)
-    c.hairline(0.40, 0.715, 216)
-    c.d.text((c.W / 2, c.H * 0.757), answer, font=c.play_i(52), fill=GOLD, anchor="mm")
+    bottom = c.headline(lines, 0.5, 0.615, size, anchor="mm", leading=1.20)
+    c.hairline(0.40, bottom + 0.028, 216)
+    c.d.text((c.W / 2, c.H * (bottom + 0.070)), answer, font=c.play_i(52), fill=GOLD, anchor="mm")
     for i, line in enumerate(sub):
-        c.d.text((c.W / 2, c.H * (0.815 + i * 0.03)), line, font=c.inter(29), fill=MUTED, anchor="mm")
+        c.d.text((c.W / 2, c.H * (bottom + 0.128 + i * 0.030)), line, font=c.inter(29), fill=MUTED, anchor="mm")
     c.pill("READ THE POST", 0.895)
     c.tracked("RINGMINT.COM", 0.5, 0.94, c.inter(23), MUTED, 4, anchor="mm")
     c.save(OUT / f"{slug}-story.jpg", 1080, 1920, 86)
@@ -284,21 +298,21 @@ def pin(slug, title, answer, sub):
     # Pinterest's preferred 2:3. Same composition language as the Story, but no
     # Instagram UI safe zones, so the type sits higher and larger.
     c = Sheet(1000, 1500, wash_cx=0.5, wash_cy=0.28)
-    c.round_top(0.50, 0.25, 250, 140)
-    c.diamond(0.22, 0.29, 130, 110)
-    c.diamond(0.78, 0.28, 150, 120)
-    c.diamond(0.97, 0.84, 320, 60)
-    c.round_top(0.04, 0.04, 220, 70)
+    c.round_top(0.50, 0.25, 250, 245, GOLD)
+    c.diamond(0.22, 0.29, 130, 205, GOLD)
+    c.diamond(0.78, 0.28, 150, 215, GOLD)
+    c.diamond(0.97, 0.84, 320, 140)
+    c.round_top(0.04, 0.04, 220, 150)
     c.sparkles([(.30, .15, 14), (.68, .12, 18), (.88, .21, 11), (.10, .39, 12), (.62, .41, 10), (.14, .70, 12), (.88, .58, 9), (.40, .93, 11)])
     c.frame()
     c.tracked("THE RING MINT JOURNAL", 0.5, 0.475, c.inter(24), GOLD, 6, anchor="mm")
     lines = title[:3]
     size = c.fit(lines, 84, 42, c.W * 0.84)
-    c.headline(lines, 0.5, 0.585, size, anchor="mm", leading=1.20)
-    c.hairline(0.40, 0.695, 200)
-    c.d.text((c.W / 2, c.H * 0.740), answer, font=c.play_i(48), fill=GOLD, anchor="mm")
+    bottom = c.headline(lines, 0.5, 0.585, size, anchor="mm", leading=1.20)
+    c.hairline(0.40, bottom + 0.030, 200)
+    c.d.text((c.W / 2, c.H * (bottom + 0.075)), answer, font=c.play_i(48), fill=GOLD, anchor="mm")
     for i, line in enumerate(sub):
-        c.d.text((c.W / 2, c.H * (0.800 + i * 0.032)), line, font=c.inter(27), fill=MUTED, anchor="mm")
+        c.d.text((c.W / 2, c.H * (bottom + 0.135 + i * 0.032)), line, font=c.inter(27), fill=MUTED, anchor="mm")
     c.pill("READ THE POST", 0.885, w=380, h=70)
     c.tracked("RINGMINT.COM", 0.5, 0.935, c.inter(23), MUTED, 4, anchor="mm")
     c.save(OUT / f"{slug}-pin.jpg", 1000, 1500, 84)
@@ -323,7 +337,7 @@ def crop_mobile(slug, source=None):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=["generate", "hero", "og", "card", "story", "pin", "crop-mobile"])
+    ap.add_argument("mode", choices=["social", "generate", "hero", "og", "card", "story", "pin", "crop-mobile"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--title", help="headline, lines separated by |, 2 or 3 lines")
     ap.add_argument("--og-title", help="shorter headline for the OG and listing cards, lines separated by |; defaults to --title")
@@ -348,15 +362,18 @@ def main():
     if not title:
         sys.exit("--title is required")
     if a.mode == "generate":
+        # everything, hero included. Only for a post that actually wants a hero;
+        # the default set is "social", which puts no image inside the post.
         hero(a.slug)
         hero_mobile(a.slug)
+    if a.mode in ("social", "generate"):
         og(a.slug, og_title)
         card(a.slug, og_title)
     if not a.answer:
         sys.exit("--answer is required for the story and pin images")
-    if a.mode in ("generate", "story"):
+    if a.mode in ("social", "generate", "story"):
         story(a.slug, title, a.answer, sub)
-    if a.mode in ("generate", "pin"):
+    if a.mode in ("social", "generate", "pin"):
         pin(a.slug, title, a.answer, sub)
 
 
