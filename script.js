@@ -1,7 +1,7 @@
 /* Google Apps Script web app that emails the inquiry to chloe@ringmint.com.
    Deploy Code.gs (see apps-script/Code.gs) as a web app: "Execute as: Me",
    "Who has access: Anyone". Paste the /exec URL here. */
-const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycbwzSBJrrSFye2zYwinW2AvRx9OEipJbvqKd1TK-thl8OlP-haI5kgMxYmpoRW5KDJEU/exec";
+const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycby4y5U8r_FiSB8JWMobWxrEM1BM0iMU9vxP2oCrEHzZfzZRWTBTo4jqeKWMdoFtcsBF/exec";
 
 /* Analytics helper. gtag is absent when an ad blocker eats the GA snippet,
    so every call has to tolerate that rather than throw mid-submit. */
