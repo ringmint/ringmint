@@ -730,6 +730,8 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
 
 /* interior pages read as one centered column; the home page is untouched */
 .article-page main .container { width: min(100% - 48px, 760px); }
+/* Give the contact panel 20% more room while retaining mobile gutters. */
+.article-page main .contact-form-container { width: min(100% - 48px, 912px); }
 .article-page main .page-hero-inner,
 .article-page main .prose,
 .article-page main .section-head {
