@@ -32,3 +32,17 @@ prepared; JPG, PNG and WebP are recommended. HEIC support depends on the browser
 The repository copy does not automatically update the running Apps Script.
 Local checks: `node --test tests/inquiry-photos.test.cjs` (mocks email delivery;
 no real email is sent).
+
+## Subscriber Google Sheet
+
+Guide and blog signup forms save to the `Subscribers` tab in
+https://docs.google.com/spreadsheets/d/1IS1oZI5MU7qgDck5CFojQfRMwnVohYpA4CBIKyBtJKc/edit
+with signup time, email, page, source, and a possible-spam flag.
+
+Only “New guides by email” forms use SUBSCRIPTION_ENDPOINT in script.js.
+The separate subscription Apps Script deployment saves to the sheet above.
+The inquiry endpoint and its deployment are unchanged. Publish script.js through
+GitHub Pages, then submit a test signup and verify its row in Subscribers.
+This integration stores signups; it does not send campaigns or guide emails.
+
+Local checks: node --test tests/*.test.cjs

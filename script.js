@@ -3,6 +3,9 @@
    "Who has access: Anyone". Paste the /exec URL here. */
 const INQUIRY_ENDPOINT = "https://script.google.com/macros/s/AKfycby4y5U8r_FiSB8JWMobWxrEM1BM0iMU9vxP2oCrEHzZfzZRWTBTo4jqeKWMdoFtcsBF/exec";
 
+// Separate endpoint for the “New guides by email” subscription forms.
+const SUBSCRIPTION_ENDPOINT = "https://script.google.com/macros/s/AKfycbwkMl1icggT3_D10kODoVJjUjiTDtr9R4_dYDFygE_xvRvc3Wb22olal-PL0V6Vo1xH/exec";
+
 /* Analytics helper. gtag is absent when an ad blocker eats the GA snippet,
    so every call has to tolerate that rather than throw mid-submit. */
 const track = (name, params) => {
@@ -243,24 +246,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* Email capture on guides and posts. Same Apps Script endpoint; the
-     type=newsletter field tells Code.gs to file it as a signup rather than an
-     inquiry. One form per page at most, so a plain querySelector is enough. */
-  const capture = document.querySelector("form[data-capture]");
-  if (capture) {
+  /* “New guides by email” uses its own spreadsheet subscription endpoint. */
+  document.querySelectorAll("form[data-capture]").forEach((capture) => {
     const cStatus = capture.querySelector(".form-status");
     const cButton = capture.querySelector("button[type='submit']");
     capture.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = new FormData(capture);
       if (!data.get("email")) return;
+      data.set("type", "newsletter");
+      data.set("ref", capture.dataset.capture || "");
       data.set("page", window.location.pathname);
       cButton.disabled = true;
       try {
-        const response = await fetch(INQUIRY_ENDPOINT, { method: "POST", body: new URLSearchParams(data) });
+        const response = await fetch(SUBSCRIPTION_ENDPOINT, { method: "POST", body: new URLSearchParams(data) });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        if (result.ok !== true) throw new Error("Signup was not saved");
         capture.reset();
-        if (cStatus) { cStatus.textContent = "Done. New guides will land in your inbox."; cStatus.className = "form-status is-success"; }
+        if (cStatus) { cStatus.textContent = "You’re subscribed. Thanks for joining Ring Mint."; cStatus.className = "form-status is-success"; }
         track("newsletter_signup", { cta_location: capture.dataset.capture || window.location.pathname });
       } catch (error) {
         if (cStatus) { cStatus.textContent = "That did not send. Email chloe@ringmint.com and we will add you."; cStatus.className = "form-status is-error"; }
@@ -268,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cButton.disabled = false;
       }
     });
-  }
+  });
 
   /* Purely decorative: adds a hairline under the sticky header once the
      page has scrolled. The header is sticky via CSS alone, so nothing
