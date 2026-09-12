@@ -22,6 +22,7 @@ CATEGORIES = {
     "Custom Ring Guides": "custom-ring-guides",
     "Pricing & Budgets": "pricing-and-budgets",
     "Ring Styles": "ring-styles",
+    "Customer Stories": "customer-stories",
 }
 IMAGES = {  # suffix: (width, height)
     "hero": (1600, 900), "hero-mobile": (1080, 1350), "og": (1200, 630),
@@ -350,6 +351,8 @@ def main():
         Image = None
         warn("Pillow not installed; skipping pixel-size checks")
     for suffix, (w, h) in IMAGES.items():
+        if suffix in ("hero", "hero-mobile") and not has_hero:
+            continue
         f = ROOT / "assets" / "blog" / f"{slug}-{suffix}.jpg"
         if not f.exists():
             fail(f"missing image {f.relative_to(ROOT)}")

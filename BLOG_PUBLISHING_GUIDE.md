@@ -13,6 +13,7 @@ The blog lives at `/blog/`. There is **one template**: hero image + text
 | Buying Guides | `#buying-guides` | `Buying Guides` | Comparisons, where to buy, proposal logistics, heirloom resets |
 | Custom Ring Guides | `#custom-ring-guides` | `Custom Ring Guides` | How a ring gets designed and made: CAD, wax, timelines, revisions, red flags |
 | Pricing & Budgets | `#pricing-and-budgets` | `Pricing & Budgets` | What rings and stones cost at retail (dated, sourced) and what $X buys |
+| Customer Stories | `#customer-stories` | `Customer Stories` | Approved client commissions with photographs and project details |
 | Ring Styles | `#ring-styles` | `Ring Styles` | Toi et moi, east-west, bezel, hidden halo, every shape and setting |
 
 **Reference pages** (gemstones, diamond shapes, 4Cs, sizing, metals, glossary, case studies) do **not** live under `/blog/`.
@@ -227,3 +228,9 @@ This is what gets a page quoted by ChatGPT, Perplexity, and AI Overviews:
 10. Card added to /blog/, entry added to sitemap.xml **and** llms.txt, `tools/build-feed.py` run.
 11. At least one link *to* the post from an existing page.
 12. `tools/blog-check.py` passes, then IndexNow, Google Search Console, Stories, and a Pinterest pin.
+
+## Approved customer-story exception (September 12, 2026)
+
+Chloe explicitly approved publishing `/blog/lab-grown-diamond-necklace-wedding-gifts/` in Customer Stories with the approximate $900 client price, reported shopping range, and separate $2,000 replacement valuation. This approval overrides the general pricing and case-study placement rules for this article. Preserve the approved wording and distinguish actual photographs from CAD.
+
+For the approved necklace story, preserve the narrative introduction and punctuation. The generic post checker’s short-answer box and external-source requirements are not applicable to this firsthand client account; no decorative hero is required. Original PNG images are used unchanged.

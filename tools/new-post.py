@@ -32,6 +32,7 @@ CATEGORIES = {
     "Custom Ring Guides": "custom-ring-guides",
     "Pricing & Budgets": "pricing-and-budgets",
     "Ring Styles": "ring-styles",
+    "Customer Stories": "customer-stories",
 }
 MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
