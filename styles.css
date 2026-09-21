@@ -737,6 +737,11 @@ blockquote footer { margin-top: 16px; color: var(--gold-dark); font-size: 14px; 
 .article-page main .section-head {
   max-width: 100%;
 }
+/* Blog posts: the hero's own bottom padding plus the first section's top
+   padding used to stack (40-48px + 64-80px), leaving a big gap between the
+   byline and the "short answer" box. Trim both sides of that seam. */
+.article-page.has-sticky-cta .page-hero-inner { padding-bottom: 8px; }
+.article-page.has-sticky-cta .page-hero + .section { padding-top: 24px; }
 /* comparison tables get to breathe past the reading column, still centered */
 .article-page main .table-wrap.wide {
   width: min(100vw - 48px, 1000px);
