@@ -2,6 +2,10 @@
 
 GitHub Pages-ready static site.
 
+## Content planning
+
+Use [the master content plan](content/CONTENT_PLAN.md) for the complete backlog, annual calendar, publication status and agent handoffs. The original calendar and briefs are preserved as historical records. Read [AGENTS.md](AGENTS.md) before continuing content work.
+
 ## Deploy
 1. Upload every file in this ZIP to the root of your GitHub repository.
 2. Go to Settings → Pages.
