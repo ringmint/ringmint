@@ -1,6 +1,6 @@
 # Ring Mint — master content plan
 
-Updated: **2026-09-21**. Planning window: **September 22, 2026–September 20, 2027**. Scheduled baseline: **104 publication slots across 52 weeks**, Tuesdays and Thursdays, ending September 16, 2027.
+Updated: **2026-09-22**. Planning window: **September 22, 2026–September 20, 2027**. Scheduled baseline: **104 publication slots across 52 weeks**, Tuesdays and Thursdays, ending September 16, 2027.
 
 ## Start here
 
@@ -9,7 +9,7 @@ This is the **single active content-planning document**. It consolidates the com
 - The original `calendar.csv`, `PROGRESS.md` and September 7 brief remain unchanged as historical source files. Their old completion percentages and next-batch instructions are superseded by this plan. The old calendar-report tool reads the legacy CSV, not this document; do not treat its output as the current queue.
 - The full inventory below retains all original fields, including notes and measurement fields. Original priority labels are preserved; the dated schedule determines execution order.
 - This is a plan, not a publishing action or a scheduled automation. No articles, social posts or website changes are published by creating it.
-- Existing LinkedIn shares were scheduled separately through October 20, 2026. Check that queue before adding distribution; never overwrite or duplicate it. This calendar governs website content.
+- Existing LinkedIn shares are scheduled separately through October 29, 2026. Check that queue before adding distribution; never overwrite or duplicate it. This calendar governs website content.
 - Editorial status vocabulary: **backlog → briefed → drafting → drafted → awaiting-review → approved**; legacy `published` entries are completed. Publication state is tracked separately below. A date is a target, not evidence of publication. Log the actual date and live verification on the inventory entry when a piece ships.
 
 ## Positioning and business objective
@@ -218,9 +218,9 @@ Refresh existing holiday deadlines before the 2026 cutoff and again in summer 20
 
 ## Resume here — active work and publication tracking
 
-**Current batch:** 2026-09-21-01, C223 / C032 / C224, all three drafted; C032 writing approved, C223 and C224 awaiting review. **Last handoff:** 2026-09-21: three full Markdown drafts saved and linked from their entries; voice and gemological-source checks completed. No HTML pages generated, no publishing or scheduling performed. Resume with Chloe's edits, then site previews and production checks. The 13 legacy published records have not been reverified in this session.
+**Current batch:** 2026-09-21-01, C223 / C032 / C224, complete. All three approved articles are live and verified 2026-09-22 (HTTP 200, correct canonical, indexable robots). LinkedIn shares confirmed in the native queue for October 22, 27 and 29 at 09:00 America/New_York. Do not duplicate publication or scheduling. Search-engine indexing itself has not been verified.
 
-**Next baseline batch of five:** C223 `custom-colored-gemstone-sourcing`; C032 `design-custom-engagement-ring-online`; C224 `mint-green-custom-engagement-ring`; C228 `natural-vs-lab-colored-diamonds`; C226 `gender-neutral-custom-engagement-rings`. Resolve IDs against the inventory before starting; slugs and calendar order are authoritative. See the evidence requests above and each entry's notes.
+**Next baseline batch of five Journal posts:** C228 `natural-vs-lab-colored-diamonds`; C226 `gender-neutral-custom-engagement-rings`; C234 `custom-ring-stone-shortlist`; C241 `natural-diamond-custom-ring-selection`; C227 `matching-gemstone-color`. Resolve all IDs/slugs against inventory before starting. Reference guides are separate. Writing/publishing of this next batch has not been authorized.
 
 ### When Chloe says “Let's write and schedule our next five blog posts”
 
@@ -245,7 +245,7 @@ The inventory entries below are the source of truth for individual post status. 
 
 | Batch | Selected content IDs / slugs | Owner / task reference | Last update | Completed | Next action / blockers | Authorization / external evidence |
 |---|---|---|---|---|---|---|
-| 2026-09-21-01 | C223 / C032 / C224 | Codex, current repository session | 2026-09-21 | Three Markdown drafts complete; linked sources; no em dashes | Chloe review; select original images; build site previews after edits | Writing authorized only; no publishing/scheduling performed |
+| 2026-09-21-01 | C223 / C032 / C224 | Codex, current repository session | 2026-09-22 | Complete: all three live; production checks 0 FAIL/0 WARN; LinkedIn queue verified | User to submit URLs for indexing | Explicit approval to publish all three and append LinkedIn shares fulfilled |
 
 For each batch, add a dated handoff paragraph when the table is too small. Preserve finished batch history. Next agents should be able to answer: what exists, what is approved, what is live, what is scheduled, what is missing, and what action comes next.
 
@@ -1162,24 +1162,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** 3 Process
 - **Original priority:** P1
 - **Primary keyword:** design custom engagement ring online
-- **Status:** approved
-- **Recorded publication date:** —
+- **Status:** published
+- **Recorded publication date:** 2026-09-21 (page publication date); live verified 2026-09-22
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** —
 - **Target date:** 2026-09-24
-- **Website publication:** ready
+- **Website publication:** published
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
-- **Actual live URL:** —
-- **Live verified at / evidence:** —
+- **Actual live URL:** https://ringmint.com/blog/design-custom-engagement-ring-online/
+- **Live verified at / evidence:** 2026-09-22: live HTTPS GET returned HTTP 200; expected article, canonical and indexable robots confirmed. This is not confirmation of search-engine indexing.
 - **Approval / authorization reference:** Chloe explicitly approved publishing all three articles and appending LinkedIn shares to the existing queue on 2026-09-21.
-- **Working draft / preview:** [Read Markdown draft](drafts/design-custom-engagement-ring-online.md), approximately 1282 words; no site page generated
-- **Missing evidence / blocker:** Chloe to review voice and first-person process descriptions. Add original sourcing/stone/CAD imagery when available; no fictional client examples or new sourcing results asserted. See batch review notes.
+- **Working draft / preview:** [Markdown](drafts/design-custom-engagement-ring-online.md); production spec `content/drafts/design-custom-engagement-ring-online.txt`; live HTML `blog/design-custom-engagement-ring-online/index.html`.
+- **Missing evidence / blocker:** None for this approved publication. Additional original examples can be added later.
 - **Batch / owner / task reference:** 2026-09-21-01 / Codex / current repository session
-- **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** not-planned
-- **Last worked / next action:** HTML, schema, social cards, feed, sitemap and inbound links built. Mechanical checks pass. Deploy and verify live, then schedule LinkedIn.
+- **Website scheduler / external ID / confirmation:** Immediate static deployment, not a future schedule. Publication commit 965035f; live verified after main reached 5924733.
+- **Social distribution / platform / datetime / ID:** SCHEDULED, Ring Mint LinkedIn, 2026-10-27 09:00 America/New_York (14:00 CET Europe/Paris). Native queue verified 2026-09-22 with matching article title/copy after Post scheduled confirmation. Article shortlink https://lnkd.in/dt_nUR3m; individual post ID not exposed.
+- **Last worked / next action:** 2026-09-22: website and LinkedIn work complete. User requested copyable URLs and IndexNow terminal command; no search submission performed by agent.
 
 
 <a id="c033"></a>
@@ -6723,30 +6723,30 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Colored gemstone sourcing
 - **Original priority:** P1
 - **Primary keyword:** custom gemstone sourcing
-- **Status:** approved
-- **Recorded publication date:** —
+- **Status:** published
+- **Recorded publication date:** 2026-09-21 (page publication date); live verified 2026-09-22
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: An anonymized sourcing shortlist showing why stones were accepted or rejected
 - **Target date:** 2026-09-22
-- **Website publication:** ready
+- **Website publication:** published
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
-- **Actual live URL:** —
-- **Live verified at / evidence:** —
+- **Actual live URL:** https://ringmint.com/blog/custom-colored-gemstone-sourcing/
+- **Live verified at / evidence:** 2026-09-22: live HTTPS GET returned HTTP 200; expected article, canonical and indexable robots confirmed. This is not confirmation of search-engine indexing.
 - **Approval / authorization reference:** Chloe explicitly approved publishing all three articles and appending LinkedIn shares to the existing queue on 2026-09-21.
-- **Working draft / preview:** [Read Markdown draft](drafts/custom-colored-gemstone-sourcing.md), approximately 1995 words; no site page generated
-- **Missing evidence / blocker:** Chloe supplied family history since 1979, childhood tourmaline-dealer anecdote, practical opal advice and the emotional selection philosophy. Incorporated into draft; await wording review. Original photos remain optional enrichment for preview selection.
+- **Working draft / preview:** [Markdown](drafts/custom-colored-gemstone-sourcing.md); production spec `content/drafts/custom-colored-gemstone-sourcing.txt`; live HTML `blog/custom-colored-gemstone-sourcing/index.html`.
+- **Missing evidence / blocker:** None for this approved publication. Additional original examples can be added later.
 - **Batch / owner / task reference:** 2026-09-21-01 / Codex / current repository session
-- **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** not-planned
-- **Last worked / next action:** HTML, schema, social cards, feed, sitemap and inbound links built. Mechanical checks pass. Deploy and verify live, then schedule LinkedIn.
+- **Website scheduler / external ID / confirmation:** Immediate static deployment, not a future schedule. Publication commit 965035f; live verified after main reached 5924733.
+- **Social distribution / platform / datetime / ID:** SCHEDULED, Ring Mint LinkedIn, 2026-10-22 09:00 America/New_York (15:00 CEST Europe/Paris). Native queue verified 2026-09-22 with matching article title/copy after Post scheduled confirmation. Article shortlink https://lnkd.in/dJQje_iP; individual post ID not exposed.
+- **Last worked / next action:** 2026-09-22: website and LinkedIn work complete. User requested copyable URLs and IndexNow terminal command; no search submission performed by agent.
 - **Long-tail keyword candidates (2026-09-21):** jeweler to source a gemstone; custom gemstone sourcing service; source a gemstone for an engagement ring
 - **Brief expansion:** Describe the actual sourcing brief, shortlist, identity/treatment checks and setting handoff. Own general sourcing-service questions and link to the more specialized rare-stone and exact-color pieces.
 - **Keyword validation:** Candidates, not measured volume/rank data; check current results and GSC at briefing.
 
 - **Original image now available:** `assets/blog/custom-colored-gemstone-sourcing-carat-size-comparison.jpeg`, copied unchanged from Chloe's supplied photograph. Left 2.94ct, right 2.84ct, per Chloe. Embedded with caption and descriptive alt text in the Markdown draft. Do not infer material origin, millimeter dimensions or cut grades from the image.
-- **Preview preparation note:** The draft uses a relative Markdown asset link; convert to `/assets/blog/custom-colored-gemstone-sourcing-carat-size-comparison.jpeg` in website HTML and prepare delivery-sized versions without replacing the original evidence image. No new image editing performed.
+- **Preview preparation note:** The draft uses a relative Markdown asset link; convert to `/assets/blog/custom-colored-gemstone-sourcing-carat-size-comparison.jpeg` in website HTML and prepare delivery-sized versions without replacing the original evidence image. Delivery-sized derivative is now used in production; original preserved.
 
 <a id="c224"></a>
 
@@ -6757,24 +6757,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Colored gemstone sourcing
 - **Original priority:** P1
 - **Primary keyword:** custom mint green engagement ring
-- **Status:** approved
-- **Recorded publication date:** —
+- **Status:** published
+- **Recorded publication date:** 2026-09-21 (page publication date); live verified 2026-09-22
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: Compare actual pale green candidates in consistent lighting; verify identity and treatment
 - **Target date:** 2026-09-29
-- **Website publication:** ready
+- **Website publication:** published
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
-- **Actual live URL:** —
-- **Live verified at / evidence:** —
+- **Actual live URL:** https://ringmint.com/blog/mint-green-custom-engagement-ring/
+- **Live verified at / evidence:** 2026-09-22: live HTTPS GET returned HTTP 200; expected article, canonical and indexable robots confirmed. This is not confirmation of search-engine indexing.
 - **Approval / authorization reference:** Chloe explicitly approved publishing all three articles and appending LinkedIn shares to the existing queue on 2026-09-21.
-- **Working draft / preview:** [Read Markdown draft](drafts/mint-green-custom-engagement-ring.md), approximately 1501 words; no site page generated
-- **Missing evidence / blocker:** Chloe to review voice and first-person process descriptions. Add original sourcing/stone/CAD imagery when available; no fictional client examples or new sourcing results asserted. See batch review notes.
+- **Working draft / preview:** [Markdown](drafts/mint-green-custom-engagement-ring.md); production spec `content/drafts/mint-green-custom-engagement-ring.txt`; live HTML `blog/mint-green-custom-engagement-ring/index.html`.
+- **Missing evidence / blocker:** None for this approved publication. Additional original examples can be added later.
 - **Batch / owner / task reference:** 2026-09-21-01 / Codex / current repository session
-- **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** not-planned
-- **Last worked / next action:** HTML, schema, social cards, feed, sitemap and inbound links built. Mechanical checks pass. Deploy and verify live, then schedule LinkedIn.
+- **Website scheduler / external ID / confirmation:** Immediate static deployment, not a future schedule. Publication commit 965035f; live verified after main reached 5924733.
+- **Social distribution / platform / datetime / ID:** SCHEDULED, Ring Mint LinkedIn, 2026-10-29 09:00 America/New_York (14:00 CET Europe/Paris). Native queue verified 2026-09-22 with matching article title/copy after Post scheduled confirmation. Article shortlink https://lnkd.in/dJc7sJF3; individual post ID not exposed.
+- **Last worked / next action:** 2026-09-22: website and LinkedIn work complete. User requested copyable URLs and IndexNow terminal command; no search submission performed by agent.
 
 - **Chloe-supplied evidence update:** Green lab-grown diamonds are an option; achieving an amazing rich green is harder in her sourcing experience, but Ring Mint has done it. Short section added without promising current inventory or claiming rich green equals pale mint. Diamond hardness and chipping limitations sourced to GIA.
 
@@ -7653,3 +7653,12 @@ Chloe accepted C032 online-design article text (“okay this is fine”). Record
 ### C224 green lab diamond revision handoff
 
 Added concise green lab-grown diamond section at Chloe’s request, with her firsthand sourcing experience and a GIA durability citation. Draft remains awaiting-review and not-published. No invented stone specs, photo, treatment or availability. No em dashes.
+
+
+### Completed publication and distribution handoff — 2026-09-22
+
+This handoff supersedes the historical draft/review states above. Batch 2026-09-21-01 is complete: C223, C032 and C224 are published and live-verified. All three passed `tools/blog-check.py` with zero failures and warnings; desktop/mobile preview checks completed. Rich Results and PageSpeed tests were not performed. Original supplied comparison photo is retained alongside its web derivative.
+
+LinkedIn: checked the existing queue through October 20, then appended exactly three shares. Native scheduled-post list now contains the sourcing article October 22 at 15:00 Paris, online-design article October 27 at 14:00 Paris, and mint-green article October 29 at 14:00 Paris, all 09:00 America/New_York. Both fall timezone transitions were accounted for. Queue evidence: https://www.linkedin.com/company/143064345/admin/page-posts/published/ → Start a post → Schedule post → View all scheduled posts. Each entry showed its matching title, copy and date. Do not resubmit them.
+
+Authorization: Chloe explicitly approved publishing all three and adding LinkedIn shares to the end of the existing calendar. That scope is fulfilled. User will run the existing `scripts/indexnow.sh` with the three URLs and request Google indexing herself; neither submission nor indexing is claimed. Future backlog publication is not automatically authorized. Preserve all prior inventory and assets.

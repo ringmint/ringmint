@@ -1,7 +1,7 @@
 ---
 slug: custom-colored-gemstone-sourcing
-editorial_status: awaiting-review
-publication_status: not-published
+editorial_status: approved
+publication_status: published
 proposed_seo_title: Custom Gemstone Sourcing for Your Ring | Ring Mint
 proposed_meta_description: How we source colored gemstones for custom rings, from your first color reference to stone selection, documentation and a setting designed around your life.
 author_voice: Chloe Alpert, draft for her review

@@ -1,7 +1,7 @@
 ---
 slug: mint-green-custom-engagement-ring
-editorial_status: awaiting-review
-publication_status: not-published
+editorial_status: approved
+publication_status: published
 proposed_seo_title: Designing a Mint-Green Engagement Ring | Ring Mint
 proposed_meta_description: Want a mint-green engagement ring you cannot find ready-made? Explore gemstone identity, tourmaline care, east-west settings and custom design with Chloe.
 author_voice: Chloe Alpert, draft for her review

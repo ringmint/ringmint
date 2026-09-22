@@ -1,7 +1,7 @@
 ---
 slug: design-custom-engagement-ring-online
 editorial_status: approved
-publication_status: not-published
+publication_status: published
 proposed_seo_title: Design a Custom Engagement Ring Online | Ring Mint
 proposed_meta_description: Design a custom engagement ring online with Chloe. Explore stone sourcing, CAD, revisions and an optional wax try-on, with help at every decision.
 author_voice: Chloe Alpert, draft for her review
