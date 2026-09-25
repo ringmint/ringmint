@@ -3,6 +3,24 @@
 How to publish a blog post that is perfectly optimized for Google, Bing, and AI search
 (ChatGPT, Claude, Perplexity, Google AI Overviews). Follow this top to bottom for **every** post.
 
+## Publishing handoff: prepare locally, then wait for Chloe
+
+**Chloe's standing instruction, September 25, 2026:** “Publish” means finish the
+approved local publishing work and relevant checks, then say **ready for your
+commit and push**. Chloe handles the commit, push and resulting deployment.
+
+Do not stage files, commit, push to GitHub, create a deployment PR, or use an
+alternative deployment path unless Chloe explicitly asks for that action. Do not
+spend time checking GitHub authentication, trying or retrying pushes, polling for
+a human commit, or asking permission to push. Give a concise handoff listing the
+prepared changes, validation results and any blockers, then end the turn and wait.
+
+Mark new content `ready` in `content/CONTENT_PLAN.md`; local files are not proof
+of publication. For an existing published article, record that its update is
+ready locally while retaining its published status. Live checks and post-deploy
+steps below apply after the human confirms deployment or requests follow-up.
+This instruction takes precedence over older publication/deployment wording.
+
 The blog lives at `/blog/`. There is **one template**: hero image + text
 ([blog/_post-template.html](blog/_post-template.html)). Categories:
 
@@ -93,6 +111,42 @@ Three tools do the mechanical work. Learn these three commands and the rest of t
 - [ ] **House style for all six images.** Cream `#fbf8f3` ground with a warm radial wash, gold `#ae8f45` line-art diamonds (round brilliant seen from above, and the classic crown-and-pavilion profile), small four-point sparkles, a hairline gold frame, ink `#171717` Playfair Display for headlines, Playfair Display italic in gold for the one-line answer, Inter 500 letter-spaced small caps for the "THE RING MINT JOURNAL" eyebrow. These are the site's own brand faces and palette, taken from `:root` in `styles.css`, so an image and the page it links to match. A photographic hero is fine, but the OG, card, Story, and pin built from it still carry the same type, eyebrow, hairline, and pill. Do not introduce new colours, fonts, or icon styles for one post. If the style needs to change, change it in the script so every future post changes with it.
 
   This replaced an earlier charcoal `#171717` and Didot treatment in September 2026. That version set OG type at 1x on a downscaled hero crop, so headlines rendered around 26px in a feed and could not be read; Didot's hairline strokes in cream on near-black made it worse. Dark type on a light ground survives feed-size rendering, which is the whole point of these images.
+
+### LinkedIn OG layout rules — September 25, 2026
+
+LinkedIn is the primary distribution channel. Preserve the existing cream
+`#fbf8f3` / warm-gold styling, dark `#171717` Playfair Display headlines,
+gold eyebrow and rule, subtle diamond watermark, and Inter domain footer.
+Do not substitute the proposed green background.
+
+- **Without a strong article photograph:** retain the existing text-only design.
+- **With a strong article photograph:** offer a left-text / right-photo split.
+  At 1200×630, the reference composition uses a 570px text panel and a 630px
+  photograph, with the photo filling its panel edge to edge. Use real, approved
+  article imagery; preserve original files, stone colors and factual identity.
+  Select and crop the photograph deliberately to keep the important subject visible.
+- **Tighter horizontal margins:** the latest review example uses a 60px left
+  inset and a 60px minimum gap before the photograph, giving the headline a
+  450px usable width. Align the eyebrow, rule, headline and footer to the same
+  left edge. Avoid the earlier 108–150px left insets and narrow headline column.
+  These are proposed reference dimensions pending approval of the latest preview.
+- **Scale the font to accommodate the copy:** use the largest Playfair size that
+  fits both the available width and height. Start around 84px for the split layout,
+  then measure actual glyph bounds and reduce as needed; do not force every title
+  to the same size. Rewrap into two to four balanced lines as needed. Reserve
+  approximately y=175–510 for the headline, clear of the eyebrow/rule and footer.
+  Keep line spacing tight but prevent touching letters or overlapping descenders.
+  If fitting would require type below about 48px, shorten the editorial hook for
+  review instead of clipping, stretching, truncating or omitting words.
+- **Preview before rollout:** inspect at full resolution and realistic feed/mobile
+  sizes, including narrower crops. Tight margins can be cropped by some LinkedIn
+  surfaces; inspect the actual LinkedIn preview before claiming crop safety.
+  Keep the standard 1200×630 output and accurate image dimensions/alt text.
+- **Approval scope:** Chloe requested examples before changes to existing cards.
+  The design direction and these documentation updates are authorized; final
+  spacing is still under review. Do not bulk-regenerate, replace or publish existing
+  cards until the user approves that rollout. This section records design rules;
+  the production generator does not yet implement the split or adaptive font fit.
 
 ## 3. Fill in the template
 

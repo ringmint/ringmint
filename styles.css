@@ -1368,3 +1368,11 @@ input:focus, textarea:focus {
 .factbox dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
 .factbox dt { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 3px; }
 .factbox dd { margin: 0; color: var(--ink); font-size: 0.97rem; line-height: 1.55; }
+
+/* Colored-diamond article: original photographs and native video. */
+.diamond-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.diamond-gallery .prose-figure { margin:0; }
+.feature-photo { max-width:620px; margin:28px auto; }
+.diamond-video { margin:32px 0; }
+.diamond-video figcaption { font-size:14px; line-height:1.5; color:var(--muted); }
+@media(max-width:600px) { .diamond-gallery { grid-template-columns:1fr; } }

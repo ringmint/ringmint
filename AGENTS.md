@@ -1,5 +1,12 @@
 # Ring Mint agent handoff instructions
 
+## Publishing handoff — human commits and pushes
+
+- When Chloe says “publish,” complete the authorized local preparation and relevant checks, then report **ready for your commit and push**. The human handles Git commits, pushes and the resulting deployment.
+- Do not stage, commit, push, open a deployment PR, or attempt an alternative deployment unless Chloe explicitly requests that Git/deployment action. Do not check GitHub credentials, retry pushes, poll for the human's commit, or ask for permission to push as part of an ordinary publishing request.
+- Summarize what is ready, checks completed and any remaining blockers, then stop and wait for the human. Record new content as `ready`, not `published`, until deployment and live verification are confirmed. Existing live articles retain their published state; pending local updates are not yet live.
+- This standing preference supersedes older publishing workflow language in this repository. A later explicit request to commit or push may override it for that action.
+
 ## Content work
 
 - Read `content/CONTENT_PLAN.md` before planning, drafting, scheduling or publishing content. It is the single active editorial plan and post-status tracker. Start with “Resume here — active work and publication tracking,” then inspect the selected inventory entries and related files.

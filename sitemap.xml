@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://ringmint.com/blog/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -159,6 +159,18 @@
   <url>
     <loc>https://ringmint.com/blog/mint-green-custom-engagement-ring/</loc>
     <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ringmint.com/blog/natural-vs-lab-colored-diamonds/</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ringmint.com/blog/gender-neutral-custom-engagement-rings/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>

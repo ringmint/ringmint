@@ -218,7 +218,11 @@ Refresh existing holiday deadlines before the 2026 cutoff and again in summer 20
 
 ## Resume here — active work and publication tracking
 
-**Current batch:** 2026-09-21-01, C223 / C032 / C224, complete. All three approved articles are live and verified 2026-09-22 (HTTP 200, correct canonical, indexable robots). LinkedIn shares confirmed in the native queue for October 22, 27 and 29 at 09:00 America/New_York. Do not duplicate publication or scheduling. Search-engine indexing itself has not been verified.
+**Standing publishing handoff preference (2026-09-25):** When Chloe says “publish,” prepare the approved local changes and run relevant checks, then report **ready for your commit and push** and stop. Chloe handles commits, pushes and deployment. Do not stage/commit/push, create a deployment PR, try alternate deployment paths, check GitHub authentication, retry pushes, poll for the human commit, or ask to push unless she explicitly requests that action. New content remains `ready` until deployment/live verification; existing articles retain their published state with local updates marked pending. This supersedes older workflow instructions and historical authorization notes for future publishing requests. See `AGENTS.md` and `BLOG_PUBLISHING_GUIDE.md`.
+
+**Current batch:** 2026-09-25-01, C228 / C226. Both approved and prepared for publication; website state READY, awaiting human commit/push. All media, green split OG, schema, metadata, index/feed/sitemap/llms and inbound links prepared. Both blog checks pass with 0 FAIL / 0 WARN. LinkedIn append authorized AFTER live publication; not scheduled. Do not commit/push or poll for human deployment.
+
+**Previous completed batch:** 2026-09-21-01, C223 / C032 / C224, complete. All three approved articles are live and verified 2026-09-22 (HTTP 200, correct canonical, indexable robots). LinkedIn shares confirmed in the native queue for October 22, 27 and 29 at 09:00 America/New_York. Do not duplicate publication or scheduling. Search-engine indexing itself has not been verified.
 
 **Next baseline batch of five Journal posts:** C228 `natural-vs-lab-colored-diamonds`; C226 `gender-neutral-custom-engagement-rings`; C234 `custom-ring-stone-shortlist`; C241 `natural-diamond-custom-ring-selection`; C227 `matching-gemstone-color`. Resolve all IDs/slugs against inventory before starting. Reference guides are separate. Writing/publishing of this next batch has not been authorized.
 
@@ -245,6 +249,8 @@ The inventory entries below are the source of truth for individual post status. 
 
 | Batch | Selected content IDs / slugs | Owner / task reference | Last update | Completed | Next action / blockers | Authorization / external evidence |
 |---|---|---|---|---|---|---|
+| 2026-09-25-02 | OG design previews / publishing rules | Codex, OG design session | 2026-09-25 | Cream-and-gold photo split selected as direction; revising margins and documenting font fit | Show wider-text preview for approval; existing cards remain unchanged | Preview and publishing-guide updates authorized; bulk rollout not authorized |
+| 2026-09-25-01 | C228 / C226 | Codex, current repository session | 2026-09-25 | Both complete drafts and private reading previews prepared; sources and internal links checked | Chloe review and incoming labeled photos | Writing authorized; no publication/social scheduling |
 | 2026-09-21-01 | C223 / C032 / C224 | Codex, current repository session | 2026-09-22 | Complete: all three live; production checks 0 FAIL/0 WARN; LinkedIn queue verified | User to submit URLs for indexing | Explicit approval to publish all three and append LinkedIn shares fulfilled |
 
 For each batch, add a dated handoff paragraph when the table is too small. Preserve finished batch history. Next agents should be able to answer: what exists, what is approved, what is live, what is scheduled, what is missing, and what action comes next.
@@ -6816,24 +6822,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Custom design
 - **Original priority:** P1
 - **Primary keyword:** custom gender neutral engagement ring
-- **Status:** backlog
+- **Status:** approved
 - **Recorded publication date:** —
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: Approved substantial band and low-profile design examples
 - **Target date:** 2026-10-06
-- **Website publication:** not-published
+- **Website publication:** ready
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
 - **Actual live URL:** —
 - **Live verified at / evidence:** —
-- **Approval / authorization reference:** —
-- **Working draft / preview:** See existing draft link if present; otherwise not created
-- **Missing evidence / blocker:** To be assessed at briefing; see notes and evidence standards
-- **Batch / owner / task reference:** —
+- **Approval / authorization reference:** 2026-09-25: Chloe said “okay lets publish these”. Local publication preparation authorized; human handles commit/push per standing preference. LinkedIn append authorized after both pages are live.
+- **Working draft / preview:** Markdown `content/drafts/gender-neutral-custom-engagement-rings.md`; production spec `content/drafts/gender-neutral-custom-engagement-rings.txt`; prepared page `blog/gender-neutral-custom-engagement-rings/index.html`; local preview http://127.0.0.1:8877/blog/gender-neutral-custom-engagement-rings/
+- **Missing evidence / blocker:** No deployment blocker. Supplied diamond media use descriptive captions only; origin/treatment not confirmed and not inferred. Human commit and push pending.
+- **Batch / owner / task reference:** 2026-09-25-01 / Codex / current repository session
 - **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** not-planned
-- **Last worked / next action:** Not started; select by calendar order and brief
+- **Social distribution / platform / datetime / ID:** Authorized for LinkedIn queue after live publication; not scheduled yet. Check actual queue before appending Tuesday/Thursday at 09:00 America/New_York.
+- **Last worked / next action:** 2026-09-25: production checks 0 FAIL / 0 WARN. Local narrow viewport checked, no horizontal overflow. Human to commit/push; then verify live URLs and append LinkedIn. No remote write or deployment performed.
 
 
 <a id="c227"></a>
@@ -6877,24 +6883,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Colored diamonds
 - **Original priority:** P1
 - **Primary keyword:** natural vs lab grown colored diamonds
-- **Status:** backlog
+- **Status:** approved
 - **Recorded publication date:** —
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: Comparable reports, treatment disclosures and dated public retail examples
 - **Target date:** 2026-10-01
-- **Website publication:** not-published
+- **Website publication:** ready
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
 - **Actual live URL:** —
 - **Live verified at / evidence:** —
-- **Approval / authorization reference:** —
-- **Working draft / preview:** See existing draft link if present; otherwise not created
-- **Missing evidence / blocker:** To be assessed at briefing; see notes and evidence standards
-- **Batch / owner / task reference:** —
+- **Approval / authorization reference:** 2026-09-25: Chloe said “okay lets publish these”. Local publication preparation authorized; human handles commit/push per standing preference. LinkedIn append authorized after both pages are live.
+- **Working draft / preview:** Markdown `content/drafts/natural-vs-lab-colored-diamonds.md`; production spec `content/drafts/natural-vs-lab-colored-diamonds.txt`; prepared page `blog/natural-vs-lab-colored-diamonds/index.html`; local preview http://127.0.0.1:8877/blog/natural-vs-lab-colored-diamonds/
+- **Missing evidence / blocker:** No deployment blocker. Supplied diamond media use descriptive captions only; origin/treatment not confirmed and not inferred. Human commit and push pending.
+- **Batch / owner / task reference:** 2026-09-25-01 / Codex / current repository session
 - **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** not-planned
-- **Last worked / next action:** Not started; select by calendar order and brief
+- **Social distribution / platform / datetime / ID:** Authorized for LinkedIn queue after live publication; not scheduled yet. Check actual queue before appending Tuesday/Thursday at 09:00 America/New_York.
+- **Last worked / next action:** 2026-09-25: production checks 0 FAIL / 0 WARN. Local narrow viewport checked, no horizontal overflow. Human to commit/push; then verify live URLs and append LinkedIn. No remote write or deployment performed.
 
 
 <a id="c229"></a>
@@ -7662,3 +7668,42 @@ This handoff supersedes the historical draft/review states above. Batch 2026-09-
 LinkedIn: checked the existing queue through October 20, then appended exactly three shares. Native scheduled-post list now contains the sourcing article October 22 at 15:00 Paris, online-design article October 27 at 14:00 Paris, and mint-green article October 29 at 14:00 Paris, all 09:00 America/New_York. Both fall timezone transitions were accounted for. Queue evidence: https://www.linkedin.com/company/143064345/admin/page-posts/published/ → Start a post → Schedule post → View all scheduled posts. Each entry showed its matching title, copy and date. Do not resubmit them.
 
 Authorization: Chloe explicitly approved publishing all three and adding LinkedIn shares to the end of the existing calendar. That scope is fulfilled. User will run the existing `scripts/indexnow.sh` with the three URLs and request Google indexing herself; neither submission nor indexing is claimed. Future backlog publication is not automatically authorized. Preserve all prior inventory and assets.
+
+
+### Batch 2026-09-25-01 draft handoff
+
+C228 and C226 are drafted, with SEO titles/descriptions, primary and secondary terms, answer-first openings, contextual links, GIA sources and inquiry CTAs. No em/en dashes. Sources checked September 25: GIA natural colored diamond services, fancy-color buyer guide, diamond treatments, natural/lab identity, setting guide and opal care. No search-volume metrics or current pricing estimates asserted. Natural-vs-lab article uses Chloe's confirmed rich-green experience; design article uses her existing carat comparison, opal advice and approved hidden-family-stone story without labeling the prior client's identity.
+
+Chloe is gathering diamond photographs. Request labeled natural/lab origin, known treatments and same-light views where possible; substantial/low-profile ring top/side/on-hand views are optional for C226. Incorporate only verified facts into captions. Durable source drafts are in content/drafts; private noindex HTML previews are under /tmp/ringmint-review-2026-09-25 and can be regenerated. Preview files are editorial reading layouts, not production website builds. Production schema/social cards/feed/sitemap updates and production lint remain for the approved publication stage. Nothing published or scheduled. Authorization currently covers drafting and previews only.
+
+
+### C228 media handoff — 2026-09-25
+
+Chloe authorized including all five photographs and the MP4. Copied unchanged into assets/blog with natural-vs-lab-colored-diamonds prefix; JPEGs each below 110KB, MP4 approximately 2.7MB. Added responsive photo gallery near the color discussion and native video controls near the photo/video comparison section, with lazy image loading, explicit dimensions, and video preload metadata (no autoplay). Private reading preview updated. Origin/treatment clarification requested; captions describe visible appearance only and do not assign natural/lab origin, grades, carat weights, availability or treatments. No image color edits or synthetic replacements. Original Downloads filenames map to descriptive assets in /tmp/add-ringmint-media.py; durable mapping below.
+
+- `1790326976603.jpeg` → `assets/blog/natural-vs-lab-colored-diamonds-yellow-cushion.jpeg`
+- `1790326967802.jpeg` → `assets/blog/natural-vs-lab-colored-diamonds-blue-step-cut.jpeg`
+- `1790326915292.jpeg` → `assets/blog/natural-vs-lab-colored-diamonds-pink-oval.jpeg`
+- `1790326922672.jpeg` → `assets/blog/natural-vs-lab-colored-diamonds-peach-oval.jpeg`
+- `1790326960516.jpeg` → `assets/blog/natural-vs-lab-colored-diamonds-blue-rectangular.jpeg`
+- `89939f67-161b-4fed-b32a-705f26ec109e.mp4` → `assets/blog/natural-vs-lab-colored-diamonds-stone-video.mp4`
+
+Browser verification: photo gallery rendered visually; embedded MP4 decoded successfully (8.03 seconds, 758×598, readyState 4, no reported media error). Preview available at http://127.0.0.1:8876/natural-vs-lab-colored-diamonds.html while local server runs. Next action: integrate confirmed origin/treatment labels; review drafts with Chloe. No publication authorized or performed. Other uncommitted website/OG changes belong to concurrent work and were left intact.
+
+### OG design preview handoff — 2026-09-25
+
+Batch 2026-09-25-02: Publishing guide now records the original cream/gold/dark-type style, optional real-photo right panel, reduced horizontal margins and adaptive headline fitting. Latest standalone preview is `marquise-cream-photo-proposal-v4.jpg` in this task's visualization directory (`og-card-proposals`); 60px left inset, 60px minimum right clearance, 450px headline area. Final spacing awaits Chloe's review. Existing production cards, metadata, generator and LinkedIn queue remain unchanged; the earlier experimental rollout was reverted. User authorization covers previews and publishing-guide documentation, not bulk application or publication. Next action: show v4, incorporate feedback, and implement production generation only when rollout is approved. Preserve the separate C228/C226 drafting work and supplied assets.
+
+
+### Green feature and LinkedIn authorization — 2026-09-25
+
+C228: added supplied green oval JPEG unchanged as leading feature photograph and supplied green MP4 alongside the green discussion, retaining all previous media. Original files 1790328656399.jpeg and fa7c2ae2-e078-4822-8d17-d3503f13b209.mp4 copied to assets/blog/natural-vs-lab-colored-diamonds-green-oval.jpeg and -green-video.mp4. Prepared article-specific 1200×630 split OG card (-og.jpg) following September 25 rules: cream/gold left panel, 60px inset, adaptive Playfair headline, unchanged green photo on right. Draft metadata points at card; production head remains to build. No other OG cards changed.
+
+Chloe explicitly authorized appending BOTH posts (C228 and C226) to the Ring Mint LinkedIn queue after website publication. Check live articles and existing queue before scheduling, maintain Tuesday/Thursday 09:00 America/New_York cadence, and append after the actual final queued post. This is future-dependent authorization, not confirmation of scheduling. No need to ask again for LinkedIn approval. Human commit/push preference remains in force. Articles still await editorial review and origin/treatment details; no natural/lab label inferred for supplied green media.
+
+
+### Publication preparation complete — 2026-09-25
+
+Both posts are ready for Chloe's commit and push. Production builder run locally only; legacy calendar restored unchanged. Date set to September 25, not backdated. Both production checkers: 0 FAIL, 0 WARN. Local browser checks at narrow viewport showed readable headers and no horizontal overflow. Both videos decoded with 8.03-second duration and no media error. Green photo and split OG retained; gender-neutral article uses existing text-only OG design. Source facts and supplied media identities were not expanded beyond confirmed details. Remote Rich Results, PageSpeed and LinkedIn live-card verification remain post-deployment checks, not claimed complete.
+
+Next agent: after Chloe confirms she pushed, verify the two live pages, then use authorized LinkedIn browser session to append C228 and C226 after actual last scheduled item at Tuesday/Thursday 09:00 America/New_York. Preserve previous posts. Do not repeat publication work or infer that ready means live. Do not commit/push or poll for deployment under current standing preference.
