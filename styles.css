@@ -190,7 +190,7 @@ p { color: var(--muted); line-height: 1.5; }
 }
 .brand-logo { display: flex; align-items: center; flex-shrink: 0; }
 .brand-logo img { width: 132px; height: auto; }
-.nav-links { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+.nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 18px; font-size: 13px; }
 .nav-links a {
   position: relative;
   color: var(--muted-dark);
@@ -240,6 +240,7 @@ p { color: var(--muted); line-height: 1.5; }
   .nav-links {
     order: 3;
     width: 100%;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 6px 15px;
     margin-top: 8px;
@@ -1172,7 +1173,7 @@ input:focus, textarea:focus {
 
 @media (min-width: 900px) {
   .nav { height: 84px; }
-  .nav-links { gap: 30px; font-size: 14px; }
+  .nav-links { gap: 6px 30px; font-size: 14px; }
   .brand-logo img { width: 150px; }
 }
 

@@ -21,6 +21,15 @@ ready locally while retaining its published status. Live checks and post-deploy
 steps below apply after the human confirms deployment or requests follow-up.
 This instruction takes precedence over older publication/deployment wording.
 
+## Final publishing handoff: copyable indexing instructions
+
+**Standing instruction from Chloe, September 25, 2026:** Always make indexing instructions the last step of an article-publishing handoff. Provide:
+
+1. A fenced `bash` block invoking the existing `/Users/chloealpert/Documents/GitHub/ringmint/scripts/indexnow.sh` with explicit full URLs for every article in the current publishing batch. Do not check or reinstall IndexNow; Chloe has it installed. Do not execute the submission on her behalf unless requested.
+2. A separate fenced `text` block containing those article URLs, one per line, without bullets, labels or Markdown links inside the block, for easy copying into Google Search Console. Briefly say to submit each through URL Inspection → Request indexing.
+
+Preserve the human commit/push workflow. If the pages are only ready locally, label the URLs as intended and tell Chloe to run the command after pushing and confirming the pages are live. If live verification has completed, say they are live. Do not imply submission guarantees indexing. Put these copyable blocks at the end of the final response, after the publication/social status summary. Include this handoff automatically whenever Chloe requests publishing articles, without requiring another reminder.
+
 The blog lives at `/blog/`. There is **one template**: hero image + text
 ([blog/_post-template.html](blog/_post-template.html)). Categories:
 

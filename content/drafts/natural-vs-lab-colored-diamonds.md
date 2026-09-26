@@ -1,7 +1,7 @@
 ---
 slug: natural-vs-lab-colored-diamonds
 editorial_status: approved
-publication_status: ready
+publication_status: published
 proposed_seo_title: Natural vs. Lab-Grown Colored Diamonds | Ring Mint
 proposed_meta_description: Choosing a colored diamond for a custom ring? Chloe explains natural vs. lab-grown origin, color treatments, reports and finding the shade you actually love.
 author_voice: Chloe Alpert, draft for her review

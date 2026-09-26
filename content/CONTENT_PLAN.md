@@ -1,6 +1,6 @@
 # Ring Mint — master content plan
 
-Updated: **2026-09-22**. Planning window: **September 22, 2026–September 20, 2027**. Scheduled baseline: **104 publication slots across 52 weeks**, Tuesdays and Thursdays, ending September 16, 2027.
+Updated: **2026-09-25**. Planning window: **September 22, 2026–September 20, 2027**. Preserved calendar baseline: **104 publication slots across 52 weeks**, Tuesdays and Thursdays, ending September 16, 2027. New planning follows the three-times-weekly rule below; existing slots remain unchanged.
 
 ## Start here
 
@@ -9,7 +9,7 @@ This is the **single active content-planning document**. It consolidates the com
 - The original `calendar.csv`, `PROGRESS.md` and September 7 brief remain unchanged as historical source files. Their old completion percentages and next-batch instructions are superseded by this plan. The old calendar-report tool reads the legacy CSV, not this document; do not treat its output as the current queue.
 - The full inventory below retains all original fields, including notes and measurement fields. Original priority labels are preserved; the dated schedule determines execution order.
 - This is a plan, not a publishing action or a scheduled automation. No articles, social posts or website changes are published by creating it.
-- Existing LinkedIn shares are scheduled separately through October 29, 2026. Check that queue before adding distribution; never overwrite or duplicate it. This calendar governs website content.
+- Existing LinkedIn shares are scheduled separately through November 5, 2026. Check that queue before adding distribution; never overwrite or duplicate it. This calendar governs website content.
 - Editorial status vocabulary: **backlog → briefed → drafting → drafted → awaiting-review → approved**; legacy `published` entries are completed. Publication state is tracked separately below. A date is a target, not evidence of publication. Log the actual date and live verification on the inventory entry when a piece ships.
 
 ## Positioning and business objective
@@ -59,7 +59,7 @@ Cover distinct customer problems thoroughly. Do **not** generate every stone × 
 
 These are keyword candidates, not a full keyword-volume audit. At briefing, inspect current results and actual query/customer evidence. If existing pages satisfy the same intent, improve them first. Review queries and inquiries monthly to discover additional language. New content must reflect services Chloe actually offers; family expertise does not establish every specific capability automatically.
 
-**Execution:** nine existing briefs expanded; two new tracked reserve entries added. The original 104-slot calendar and next-five order remain unchanged. Bring C246 into an optional third slot once the intake facts are available; do not silently displace a scheduled topic.
+**Execution:** nine existing briefs expanded; two new tracked reserve entries added. The original 104-slot calendar and next-five order remain unchanged. Consider C246 for a newly planned third weekly slot once the intake facts are available; do not silently displace a scheduled topic.
 
 ### Links and conversion rule for every publication
 
@@ -67,12 +67,15 @@ Link to its one relevant service/hub, two genuinely related guides when availabl
 
 ## Cadence, capacity and priorities
 
-- **Tuesday + Thursday:** two substantial website publications weekly. The 104 slots include Journal articles and evergreen reference guides; a reference guide gets a Journal introduction/link, not a duplicate article. If Chloe wants strictly two Journal articles each week, move reference guides to optional slots and pull a distinct Journal item forward from the reserve inventory.
-- **Customer stories:** additional, ad hoc, outside the 104. Publish when the images, factual details and customer permissions are ready; do not hold them for a keyword slot.
-- **Optional third weekly piece:** a ready story, a distinct high-intent reserve topic, or a meaningful refresh announced as an update. Do not count changing a date as new content. Start with the baseline for four weeks, then increase only while the evidence and review queue stay healthy.
+- **Go-forward cadence (adopted 2026-09-25): three substantial website publications per week, Tuesday, Thursday and Saturday at 09:00 America/New_York (Eastern Time, observing daylight saving).** Apply to new slot assignments from the week beginning September 28, 2026; do not add a catch-up post for this week.
+- **Preserve existing commitments:** every already-assigned target date/time, all 104 calendar entries, active batch commitments and externally scheduled posts remain unchanged, including future ones. This rule does not authorize rebasing, moving, replacing or duplicating them. Count existing website slots toward the weekly three; during future authorized planning, add an evidence-ready, previously unscheduled item to the open Saturday slot where appropriate. Do not pull a dated topic out of its existing slot. No third-slot topics or dates are assigned by this rules update.
+- **Why these days/times:** retain the established Tuesday/Thursday morning rhythm and add Saturday morning as a test of weekend ring-research interest. The spacing gives each piece room between releases. 09:00 Eastern retains the existing audience-timezone assumption. This is editorial judgment, not a measured Ring Mint traffic optimum or an SEO ranking promise. Review qualified inquiries and readership after 8–12 weeks; apply any timing adjustments only to newly planned slots.
+- **Content mix:** the cadence includes Journal articles and evergreen reference guides; a guide gets a Journal introduction/link, not a duplicate article. For requests specifically for blog posts, continue selecting `/blog/` entries and keep reference guides separate.
+- **Third weekly piece:** select an evidence-ready customer story, a distinct high-intent unscheduled reserve topic, or a meaningful refresh announced as an update. Do not count changing a date as new content. A newly planned customer story can fill this slot; additional stories may run ad hoc when assets, facts and permissions are ready. Preserve any already-agreed story dates.
+- **Website and social remain independent:** this is the website editorial cadence. Preserve existing LinkedIn schedules and the previously authorized Tuesday/Thursday 09:00 append instructions for C228/C226. Do not create or change a social queue or automation from this rule alone.
 - **First 13 weeks:** establish colored-stone sourcing and custom-process depth, while introducing natural/colorless, lab/colorless and colored diamonds early. Later quarters extend design, ownership and budget decisions. Service parity does not require identical article counts; assess actual lead mix quarterly so diamonds do not disappear behind the colored-stone theme.
 - **Do not publish filler to meet a date.** Swap in the next evidence-ready item, log the swap and retain the displaced topic. More distinct, useful evidence is the goal; volume alone is not a strategy.
-- Working assumption: website publication at **9 a.m. America/New_York**. Dates are targets, not automatic scheduling. Holiday-week slots may be prepared in advance or moved without dropping topics.
+- New website slots target **09:00 America/New_York** on Tuesday, Thursday and Saturday. Dates are targets, not automatic scheduling. Plan new holiday-week slots in advance; do not move existing commitments under this cadence update.
 
 ## Supporting page work (separate from the 104 editorial slots)
 
@@ -107,8 +110,8 @@ For overlapping topics, check the actual existing page first. Expand the owner p
 
 ## Our weekly execution routine
 
-1. **Two weeks ahead:** select the next pair, review search intent/results, check overlap and send Chloe one bundled list of evidence questions. Create a short brief in the inventory entry: reader/problem, main answer, three supporting questions, unique evidence, sources, links, CTA.
-2. **Chloe supplies:** voice notes, accurate stone details, original images and approvals for customer material. We maintain a four-piece ready queue when possible.
+1. **Two weeks ahead:** plan for three publications per week, counting existing commitments first and filling only unassigned slots; review search intent/results, check overlap and send Chloe one bundled list of evidence questions. Create a short brief in the inventory entry: reader/problem, main answer, three supporting questions, unique evidence, sources, links, CTA.
+2. **Chloe supplies:** voice notes, accurate stone details, original images and approvals for customer material. We maintain a six-piece ready queue (two weeks at the new cadence) when possible.
 3. **Draft and review:** write in Chloe's voice, cite factual sources, distinguish limitations, verify prices/claims, build useful captions and descriptive alt text. Credit only the actual author/reviewer.
 4. **Publish:** follow the publishing guide and existing checks; verify title/canonical/indexability, mobile view, images, working inquiry path, sitemap/feed and live page. Structured data must match visible content. Record actual publication date here. Publishing authorization is handled in the active work session, not inferred from a target date.
 5. **Distribute:** draft a distinct short LinkedIn introduction and suitable visual; inspect existing queue before scheduling. Optional Instagram/Pinterest versions use actual available assets. This plan does not itself authorize sending an email campaign.
@@ -121,7 +124,7 @@ For overlapping topics, check the actual existing page first. Expand the owner p
 - Sep 29 mint-green guide: actual pale-green options, disclosed identities and daylight/indoor views. The customer chat is inspiration for the question, not permission to publish her story.
 - Oct 1 natural/lab colored diamond comparison: real comparable examples, origin/treatment information, grading reports and current public retail references where price is discussed.
 
-If September 22 is too soon to gather the first evidence, shift the first pair forward one week and move the entire schedule accordingly. Keep all 104 slots; dates do not justify unsupported content.
+The first-two-weeks evidence request above is retained for context. Its original option to shift the whole calendar is superseded by the September 25 instruction to preserve existing dates. Dates do not justify unsupported content.
 
 ## Measurement and quarterly decisions
 
@@ -140,7 +143,7 @@ Google states that its AI search features use the same core SEO practices and do
 
 ## 52-week execution calendar
 
-All entries are **planned**, not drafted or published unless the inventory is subsequently updated. Each ID below maps to the full keyword, path, priority and notes in the inventory. Weeks 14 onward are provisional sequencing, reviewed quarterly. Keep both entries when moving dates.
+All entries are **planned**, not drafted or published unless the inventory is subsequently updated. Each ID below maps to the full keyword, path, priority and notes in the inventory. Weeks 14 onward are provisional sequencing, reviewed quarterly. This table is the preserved two-slot baseline, not the new cadence limit. Do not change its dates under the September 25 rules update; record newly assigned third slots separately during future authorized planning.
 
 | Week | Tuesday target — content ID and title | Thursday target — content ID and title |
 |---|---|---|
@@ -197,7 +200,7 @@ All entries are **planned**, not drafted or published unless the inventory is su
 | 51 | 2027-09-07 · [C069](#c069) Do lab grown diamonds hold their value? 2026 resale data | 2027-09-09 · [C072](#c072) How to tell a lab diamond from a natural one |
 | 52 | 2027-09-14 · [C083](#c083) Concierge vs Blue Nile / James Allen vs a local jeweler | 2027-09-16 · [C091](#c091) Online custom jeweler vs Etsy custom ring |
 
-## Optional acceleration and refresh queue
+## Third-slot candidates and refresh queue
 
 Customer stories come first when ready. Beyond those, pull from the original unscheduled inventory, prioritizing real inquiry questions over broad encyclopedia coverage. Good candidates include the already-planned shape/report guides, stone pages with original evidence, and fitting/wedding-band problems. Treat monthly birthstone pages, broad news, self-ranked “best” lists and experiments without evidence as reserve work, not mandatory filler.
 
@@ -218,9 +221,13 @@ Refresh existing holiday deadlines before the 2026 cutoff and again in summer 20
 
 ## Resume here — active work and publication tracking
 
+**Go-forward cadence (2026-09-25):** new website planning targets Tuesday/Thursday/Saturday at 09:00 America/New_York, starting with the week of September 28. Preserve all existing dates, active batches and scheduled posts. Fill only new/unassigned slots; see “Cadence, capacity and priorities.” This rules update assigns no posts and changes no external queue.
+
 **Standing publishing handoff preference (2026-09-25):** When Chloe says “publish,” prepare the approved local changes and run relevant checks, then report **ready for your commit and push** and stop. Chloe handles commits, pushes and deployment. Do not stage/commit/push, create a deployment PR, try alternate deployment paths, check GitHub authentication, retry pushes, poll for the human commit, or ask to push unless she explicitly requests that action. New content remains `ready` until deployment/live verification; existing articles retain their published state with local updates marked pending. This supersedes older workflow instructions and historical authorization notes for future publishing requests. See `AGENTS.md` and `BLOG_PUBLISHING_GUIDE.md`.
 
-**Current batch:** 2026-09-25-01, C228 / C226. Both approved and prepared for publication; website state READY, awaiting human commit/push. All media, green split OG, schema, metadata, index/feed/sitemap/llms and inbound links prepared. Both blog checks pass with 0 FAIL / 0 WARN. LinkedIn append authorized AFTER live publication; not scheduled. Do not commit/push or poll for human deployment.
+**Final publishing handoff rule (2026-09-25):** Always end publishing responses with a copyable `bash` command using the existing absolute-path `scripts/indexnow.sh` and explicit article URLs, followed by a plain-text code block of article URLs (one per line) for Google Search Console. Do not check/reinstall IndexNow or run submissions unless asked. For locally ready pages, instruct Chloe to run after push/live confirmation; never claim they are live prematurely. See “Final publishing handoff: copyable indexing instructions” in `BLOG_PUBLISHING_GUIDE.md`. This supplements, and does not change, the human commit/push rule.
+
+**Current batch:** 2026-09-25-01, C228 / C226, COMPLETE. Both articles live-verified September 25. LinkedIn posts confirmed for November 3 and 5 at 09:00 America/New_York. Green OG visible in LinkedIn preview. Do not republish or reschedule. Human deployment completed; this tracking update remains local.
 
 **Previous completed batch:** 2026-09-21-01, C223 / C032 / C224, complete. All three approved articles are live and verified 2026-09-22 (HTTP 200, correct canonical, indexable robots). LinkedIn shares confirmed in the native queue for October 22, 27 and 29 at 09:00 America/New_York. Do not duplicate publication or scheduling. Search-engine indexing itself has not been verified.
 
@@ -6822,24 +6829,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Custom design
 - **Original priority:** P1
 - **Primary keyword:** custom gender neutral engagement ring
-- **Status:** approved
-- **Recorded publication date:** —
+- **Status:** published
+- **Recorded publication date:** 2026-09-25
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: Approved substantial band and low-profile design examples
 - **Target date:** 2026-10-06
-- **Website publication:** ready
+- **Website publication:** published
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
-- **Actual live URL:** —
-- **Live verified at / evidence:** —
+- **Actual live URL:** https://ringmint.com/blog/gender-neutral-custom-engagement-rings/
+- **Live verified at / evidence:** 2026-09-25: live HTTPS GET returned 200 with correct canonical and article markup; LinkedIn fetched matching title and preview. Not confirmation of search-engine indexing.
 - **Approval / authorization reference:** 2026-09-25: Chloe said “okay lets publish these”. Local publication preparation authorized; human handles commit/push per standing preference. LinkedIn append authorized after both pages are live.
 - **Working draft / preview:** Markdown `content/drafts/gender-neutral-custom-engagement-rings.md`; production spec `content/drafts/gender-neutral-custom-engagement-rings.txt`; prepared page `blog/gender-neutral-custom-engagement-rings/index.html`; local preview http://127.0.0.1:8877/blog/gender-neutral-custom-engagement-rings/
-- **Missing evidence / blocker:** No deployment blocker. Supplied diamond media use descriptive captions only; origin/treatment not confirmed and not inferred. Human commit and push pending.
+- **Missing evidence / blocker:** None for current approved scope. Media origins/treatments remain unconfirmed; descriptive captions retained.
 - **Batch / owner / task reference:** 2026-09-25-01 / Codex / current repository session
 - **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** Authorized for LinkedIn queue after live publication; not scheduled yet. Check actual queue before appending Tuesday/Thursday at 09:00 America/New_York.
-- **Last worked / next action:** 2026-09-25: production checks 0 FAIL / 0 WARN. Local narrow viewport checked, no horizontal overflow. Human to commit/push; then verify live URLs and append LinkedIn. No remote write or deployment performed.
+- **Social distribution / platform / datetime / ID:** SCHEDULED on Ring Mint LinkedIn for 2026-11-05 09:00 America/New_York (15:00 Europe/Paris). Post scheduled confirmation and matching native queue entry verified 2026-09-25. Shortlink https://lnkd.in/gDx7H67r; individual scheduled-post ID not exposed.
+- **Last worked / next action:** 2026-09-25: live website and LinkedIn scheduling complete. Do not duplicate. Tracker update is local and awaits normal human sync.
 
 
 <a id="c227"></a>
@@ -6883,24 +6890,24 @@ Every legacy row appears below, in its original order. Empty historical fields m
 - **Cluster:** Colored diamonds
 - **Original priority:** P1
 - **Primary keyword:** natural vs lab grown colored diamonds
-- **Status:** approved
-- **Recorded publication date:** —
+- **Status:** published
+- **Recorded publication date:** 2026-09-25
 - **Refresh due:** —
 - **Recorded GSC clicks, 30 days:** —
 - **Recorded GSC clicks, 90 days:** —
 - **Notes:** Added 2026-09-21. Evidence needed: Comparable reports, treatment disclosures and dated public retail examples
 - **Target date:** 2026-10-01
-- **Website publication:** ready
+- **Website publication:** published
 - **Planned publication time / timezone:** 09:00 America/New_York on target date; not scheduled
-- **Actual live URL:** —
-- **Live verified at / evidence:** —
+- **Actual live URL:** https://ringmint.com/blog/natural-vs-lab-colored-diamonds/
+- **Live verified at / evidence:** 2026-09-25: live HTTPS GET returned 200 with correct canonical and article markup; LinkedIn fetched matching title and preview. Not confirmation of search-engine indexing.
 - **Approval / authorization reference:** 2026-09-25: Chloe said “okay lets publish these”. Local publication preparation authorized; human handles commit/push per standing preference. LinkedIn append authorized after both pages are live.
 - **Working draft / preview:** Markdown `content/drafts/natural-vs-lab-colored-diamonds.md`; production spec `content/drafts/natural-vs-lab-colored-diamonds.txt`; prepared page `blog/natural-vs-lab-colored-diamonds/index.html`; local preview http://127.0.0.1:8877/blog/natural-vs-lab-colored-diamonds/
-- **Missing evidence / blocker:** No deployment blocker. Supplied diamond media use descriptive captions only; origin/treatment not confirmed and not inferred. Human commit and push pending.
+- **Missing evidence / blocker:** None for current approved scope. Media origins/treatments remain unconfirmed; descriptive captions retained.
 - **Batch / owner / task reference:** 2026-09-25-01 / Codex / current repository session
 - **Website scheduler / external ID / confirmation:** —
-- **Social distribution / platform / datetime / ID:** Authorized for LinkedIn queue after live publication; not scheduled yet. Check actual queue before appending Tuesday/Thursday at 09:00 America/New_York.
-- **Last worked / next action:** 2026-09-25: production checks 0 FAIL / 0 WARN. Local narrow viewport checked, no horizontal overflow. Human to commit/push; then verify live URLs and append LinkedIn. No remote write or deployment performed.
+- **Social distribution / platform / datetime / ID:** SCHEDULED on Ring Mint LinkedIn for 2026-11-03 09:00 America/New_York (15:00 Europe/Paris). Post scheduled confirmation and matching native queue entry verified 2026-09-25. Shortlink https://lnkd.in/gTbxCTRm; individual scheduled-post ID not exposed.
+- **Last worked / next action:** 2026-09-25: live website and LinkedIn scheduling complete. Do not duplicate. Tracker update is local and awaits normal human sync.
 
 
 <a id="c229"></a>
@@ -7707,3 +7714,16 @@ Chloe explicitly authorized appending BOTH posts (C228 and C226) to the Ring Min
 Both posts are ready for Chloe's commit and push. Production builder run locally only; legacy calendar restored unchanged. Date set to September 25, not backdated. Both production checkers: 0 FAIL, 0 WARN. Local browser checks at narrow viewport showed readable headers and no horizontal overflow. Both videos decoded with 8.03-second duration and no media error. Green photo and split OG retained; gender-neutral article uses existing text-only OG design. Source facts and supplied media identities were not expanded beyond confirmed details. Remote Rich Results, PageSpeed and LinkedIn live-card verification remain post-deployment checks, not claimed complete.
 
 Next agent: after Chloe confirms she pushed, verify the two live pages, then use authorized LinkedIn browser session to append C228 and C226 after actual last scheduled item at Tuesday/Thursday 09:00 America/New_York. Preserve previous posts. Do not repeat publication work or infer that ready means live. Do not commit/push or poll for deployment under current standing preference.
+
+### Cadence rules update — 2026-09-25 (2026-09-25-cadence-01)
+
+- **Owner:** Codex / current repository session.
+- **Scope:** Chloe authorized updating future content-planning rules to three publications weekly, with days/times chosen by Codex, while preserving every existing posting date and scheduled post.
+- **Status:** complete; documentation only. Updated cadence, planning routine and third-slot rules in `content/CONTENT_PLAN.md`. Existing content batches and publication states remain unchanged.
+- **Validation:** existing 52-week calendar rows and complete inventory preserved verbatim; no posting dates or scheduled posts changed.
+- **Handoff / next action:** apply Tuesday/Thursday/Saturday 09:00 America/New_York only when new slots are planned in a future authorized content batch, starting with the week of September 28. No content creation, publication, external scheduling, Git commit or push was authorized or performed by this update. No blockers.
+
+
+### Completed batch 2026-09-25-01 — live and scheduled
+
+After Chloe reported her commit, both public article URLs returned HTTP 200 with canonical/article metadata. No agent commit or push performed. Chrome Ring Mint admin queue ended October 29; appended C228 November 3 and C226 November 5, each at 09:00 America/New_York (15:00 Paris). Both Post scheduled confirmations and final queue entries with matching text/title verified. Green split OG visibly loaded in LinkedIn composer. Queue: https://www.linkedin.com/company/143064345/admin/page-posts/published/ → Start a post → Schedule post → View all scheduled posts. Do not duplicate these writes. Local tracker/draft status changes need human sync. Unrelated ongoing HTML/CSS changes left untouched.

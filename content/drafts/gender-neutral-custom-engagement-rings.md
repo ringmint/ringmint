@@ -1,7 +1,7 @@
 ---
 slug: gender-neutral-custom-engagement-rings
 editorial_status: approved
-publication_status: ready
+publication_status: published
 proposed_seo_title: Custom Gender-Neutral Engagement Rings | Ring Mint
 proposed_meta_description: Design a gender-neutral engagement ring around your style, with practical advice on band width, low settings, stone proportions, comfort and personal details.
 author_voice: Chloe Alpert, draft for her review
